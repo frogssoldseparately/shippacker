@@ -22,7 +22,6 @@ func ParseCommandLine() {
 
 	srcOverride := flag.Arg(0)
 	if len(srcOverride) != 0 {
-		fmt.Println(flag.Arg(1))
 		MusicSrcPath = srcOverride
 		cwp, err := os.Executable()
 		if err == nil {

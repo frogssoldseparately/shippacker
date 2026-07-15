@@ -12,7 +12,6 @@ type SimpleWriter struct {
 }
 
 type Zippable interface {
-	// GetMedium() uint8
 	GetCompression() uint16
 	GetFilename() string
 	WriteLocalBody(*SimpleWriter) error

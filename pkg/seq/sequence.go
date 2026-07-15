@@ -56,7 +56,7 @@ func NewSequenceFromStream(f io.Reader, name string, bankIds *[]byte) (*Sequence
 	songType := nameParts[len(nameParts)-1]
 	var cachePolicy uint8 = 0x2
 	if songType == "fanfare" {
-		// change from TEMPORARY to PERSISTENT
+		// change to PERSISTENT
 		cachePolicy = 0x1
 	}
 	r := sreader.NewSimpleReader(f, binary.LittleEndian)
