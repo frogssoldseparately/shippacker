@@ -62,6 +62,11 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 		}
 		fMeta, err := metaEntry.Open()
 		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fmt.Sprintf("Soundfont_%d", bankId), am)
+		if isOfTypeFanfare {
+			sf.Meta.CachePolicy = int8(0x1)
+		} else {
+			sf.Meta.CachePolicy = int8(0x2)
+		}
 		if err != nil {
 			return 0, fmt.Errorf("Couldn't generate %s's soundfont. Skipping\n", archiveFilename)
 		}
@@ -98,7 +103,6 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 	lw.CopyFrom(bufferedLW)
 	cw.CopyFrom(bufferedCW)
 	return filesWritten, nil
-	// TODO: notify of additional soundfont
 }
 
 func getSongTypeFromArchive(src *zip.File) bool {
