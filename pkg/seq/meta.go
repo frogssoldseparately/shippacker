@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
 )
 
 type O2RMeta struct {
@@ -28,10 +30,17 @@ func NewMetaFromFile(path string) (*O2RMeta, error) {
 			return nil, fmt.Errorf("Custom bank referenced but not through a .mmrs archive")
 		}
 	}
-	if len(parts) == 2 || !strings.Contains(parts[2], "fanfare") {
-		displayName += "_bgm"
-	} else {
-		displayName += "_fanfare"
+	suffix := "bgm"
+	if len(parts) >= 3 {
+		catString := strings.Trim(strings.ToLower(parts[2]), " \t")
+		if catString == "fanfare" {
+			suffix = "fanfare"
+		} else if catString != "bgm" && len(catString) > 0 {
+			categories := seqcat.GetCategoriesFromString(catString)
+			seqcat.ReduceCategorySpecificity(categories)
+			suffix = strings.Join(*categories, "-")
+		}
 	}
+	displayName += "_" + suffix
 	return &O2RMeta{displayName, bankIds}, nil
 }

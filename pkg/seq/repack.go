@@ -4,15 +4,13 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"slices"
 	"strconv"
 	"strings"
 
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
+	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
 	"github.com/frogssoldseparately/shippacker/pkg/swriter"
 )
-
-var fanfareCategories = []string{"8", "9", "10"}
 
 func RepackSequence(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter) (uint16, error) {
 	filename := filepath.Base(file.Name())
@@ -38,28 +36,15 @@ func ExtractInformationFromPath(path string) (string, *[]byte, error) {
 	if len(nameParts) < 3 {
 		return "", nil, fmt.Errorf("Name lacks bank and category information")
 	}
-	categories := strings.Split(nameParts[len(nameParts)-1], "-")
+	categories := seqcat.GetCategoriesFromString(nameParts[len(nameParts)-1])
+	seqcat.ReduceCategorySpecificity(categories)
 	bankHex := nameParts[len(nameParts)-2]
-	moddedName := strings.Join(nameParts[0:len(nameParts)-2], " ")
-	if isFanfare(categories) {
-		moddedName += "_fanfare"
-	} else {
-		moddedName += "_bgm"
-	}
+	moddedName := strings.Join(nameParts[0:len(nameParts)-2], " ") + "_" + strings.Join(*categories, "-")
 	bankIds, err := parseBankHex(bankHex)
 	if err != nil {
 		return "", nil, err
 	}
 	return moddedName, bankIds, nil
-}
-
-func isFanfare(categories []string) bool {
-	for _, cat := range fanfareCategories {
-		if slices.Contains(categories, cat) {
-			return true
-		}
-	}
-	return false
 }
 
 func parseBankHex(hex string) (*[]byte, error) {

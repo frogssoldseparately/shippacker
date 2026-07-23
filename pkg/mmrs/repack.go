@@ -7,12 +7,13 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"slices"
+
 	"strconv"
 	"strings"
 
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/shippacker/pkg/seq"
+	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
 	"github.com/frogssoldseparately/shippacker/pkg/soundfont"
 	"github.com/frogssoldseparately/shippacker/pkg/swriter"
 )
@@ -21,6 +22,7 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 	archiveFilename := file.Name()
 	archiveExtension := filepath.Ext(archiveFilename)
 	archiveBasename := archiveFilename[0 : len(archiveFilename)-len(archiveExtension)]
+	sequenceSuffix := "bgm"
 	archive, err := zip.OpenReader(filepath.Join(paths.MSrc, archiveFilename))
 	if err != nil {
 		return 0, err
@@ -43,9 +45,13 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 	if !ok {
 		return 0, fmt.Errorf("%s did not have a valid sequence file. Skipping.\n", archiveFilename)
 	}
-	isOfTypeFanfare := false
+	isFanfare := false
 	if catEntry, ok := entries[".txt"]; ok {
-		isOfTypeFanfare = getSongTypeFromArchive(catEntry)
+		if categories := getCategoriesFromArchive(catEntry); categories != nil {
+			seqcat.ReduceCategorySpecificity(categories)
+			isFanfare = seqcat.HasFanfareCategories(*categories)
+			sequenceSuffix = strings.Join(*categories, "-")
+		}
 	}
 
 	bufferedLW := swriter.NewEmptySimpleWriter(binary.LittleEndian)
@@ -62,7 +68,7 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 		}
 		fMeta, err := metaEntry.Open()
 		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fmt.Sprintf("Soundfont_%d", bankId), am)
-		if isOfTypeFanfare {
+		if isFanfare {
 			sf.Meta.CachePolicy = int8(0x1)
 		} else {
 			sf.Meta.CachePolicy = int8(0x2)
@@ -89,11 +95,7 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 		return 0, err
 	}
 	sequenceName := strings.ReplaceAll(archiveBasename, "_", " ")
-	if isOfTypeFanfare {
-		sequenceName += "_fanfare"
-	} else {
-		sequenceName += "_bgm"
-	}
+	sequenceName += "_" + sequenceSuffix
 	banks := []byte{uint8(bankId)}
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, &banks)
 	if err := swriter.WriteZipEntry(seq, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
@@ -105,30 +107,18 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 	return filesWritten, nil
 }
 
-func getSongTypeFromArchive(src *zip.File) bool {
+func getCategoriesFromArchive(src *zip.File) *[]string {
 	fSrc, err := src.Open()
 	if err != nil {
-		return false
+		return nil
 	}
 	defer fSrc.Close()
 	catText := readIntoString(fSrc, src.FileInfo().Size())
-	categories := strings.FieldsFunc(catText, func(r rune) bool { return r == ',' || r == '-' })
-	return isFanfare(categories)
+	return seqcat.GetCategoriesFromString(catText)
 }
 
 func readIntoString(r io.Reader, len int64) string {
 	buf := make([]byte, len)
 	r.Read(buf)
 	return string(buf[:])
-}
-
-var fanfareCategories = []string{"8", "9", "10"}
-
-func isFanfare(categories []string) bool {
-	for _, cat := range fanfareCategories {
-		if slices.Contains(categories, cat) {
-			return true
-		}
-	}
-	return false
 }

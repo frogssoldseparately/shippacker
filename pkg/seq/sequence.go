@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/frogssoldseparately/shippacker/pkg/o2r"
+	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
 	"github.com/frogssoldseparately/shippacker/pkg/sreader"
 	"github.com/frogssoldseparately/shippacker/pkg/swriter"
 )
@@ -55,7 +56,7 @@ func NewSequenceFromStream(f io.Reader, name string, bankIds *[]byte) (*Sequence
 	nameParts := strings.Split(name, "_")
 	songType := nameParts[len(nameParts)-1]
 	var cachePolicy uint8 = 0x2
-	if songType == "fanfare" {
+	if seqcat.IsFanfareString(songType) {
 		// change to PERSISTENT
 		cachePolicy = 0x1
 	}
