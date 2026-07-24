@@ -3,7 +3,7 @@ A custom sequence and instrument bank packaging tool for 2ship2harkinian.
 
 ## What it does
 
-This tool allows sequences that have custom instrument banks (`.mmrs` files that contain `.zbank` and `.bankmeta` files) to be played via 2ship2harkinian. It packages up all of the sequences you give it into a `.o2r` mod file that is placed directly in your 2ship `mods` folder. This tool accepts:
+This tool allows sequences that have custom instrument banks (`.mmrs` files that contain `.zbank` and `.bankmeta` files) to be played via 2ship2harkinian. It packages up all of the sequences you give it into a `.o2r` mod file that is placed directly in your 2ship `mods` folder (by default). This tool accepts:
 
 - `.mmrs` with and without custom banks
 - `.*seq`, provided the name follows the "\[song\_name\]\_\[bank\_id\]\_\[category-list\].*seq" format
@@ -52,6 +52,6 @@ If you're on a platform other than Windows, or would just like to build the exec
 
 or if you're on windows,
 
-`go build -o shippacker.exe ./cmd/shippacker/main.go`
+`go build -o ./bin/shippacker.exe ./cmd/shippacker/main.go`
 
 4) Follow [setup](#windows) from step 2 onwards.
