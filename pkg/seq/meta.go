@@ -37,7 +37,6 @@ func NewMetaFromFile(path string) (*O2RMeta, error) {
 			suffix = "fanfare"
 		} else if catString != "bgm" && len(catString) > 0 {
 			categories := seqcat.GetCategoriesFromString(catString)
-			seqcat.ReduceCategorySpecificity(categories)
 			suffix = strings.Join(*categories, "-")
 		}
 	}

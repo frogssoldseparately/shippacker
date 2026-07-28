@@ -10,17 +10,6 @@ func GetCategoriesFromString(str string) *[]string {
 	return &categories
 }
 
-// Replaces certain sequence targets (categories greater than 0x100)
-// with generic categories. This is a stopgap until 2ship supports
-// sequence targets.
-func ReduceCategorySpecificity(categories *[]string) {
-	for i, cat := range *categories {
-		if rep, ok := categoryReplacements[cat]; ok {
-			(*categories)[i] = rep
-		}
-	}
-}
-
 func IsFanfareString(catStr string) bool {
 	switch catStr {
 	case "fanfare":

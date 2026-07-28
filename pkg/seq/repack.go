@@ -37,7 +37,6 @@ func ExtractInformationFromPath(path string) (string, *[]byte, error) {
 		return "", nil, fmt.Errorf("Name lacks bank and category information")
 	}
 	categories := seqcat.GetCategoriesFromString(nameParts[len(nameParts)-1])
-	seqcat.ReduceCategorySpecificity(categories)
 	bankHex := nameParts[len(nameParts)-2]
 	moddedName := strings.Join(nameParts[0:len(nameParts)-2], " ") + "_" + strings.Join(*categories, "-")
 	bankIds, err := parseBankHex(bankHex)

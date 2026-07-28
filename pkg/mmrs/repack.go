@@ -48,7 +48,6 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 	isFanfare := false
 	if catEntry, ok := entries[".txt"]; ok {
 		if categories := getCategoriesFromArchive(catEntry); categories != nil {
-			seqcat.ReduceCategorySpecificity(categories)
 			isFanfare = seqcat.HasFanfareCategories(*categories)
 			sequenceSuffix = strings.Join(*categories, "-")
 		}
@@ -68,6 +67,7 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 		}
 		fMeta, err := metaEntry.Open()
 		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fmt.Sprintf("Soundfont_%d", bankId), am)
+		// Should this always be 1?
 		if isFanfare {
 			sf.Meta.CachePolicy = int8(0x1)
 		} else {
