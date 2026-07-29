@@ -18,7 +18,7 @@ func Pack(paths maps.Paths) error {
 	modWriter := swriter.NewEmptySimpleWriter(endianness)
 	localW := swriter.NewEmptySimpleWriter(endianness)
 	centralW := swriter.NewEmptySimpleWriter(endianness)
-	assetMap, _, err := maps.NewAssetMap(paths.OSrc, paths.XSrc)
+	assetMap, err := maps.NewAssetMap()
 	swriter.TakeTimestamp()
 	filesWritten, err := WriteModEntries(paths, localW, centralW, assetMap)
 	if err != nil {

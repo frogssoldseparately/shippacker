@@ -35,10 +35,8 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 		ext := filepath.Ext(file.Name)
 		if strings.Contains(ext, "seq") {
 			ext = ".seq"
-		} else if strings.Contains(ext, "txt") {
-			if file.Name != "categories.txt" {
-				ext = ""
-			}
+		} else if strings.Contains(ext, "txt") && file.Name != "categories.txt" {
+			ext = ""
 		}
 		entries[ext] = file
 	}
