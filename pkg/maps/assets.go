@@ -27,7 +27,7 @@ func NewAssetMap() (*Assets, error) {
 
 	for _, sample := range sampleEntries {
 		currentOffset, _ := sample.GetOffset()
-		out[currentOffset] = sample.Name
+		out[currentOffset] = sample.Name + "_META"
 	}
 	return &out, nil
 }

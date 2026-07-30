@@ -2,9 +2,9 @@ package globals
 
 import _ "embed"
 
-//go.embed Keiichi_Charlie_GC_US_Audio_Stub.xml
+//go:embed Keiichi_Charlie_GC_US_Audio_Stub.xml
 var keiichi_charlie_gc_us_audio_file []byte
-//go.embed Keiichi_Charlie_N64_US_Audio_Stub.xml
+//go:embed Keiichi_Charlie_N64_US_Audio_Stub.xml
 var keiichi_charlie_n64_us_audio_file []byte
 
 var SampleXmls = map[string][]byte{

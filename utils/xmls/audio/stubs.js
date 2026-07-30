@@ -101,7 +101,7 @@ export function fillTemplate(srcPath, destPath, writtenFiles) {
     for (const filename of writtenFiles) {
         const keyname = filename.split('_').slice(0, 4).join('_').toLowerCase();
         const varname = keyname + '_audio_file';
-        embedEntries += `\n//go.embed ${filename}\nvar ${varname} []byte`;
+        embedEntries += `\n//go:embed ${filename}\nvar ${varname} []byte`;
         mapEntries += `\n\t"${keyname}" : ${varname},`;
     }
     const injections = new Map([
