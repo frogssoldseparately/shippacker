@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"encoding/binary"
 	"fmt"
+	"hash/crc32"
 	"io"
 	"os"
 	"path/filepath"
@@ -11,18 +12,20 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/frogssoldseparately/shippacker/pkg/crc64"
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/shippacker/pkg/seq"
 	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
 	"github.com/frogssoldseparately/shippacker/pkg/soundfont"
-	"github.com/frogssoldseparately/shippacker/pkg/swriter"
+	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.Assets, bankId uint32) (uint16, error) {
+func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.Assets, bankId uint64) (uint16, error) {
 	archiveFilename := file.Name()
 	archiveExtension := filepath.Ext(archiveFilename)
 	archiveBasename := archiveFilename[0 : len(archiveFilename)-len(archiveExtension)]
 	sequenceSuffix := "bgm"
+	fontCount := uint32(1)
 	archive, err := zip.OpenReader(filepath.Join(paths.MSrc, archiveFilename))
 	if err != nil {
 		return 0, err
@@ -68,15 +71,24 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 			return 0, fmt.Errorf("Couldn't open %s's .zbank file. Skipping\n", archiveFilename)
 		}
 		fMeta, err := metaEntry.Open()
-		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fmt.Sprintf("Soundfont_%d", bankId), am)
+		// Generate a hash to prevent (or minimize) collisions between soundfonts
+		stamp := fmt.Sprintf("%d%d%d", os.Getpid(), swriter.GetTimestamp(), bankId)
+		stampArr := []byte(stamp)
+		stampHash := crc32.ChecksumIEEE(stampArr)
+		fontName := fmt.Sprintf("Soundfont_%d", stampHash)
+		fontNameArr := fmt.Appendf(nil, "custom/fonts/%s", fontName)
+		// Makes 2ship find the correct soundfont by crc instead of index
+		bankId = crc64.CRC64(&fontNameArr)
+		fontCount = 0xFFFFFFFF
+		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fontName, am)
+		if err != nil {
+			return 0, fmt.Errorf("Couldn't generate %s's soundfont. Skipping\n", archiveFilename)
+		}
 		// Should this always be 1?
 		if isFanfare {
 			sf.Meta.CachePolicy = int8(0x1)
 		} else {
 			sf.Meta.CachePolicy = int8(0x2)
-		}
-		if err != nil {
-			return 0, fmt.Errorf("Couldn't generate %s's soundfont. Skipping\n", archiveFilename)
 		}
 		if err := swriter.WriteZipEntry(sf, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
 			return 0, err
@@ -87,7 +99,7 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 		seqExt := filepath.Ext(seqFilename)
 		seqBasename := seqFilename[0 : len(seqFilename)-len(seqExt)]
 		newBank, err := strconv.ParseUint(seqBasename, 16, 16)
-		bankId = uint32(newBank)
+		bankId = uint64(newBank)
 		if err != nil {
 			return 0, fmt.Errorf("Could not parse bank information")
 		}
@@ -98,8 +110,9 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 	}
 	sequenceName := strings.ReplaceAll(archiveBasename, "_", " ")
 	sequenceName += "_" + sequenceSuffix
-	banks := []byte{uint8(bankId)}
-	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, &banks)
+	banks := makeFontIdArray(bankId, fontCount)
+	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)
+	seq.NumFonts = fontCount
 	if err := swriter.WriteZipEntry(seq, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
 		return 0, err
 	}
@@ -107,6 +120,29 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 	lw.CopyFrom(bufferedLW)
 	cw.CopyFrom(bufferedCW)
 	return filesWritten, nil
+}
+
+func makeFontIdArray(id uint64, len uint32) *[]byte {
+	out := make([]byte, max32(min32(len, 1), 8))
+	for i := range out {
+		out[i] = byte(id & 0xFF)
+		id = id >> 8
+	}
+	return &out
+}
+
+func max32(a uint32, b uint32) uint32 {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func min32(a uint32, b uint32) uint32 {
+	if a < b {
+		return a
+	}
+	return b
 }
 
 func getCategoriesFromArchive(src *zip.File) *[]string {

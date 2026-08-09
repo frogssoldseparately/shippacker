@@ -8,8 +8,8 @@ import (
 
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/shippacker/pkg/o2r"
-	"github.com/frogssoldseparately/shippacker/pkg/swriter"
 	"github.com/frogssoldseparately/shippacker/pkg/zbank"
+	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
 type Soundfont struct {
@@ -41,7 +41,7 @@ func NewSoundfontFromBank(bank *zbank.ZBank, name string, am *maps.Assets) (*Sou
 	if err != nil {
 		return nil, err
 	}
-	return &Soundfont{bankId, bank.Meta, bank.Drums, bank.Instruments, bank.SoundEffects, bank.EnvelopeMap, bank.SampleMap, am, "audio/fonts/" + name}, nil
+	return &Soundfont{bankId, bank.Meta, bank.Drums, bank.Instruments, bank.SoundEffects, bank.EnvelopeMap, bank.SampleMap, am, "custom/fonts/" + name}, nil
 }
 
 func (s *Soundfont) GetCompression() uint16 {
@@ -177,7 +177,7 @@ func (s *Soundfont) WriteSfx(w *swriter.SimpleWriter) error {
 
 func getBankFromFontName(name string) (uint32, error) {
 	nameParts := strings.Split(name, "_")
-	v, err := strconv.ParseUint(nameParts[len(nameParts)-1], 10, 16)
+	v, err := strconv.ParseUint(nameParts[len(nameParts)-1], 10, 32)
 	if err != nil {
 		return 0x0, fmt.Errorf("Could not parse soundfont name")
 	}
