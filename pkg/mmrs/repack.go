@@ -152,6 +152,12 @@ func getCategoriesFromArchive(src *zip.File) *[]string {
 	}
 	defer fSrc.Close()
 	catText := readIntoString(fSrc, src.FileInfo().Size())
+	// prevent newlines in category.txt from messing with suffixes
+	catText = strings.Replace(catText, "\r", "", 1)
+	newlineIndex := strings.Index(catText, "\n")
+	if newlineIndex != -1 {
+		catText = catText[0:newlineIndex]
+	}
 	return seqcat.GetCategoriesFromString(catText)
 }
 
