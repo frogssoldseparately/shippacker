@@ -9,7 +9,7 @@ import (
 
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
-	"github.com/frogssoldseparately/shippacker/pkg/swriter"
+	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
 func RepackSequence(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter) (uint16, error) {

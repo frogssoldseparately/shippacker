@@ -1,8 +1,8 @@
 package shippacker
 
 import (
-	"github.com/frogssoldseparately/shippacker/pkg/sreader"
-	"github.com/frogssoldseparately/shippacker/pkg/swriter"
+	"github.com/frogssoldseparately/simpleseek/sreader"
+	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
 func Write[T swriter.Number](w *swriter.SimpleWriter, data T) {

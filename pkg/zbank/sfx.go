@@ -1,7 +1,7 @@
 package zbank
 
 import (
-	"github.com/frogssoldseparately/shippacker/pkg/sreader"
+	"github.com/frogssoldseparately/simpleseek/sreader"
 )
 
 type Sfx struct {

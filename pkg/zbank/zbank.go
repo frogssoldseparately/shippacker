@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/frogssoldseparately/shippacker/pkg/sreader"
+	"github.com/frogssoldseparately/simpleseek/sreader"
 )
 
 type ZBank struct {

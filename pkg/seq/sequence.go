@@ -8,8 +8,9 @@ import (
 
 	"github.com/frogssoldseparately/shippacker/pkg/o2r"
 	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
-	"github.com/frogssoldseparately/shippacker/pkg/sreader"
-	"github.com/frogssoldseparately/shippacker/pkg/swriter"
+
+	"github.com/frogssoldseparately/simpleseek/sreader"
+	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
 type Sequence struct {

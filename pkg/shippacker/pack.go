@@ -10,7 +10,7 @@ import (
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/shippacker/pkg/mmrs"
 	"github.com/frogssoldseparately/shippacker/pkg/seq"
-	"github.com/frogssoldseparately/shippacker/pkg/swriter"
+	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
 func Pack(paths maps.Paths) error {
@@ -39,7 +39,7 @@ func Pack(paths maps.Paths) error {
 }
 
 func WriteModEntries(paths maps.Paths, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, assetMap *maps.Assets) (uint16, error) {
-	bankId := uint32(41)
+	bankId := uint64(41)
 	files, err := os.ReadDir(paths.MSrc)
 	if err != nil {
 		return 0, err

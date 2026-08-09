@@ -1,6 +1,6 @@
 package seq
 
-import "github.com/frogssoldseparately/shippacker/pkg/swriter"
+import "github.com/frogssoldseparately/simpleseek/swriter"
 
 func WriteRaw(w *swriter.SimpleWriter, buf *[]byte) {
 	swriter.WriteRaw(w, buf)

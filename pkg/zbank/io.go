@@ -1,8 +1,8 @@
 package zbank
 
 import (
-	"github.com/frogssoldseparately/shippacker/pkg/sreader"
-	"github.com/frogssoldseparately/shippacker/pkg/swriter"
+	"github.com/frogssoldseparately/simpleseek/sreader"
+	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
 func Read[T sreader.Number](r *sreader.SimpleReader) T {
