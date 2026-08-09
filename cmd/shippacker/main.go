@@ -16,7 +16,7 @@ func main() {
 	if err := cli.CheckInput(); err != nil {
 		fmt.Printf("%s\n", err)
 	} else {
-		paths := maps.BundlePaths(cli.MusicSrcPath, cli.O2RSrcPath, cli.O2ROutPath, cli.AudioXMLPath)
+		paths := maps.BundlePaths(cli.MusicSrcPath, cli.O2ROutPath)
 		// Get to packing
 		err := shippacker.Pack(paths)
 		if err != nil {
