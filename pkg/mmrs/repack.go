@@ -22,6 +22,7 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
+// Converts .mmrs to soundfont (if applicable) and sequence pair.
 func RepackArchive(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.Assets, bankId uint64) (uint16, error) {
 	archiveFilename := file.Name()
 	archiveExtension := filepath.Ext(archiveFilename)
@@ -75,6 +76,7 @@ func RepackArchive(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWrit
 		stampHash := crc32.ChecksumIEEE(stampArr)
 		fontName := fmt.Sprintf("Soundfont_%d", stampHash)
 		if globals.UseCRC64Encoding {
+			// Using the custom path means the internal font id doesn't get used
 			fontNameArr := fmt.Appendf(nil, "custom/fonts/%s", fontName)
 			// Makes 2ship find the correct soundfont by crc instead of index
 			bankId = crc64.CRC64(&fontNameArr)
@@ -123,7 +125,8 @@ func RepackArchive(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWrit
 }
 
 func makeFontIdArray(id uint64, len uint32) *[]byte {
-	out := make([]byte, max32(min32(len, 1), 8))
+	// clamp array length between 1 and 8
+	out := make([]byte, min32(max32(len, 1), 8))
 	for i := range out {
 		out[i] = byte(id & 0xFF)
 		id = id >> 8
@@ -131,6 +134,7 @@ func makeFontIdArray(id uint64, len uint32) *[]byte {
 	return &out
 }
 
+// No standard library min/max for integers
 func max32(a uint32, b uint32) uint32 {
 	if a > b {
 		return a
@@ -138,6 +142,7 @@ func max32(a uint32, b uint32) uint32 {
 	return b
 }
 
+// No standard library min/max for integers
 func min32(a uint32, b uint32) uint32 {
 	if a < b {
 		return a
@@ -145,6 +150,7 @@ func min32(a uint32, b uint32) uint32 {
 	return b
 }
 
+// Parse contents of an .mmrs file's categories.txt file.
 func getCategoriesFromArchive(src *zip.File) *[]string {
 	fSrc, err := src.Open()
 	if err != nil {
