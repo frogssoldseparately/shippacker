@@ -18,6 +18,7 @@ import (
 	"github.com/frogssoldseparately/shippacker/pkg/seq"
 	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
 	"github.com/frogssoldseparately/shippacker/pkg/soundfont"
+	"github.com/frogssoldseparately/simpleseek/sreader"
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
@@ -27,32 +28,21 @@ func RepackArchive(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWrit
 	archiveBasename := archiveFilename[0 : len(archiveFilename)-len(archiveExtension)]
 	sequenceSuffix := "bgm"
 	fontCount := uint32(1)
-	archive, err := zip.OpenReader(filepath.Join(musicSrcPath, archiveFilename))
+	archive, err := sreader.OpenArchive(filepath.Join(musicSrcPath, archiveFilename))
 	if err != nil {
 		return 0, err
 	}
 	defer archive.Close()
-
-	entries := map[string]*zip.File{}
-
-	for _, file := range archive.File {
-		ext := filepath.Ext(file.Name)
-		if strings.Contains(ext, "seq") {
-			ext = ".seq"
-		} else if strings.Contains(ext, "txt") && file.Name != "categories.txt" {
-			ext = ""
-		}
-		entries[ext] = file
-	}
-	if _, ok := entries[".zsound"]; ok {
+	// Cheaper than GetFirstByExt()
+	if _, ok := archive.GetAllByExt(".zsound"); ok {
 		return 0, fmt.Errorf("it relies on custom instruments.\n")
 	}
-	seqEntry, ok := entries[".seq"]
+	seqEntry, ok := archive.GetFirstByAnyExt([]string{".seq", ".zseq", ".aseq"})
 	if !ok {
 		return 0, fmt.Errorf("it did not have a valid sequence file.\n")
 	}
 	isFanfare := false
-	if catEntry, ok := entries[".txt"]; ok {
+	if catEntry, ok := archive.GetFile("categories.txt"); ok {
 		if categories := getCategoriesFromArchive(catEntry); categories != nil {
 			isFanfare = seqcat.HasFanfareCategories(*categories)
 			if globals.UseNumericCategories {
@@ -66,11 +56,11 @@ func RepackArchive(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWrit
 	bufferedLW := swriter.NewEmptySimpleWriter(binary.LittleEndian)
 	bufferedCW := swriter.NewEmptySimpleWriter(binary.LittleEndian)
 	filesWritten := uint16(0)
-	if bankEntry, ok := entries[".zbank"]; ok {
+	if bankEntry, ok := archive.GetFirstByExt(".zbank"); ok {
 		if !globals.AllowCustomBanks {
 			return 0, fmt.Errorf("it has a custom bank\n")
 		}
-		metaEntry, ok := entries[".bankmeta"]
+		metaEntry, ok := archive.GetFirstByExt(".bankmeta")
 		if !ok {
 			return 0, fmt.Errorf("it is missing a .bankmeta file\n")
 		}
