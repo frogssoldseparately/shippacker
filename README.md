@@ -1,6 +1,12 @@
 # Ship Packer
 A custom sequence and instrument bank packaging tool for 2ship2harkinian.
 
+## Planned
+
+- \[ In Progress \] Support .ootrs sequences.
+- [ ] Support custom samples.
+- [ ] Support Ship of Harkinian
+
 ## What it does
 
 This tool allows sequences that have custom instrument banks (`.mmrs` files that contain `.zbank` and `.bankmeta` files) to be played via 2ship2harkinian. It packages up all of the sequences you give it into a `.o2r` mod file. This tool accepts:
@@ -15,11 +21,17 @@ This does not presently work for Ship of Harkinian, but support is planned.
 
 This will ignore any sequences that have custom instruments (`.zsound` files), but support is planned.
 
+## Considerations
+
+While this can create .o2r files with essentially unlimited banks, the actual usable custom instrument bank count is 214. This limit will change in a future version of 2ship. As there is a bank limit, there is also a sequence limit of 1923. Ship Packer will give you warnings when you reach those limits.
+
+Using multiple .o2r files with custom instrument banks will cause the sound fonts to overwrite each other, making sequences play with the wrong instruments.
+
 ## Setup
 ### Windows
 1) Download the [latest release](https://github.com/frogssoldseparately/shippacker/releases/latest) and unzip it to wherever you please.
 2) Place whatever custom sequences you would like to bundle into an `.o2r` file inside the `music` folder.
-3) Run `shippacker.exe` and note the terminal for any errors. If all went well, your `mods` folder will house a file named `{some long number}.o2r`. You can rename it if you like. Move this file into 2ship2harkinian's `mods` folder, boot up 2ship2harkinian, and your custom sequences will be readily available.
+3) Run `shippacker.exe` and follow the terminal for further instructions. If all went well, your `mods` folder will house a file named `{some long number}.o2r`. You can rename it if you like. Move this file into 2ship2harkinian's `mods` folder, boot up 2ship2harkinian, and your custom sequences will be readily available.
 
 ### Building from source
 
