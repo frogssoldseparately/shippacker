@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { XmlResource } from "./XmlResource.js";
+import { SetupEntry } from "./SetupEntry.js";
 
 /**
  * Gets version and platform information from a filename.
@@ -93,22 +94,65 @@ export function makeStubs(source, destination) {
  * @param {string} srcPath - audio.template path.
  * @param {string} destPath - audio.go path.
  * @param {Array<string>} writtenFiles - Names of Audio.xml stubs written.
+ * @param {Array<SetupEntry>} versionSetups - Setup information for each
+ * supported version.
  */
-export function fillTemplate(srcPath, destPath, writtenFiles) {
+export function fillAudioTemplate(srcPath, destPath, writtenFiles, 
+        versionSetups) {
     // Generate template fillers
     let embedEntries = "";
     let mapEntries = "";
+    // let versionNames = "";
+    // let versionNameMap = new Map();
     for (const filename of writtenFiles) {
-        const keyname = filename.split('_').slice(0, 4).join('_').toLowerCase();
+        const filenameParts = filename.split('_')
+        const keyname = filenameParts.slice(0, 4).join('_').toLowerCase();
         const varname = keyname + '_audio_file';
         embedEntries += `\n//go:embed ${filename}\nvar ${varname} []byte`;
         mapEntries += `\n\t"${keyname}" : ${varname},`;
     }
+    let versionNames = "";
+    for (const setup of versionSetups) {
+        versionNames += `\n\t"${setup.name}",`;
+    } 
     const injections = new Map([
-        ["xml_embeds", embedEntries.slice(1)],
-        ["map_entries", mapEntries.slice(2)]
+        ["xml_embeds", embedEntries.slice(1)], // remove leading \n
+        ["map_entries", mapEntries.slice(2)], // remove leading \n\t
+        ["version_names", versionNames.slice(2)], // remove leading \n\t
     ]);
-    // Fill template
+    fillTemplate(srcPath, destPath, injections);
+}
+
+/**
+ * Generates setup.go with global config setups for each supported version.
+ * @param {string} srcPath - setup.template path.
+ * @param {string} destPath - setup.go path.
+ * @param {Array<SetupEntry>} versionSetups - Setup information for each
+ * supported version.
+ */
+export function fillSetupTemplate(srcPath, destPath, versionSetups) {
+    let setupCases = "";
+    for (const setup of versionSetups) {
+        setupCases += `\n\tcase "${setup.name}":\n\t\t`;
+        let bodyString = "";
+        for (const assignment of setup.assignStrings) {
+            bodyString += `${assignment}\n\t\t`
+        }
+        setupCases += bodyString.slice(0, -3); // remove trailing \n\t\t
+    }
+    const injections = new Map([
+        ["setup_cases", setupCases.slice(2)] // remove leading \n\t
+    ]);
+    fillTemplate(srcPath, destPath, injections);
+}
+
+/**
+ * Populates a template and writes it to the destination path.
+ * @param {string} srcPath - template path.
+ * @param {string} destPath - destination path.
+ * @param {Map<string, string>} injections - replacements in the template.
+ */
+function fillTemplate(srcPath, destPath, injections) {
     let content = fs.readFileSync(srcPath, "utf8");
     for (const [key, value] of injections) {
         content = content.replaceAll(`##:${key}:##`, value);
