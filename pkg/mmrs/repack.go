@@ -13,6 +13,7 @@ import (
 	"strings"
 
 	"github.com/frogssoldseparately/shippacker/pkg/crc64"
+	"github.com/frogssoldseparately/shippacker/pkg/globals"
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/shippacker/pkg/seq"
 	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
@@ -20,13 +21,13 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.Assets, bankId uint64) (uint16, error) {
+func RepackArchive(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.Assets, bankId uint64) (uint16, error) {
 	archiveFilename := file.Name()
 	archiveExtension := filepath.Ext(archiveFilename)
 	archiveBasename := archiveFilename[0 : len(archiveFilename)-len(archiveExtension)]
 	sequenceSuffix := "bgm"
 	fontCount := uint32(1)
-	archive, err := zip.OpenReader(filepath.Join(paths.MSrc, archiveFilename))
+	archive, err := zip.OpenReader(filepath.Join(musicSrcPath, archiveFilename))
 	if err != nil {
 		return 0, err
 	}
@@ -44,17 +45,21 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 		entries[ext] = file
 	}
 	if _, ok := entries[".zsound"]; ok {
-		return 0, fmt.Errorf("%s relies on custom instruments. Skipping.\n", archiveFilename)
+		return 0, fmt.Errorf("it relies on custom instruments.\n")
 	}
 	seqEntry, ok := entries[".seq"]
 	if !ok {
-		return 0, fmt.Errorf("%s did not have a valid sequence file. Skipping.\n", archiveFilename)
+		return 0, fmt.Errorf("it did not have a valid sequence file.\n")
 	}
 	isFanfare := false
 	if catEntry, ok := entries[".txt"]; ok {
 		if categories := getCategoriesFromArchive(catEntry); categories != nil {
 			isFanfare = seqcat.HasFanfareCategories(*categories)
-			sequenceSuffix = strings.Join(*categories, "-")
+			if globals.UseNumericCategories {
+				sequenceSuffix = strings.Join(*categories, "-")
+			} else if isFanfare {
+				sequenceSuffix = "fanfare"
+			}
 		}
 	}
 
@@ -62,13 +67,16 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 	bufferedCW := swriter.NewEmptySimpleWriter(binary.LittleEndian)
 	filesWritten := uint16(0)
 	if bankEntry, ok := entries[".zbank"]; ok {
+		if !globals.AllowCustomBanks {
+			return 0, fmt.Errorf("it has a custom bank\n")
+		}
 		metaEntry, ok := entries[".bankmeta"]
 		if !ok {
-			return 0, fmt.Errorf("%s is missing a .bankmeta file. Skipping\n", archiveFilename)
+			return 0, fmt.Errorf("it is missing a .bankmeta file\n")
 		}
 		fBank, err := bankEntry.Open()
 		if err != nil {
-			return 0, fmt.Errorf("Couldn't open %s's .zbank file. Skipping\n", archiveFilename)
+			return 0, fmt.Errorf("its .zbank file could not be opened\n")
 		}
 		fMeta, err := metaEntry.Open()
 		// Generate a hash to prevent (or minimize) collisions between soundfonts
@@ -76,13 +84,15 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 		stampArr := []byte(stamp)
 		stampHash := crc32.ChecksumIEEE(stampArr)
 		fontName := fmt.Sprintf("Soundfont_%d", stampHash)
-		fontNameArr := fmt.Appendf(nil, "custom/fonts/%s", fontName)
-		// Makes 2ship find the correct soundfont by crc instead of index
-		bankId = crc64.CRC64(&fontNameArr)
-		fontCount = 0xFFFFFFFF
+		if globals.UseCRC64Encoding {
+			fontNameArr := fmt.Appendf(nil, "custom/fonts/%s", fontName)
+			// Makes 2ship find the correct soundfont by crc instead of index
+			bankId = crc64.CRC64(&fontNameArr)
+			fontCount = 0xFFFFFFFF
+		}
 		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fontName, am)
 		if err != nil {
-			return 0, fmt.Errorf("Couldn't generate %s's soundfont. Skipping\n", archiveFilename)
+			return 0, fmt.Errorf("its soundfont could not be generated\n")
 		}
 		// Should this always be 1?
 		if isFanfare {
@@ -101,7 +111,7 @@ func RepackArchive(paths maps.Paths, file os.DirEntry, lw *swriter.SimpleWriter,
 		newBank, err := strconv.ParseUint(seqBasename, 16, 16)
 		bankId = uint64(newBank)
 		if err != nil {
-			return 0, fmt.Errorf("Could not parse bank information")
+			return 0, fmt.Errorf("its bank could not be parsed")
 		}
 	}
 	fSeq, err := seqEntry.Open()

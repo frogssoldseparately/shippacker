@@ -5,6 +5,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/frogssoldseparately/shippacker/pkg/globals"
 	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
 )
 
@@ -37,7 +38,12 @@ func NewMetaFromFile(path string) (*O2RMeta, error) {
 			suffix = "fanfare"
 		} else if catString != "bgm" && len(catString) > 0 {
 			categories := seqcat.GetCategoriesFromString(catString)
-			suffix = strings.Join(*categories, "-")
+			// TODO: clean up this absolute mess
+			if globals.UseNumericCategories {
+				suffix = strings.Join(*categories, "-")
+			} else if seqcat.HasFanfareCategories(*categories) {
+				suffix = "fanfare"
+			}
 		}
 	}
 	displayName += "_" + suffix
