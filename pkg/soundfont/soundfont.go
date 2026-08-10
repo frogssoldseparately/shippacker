@@ -102,20 +102,24 @@ func (s *Soundfont) WriteBankInfo(w *swriter.SimpleWriter) {
 	Write(w, uint32(len(*s.SoundEffects)))
 }
 
-func (s *Soundfont) WriteEnvelopeEntry(w *swriter.SimpleWriter, ptr uint32) {
-	e := (*s.EnvelopeMap)[ptr]
-	Write(w, uint32(len(*e.Points)))
-	for _, p := range *e.Points {
-		Write(w, p.Delay)
-		Write(w, p.Arg)
+func (s *Soundfont) WriteEnvelopeEntry(w *swriter.SimpleWriter, ptr uint32) error {
+	if e, ok := (*s.EnvelopeMap)[ptr]; ok {
+		Write(w, uint32(len(*e.Points)))
+		for _, p := range *e.Points {
+			Write(w, p.Delay)
+			Write(w, p.Arg)
+		}
+	} else {
+		return fmt.Errorf("invalid envelope pointer of %08X\n", ptr)
 	}
+	return nil
 }
 
 func (s *Soundfont) WriteTunedSample(w *swriter.SimpleWriter, ts *zbank.TunedSample) error {
 	sample := (*s.SampleMap)[ts.SamplePointer]
 	assetName, ok := (*s.AssetMap)[sample.SampleAddress]
 	if !ok {
-		return fmt.Errorf("Could not find asset of address %08X", sample.SampleAddress)
+		return fmt.Errorf("invalid sample address of %08X\n", sample.SampleAddress)
 	}
 	WriteString(w, "audio/samples/"+assetName, true)
 	Write(w, ts.Tuning)
@@ -127,7 +131,9 @@ func (s *Soundfont) WriteDrums(w *swriter.SimpleWriter) error {
 		Write(w, drum.AdsrDecayIndex)
 		Write(w, drum.Pan)
 		Write(w, drum.IsRelocated)
-		s.WriteEnvelopeEntry(w, drum.EnvelopePointer)
+		if err := s.WriteEnvelopeEntry(w, drum.EnvelopePointer); err != nil {
+			return err
+		}
 		Write[uint8](w, 0x1)
 		if err := s.WriteTunedSample(w, drum.TunedSample); err != nil {
 			return err
@@ -143,7 +149,9 @@ func (s *Soundfont) WriteInstruments(w *swriter.SimpleWriter) error {
 		Write(w, inst.NormalRangeLo)
 		Write(w, inst.NormalRangeHi)
 		Write(w, inst.AdsrDecayIndex)
-		s.WriteEnvelopeEntry(w, inst.EnvelopePointer)
+		if err := s.WriteEnvelopeEntry(w, inst.EnvelopePointer); err != nil {
+			return err
+		}
 		for _, tunedSample := range inst.GetTunedSamples() {
 			if tunedSample.SamplePointer != 0x0 {
 				Write[uint8](w, 0x1)
@@ -179,7 +187,7 @@ func getBankFromFontName(name string) (uint32, error) {
 	nameParts := strings.Split(name, "_")
 	v, err := strconv.ParseUint(nameParts[len(nameParts)-1], 10, 32)
 	if err != nil {
-		return 0x0, fmt.Errorf("Could not parse soundfont name")
+		return 0x0, fmt.Errorf("its bank name could not be parsed")
 	}
 	return uint32(v), nil
 }
