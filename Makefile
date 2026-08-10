@@ -8,8 +8,8 @@ build-w: # Compile for Windows
 build-l: # Compile for Linux?
 	go build -o ./bin/shippacker ./cmd/shippacker/main.go
 
-xmls: # Generate audio xml files needed for compilation
-	node utils/xmls/packageAudioXmls.js ./resources ./pkg/globals
+templates: # Generate pkg/globals files needed for compilation
+	node utils/xmls/generateGlobalsFiles.js ./resources ./pkg/globals
 
 dist: ./bin/shippacker.exe # Generate distributables
 # Prepare for release generation
