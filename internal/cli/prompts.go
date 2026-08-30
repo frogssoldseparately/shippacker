@@ -11,6 +11,7 @@ func GetRecurseDirectory() {
 	fmt.Printf("Read the music directory recursively? (y/n) ")
 	var response string
 	fmt.Scan(&response)
+	fmt.Scanln() // discard newline?
 	globals.RecurseSubdirectories = strings.ToLower(response[0:1]) == "y"
 	if globals.RecurseSubdirectories {
 		fmt.Println("Will read music directory and subdirectories")
@@ -30,6 +31,7 @@ func GetUserVersion() {
 	// Continue prompting until a valid number has been provided
 	for true {
 		fmt.Scan(&userInput)
+		fmt.Scanln() // discard newline?
 		if userInput >= 0 && userInput < svCount {
 			break
 		}
