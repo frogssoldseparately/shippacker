@@ -3,10 +3,13 @@ V=/
 export V
 
 build-w: # Compile for Windows
-	go build -o ./bin/shippacker.exe ./cmd/shippacker/main.go
+	GOOS=windows GOARCH=amd64 go build -o ./bin/shippacker.exe ./cmd/shippacker/main.go
 
 build-l: # Compile for Linux?
 	go build -o ./bin/shippacker ./cmd/shippacker/main.go
+
+build-wasm: # Compile for WebAssembly
+	GOOS=js GOARCH=wasm tinygo build -target=wasm -o ./bin/shippacker.wasm ./cmd/shippacker/main_wasm.go
 
 templates: # Generate pkg/globals files needed for compilation
 	node utils/xmls/generateGlobalsFiles.js ./resources ./pkg/globals

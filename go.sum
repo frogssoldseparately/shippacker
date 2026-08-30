@@ -1,4 +1,8 @@
 github.com/frogssoldseparately/simpleseek/sreader v0.0.0-20260809060209-1cc7db118e69 h1:k9UYdwL+ct0wIgpmF9jPoiQxr4Gl598TcZuFGjA9m7k=
 github.com/frogssoldseparately/simpleseek/sreader v0.0.0-20260809060209-1cc7db118e69/go.mod h1:zI6o3UOnYBIppN8jOpGtu180N2/SNp/zsclleG+MYrY=
+github.com/frogssoldseparately/simpleseek/sreader v0.0.0-20260829170929-eff4df1cd7ca h1:1COdV6kfLFA9hRkIRTWI5Thu9kQLKbMFcCVbdpl+FiM=
+github.com/frogssoldseparately/simpleseek/sreader v0.0.0-20260829170929-eff4df1cd7ca/go.mod h1:zI6o3UOnYBIppN8jOpGtu180N2/SNp/zsclleG+MYrY=
+github.com/frogssoldseparately/simpleseek/sreader v0.0.0-20260829173054-7e1b17a73aea h1:Hn45qZ7Px/O7abAhJxVV9AdWDP4DB9pk69yiWBrstBE=
+github.com/frogssoldseparately/simpleseek/sreader v0.0.0-20260829173054-7e1b17a73aea/go.mod h1:zI6o3UOnYBIppN8jOpGtu180N2/SNp/zsclleG+MYrY=
 github.com/frogssoldseparately/simpleseek/swriter v0.0.0-20260809060209-1cc7db118e69 h1:EOpFs6YXEeSlu5wraWEqLRMMHCvJ+YmsAJJ+kg/iNPg=
 github.com/frogssoldseparately/simpleseek/swriter v0.0.0-20260809060209-1cc7db118e69/go.mod h1:ZAHfldy09407kSaNw+9JB+1EFyE4/dUfDmi0jUc99Hw=
