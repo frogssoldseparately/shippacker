@@ -2,19 +2,26 @@
 V=/
 export V
 
-build-w: # Compile for Windows
+build: windows linux-amd linux-arm wasm
+
+windows: # Compile for Windows
 	GOOS=windows GOARCH=amd64 go build -o ./bin/shippacker.exe ./cmd/shippacker/main.go
 
-build-l: # Compile for Linux?
-	go build -o ./bin/shippacker ./cmd/shippacker/main.go
+linux-amd: # Compile for Linux amd64
+	GOOS=linux GOARCH=amd64 go build -o ./bin/shippacker_amd ./cmd/shippacker/main.go
 
-build-wasm: # Compile for WebAssembly
-	GOOS=js GOARCH=wasm tinygo build -target=wasm -o ./bin/shippacker.wasm ./cmd/shippacker/main_wasm.go
+linux-arm: # Compile for Linux arm64
+	GOOS=linux GOARCH=arm64 go build -o ./bin/shippacker_arm ./cmd/shippacker/main.go
+
+wasm: # Compile for WebAssembly
+	GOOS=js GOARCH=wasm tinygo build -target=wasm -no-debug -o ./bin/shippacker.wasm ./cmd/shippacker/main_wasm.go
 
 templates: # Generate pkg/globals files needed for compilation
 	node utils/xmls/generateGlobalsFiles.js ./resources ./pkg/globals
 
-dist: ./bin/shippacker.exe # Generate distributables
+dist: --dist-windows --dist-linux-amd --dist-linux-arm --dist-wasm # Generate distributables
+
+--dist-windows: ./bin/shippacker.exe
 # Prepare for release generation
 	-mkdir ./dist
 	mkdir ./dist/${V}
@@ -22,12 +29,49 @@ dist: ./bin/shippacker.exe # Generate distributables
 	mkdir ./dist/${V}/mods
 # Remove possible duplicate zipped release only after version has been verified
 # to be good so as to avoid any file system mishaps
-	-rm "./dist/Ship Packer ${V}.zip"
+	-rm "./dist/shippacker_${V}_windows_amd64.zip"
 # Get Windows release resources
 	cp ./bin/shippacker.exe ./dist/${V}/shippacker.exe
 	cp ./README.md ./dist/${V}/README.md
-# Make Windows release. cd'ing in ensures the outermost folder isn't also zipped
-	cd ./dist/${V} ; 7z a "../Ship Packer ${V}.zip" *
+# Make Windows release.
+	cd ./dist/${V} ; 7z a "../shippacker_${V}_windows_amd64.zip" *
 # Remove temporary uncompressed release folders. This could be a nasty command,
 # but no one else should really be using it.
 	rm -rf ./dist/${V}
+
+--dist-linux-amd: ./bin/shippacker_amd
+# Prepare for release generation
+	-mkdir ./dist
+	mkdir ./dist/${V}
+	mkdir ./dist/${V}/music
+	mkdir ./dist/${V}/mods
+# Remove possible duplicate zipped release only after version has been verified
+# to be good so as to avoid any file system mishaps
+	-rm "./dist/shippacker_${V}_linux_amd64.zip"
+# Get Linux release resources
+	cp ./bin/shippacker_amd ./dist/${V}/shippacker
+	cp ./README.md ./dist/${V}/README.md
+# Make Linux release.
+	cd ./dist/${V} ; 7z a "../shippacker_${V}_linux_amd64.zip" *
+# Remove temporary uncompressed release folders.
+	rm -rf ./dist/${V}
+
+--dist-linux-arm: ./bin/shippacker_arm
+# Prepare for release generation
+	-mkdir ./dist
+	mkdir ./dist/${V}
+	mkdir ./dist/${V}/music
+	mkdir ./dist/${V}/mods
+# Remove possible duplicate zipped release only after version has been verified
+# to be good so as to avoid any file system mishaps
+	-rm "./dist/shippacker_${V}_linux_arm64.zip"
+# Get Linux release resources
+	cp ./bin/shippacker_arm ./dist/${V}/shippacker
+	cp ./README.md ./dist/${V}/README.md
+# Make Linux release.
+	cd ./dist/${V} ; 7z a "../shippacker_${V}_linux_arm64.zip" *
+# Remove temporary uncompressed release folders.
+	rm -rf ./dist/${V}
+
+--dist-wasm: ./bin/shippacker.wasm
+	7z a "./dist/shippacker_${V}_js_wasm.zip" ./bin/shippacker.wasm
