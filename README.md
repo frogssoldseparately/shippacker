@@ -4,8 +4,8 @@ A custom sequence and instrument bank packaging tool for 2ship2harkinian.
 ## Planned
 
 - \[ In Progress \] Support .ootrs sequences.
-- [ ] Support custom samples.
-- [ ] Support Ship of Harkinian
+- [X] Support custom samples.
+- [ ] Support Ship of Harkinian.
 
 ## What it does
 
@@ -18,8 +18,6 @@ This tool allows sequences that have custom instrument banks (`.mmrs` files that
 ## What it doesn't
 
 This does not presently work for Ship of Harkinian, but support is planned.
-
-This will ignore any sequences that have custom instruments (`.zsound` files), but support is planned.
 
 ## Considerations
 
@@ -44,13 +42,31 @@ If you're on a platform other than Windows, or would just like to build the exec
 On Windows:
 ```sh
 go mod download
-make build-w || go build -o ./bin/shippacker.exe ./cmd/shippacker/main.go
+make windows || go build -o ./bin/shippacker.exe ./cmd/shippacker/main.go
 ```
 
-On Linux:
+On Linux amd64:
 ```sh
 go mod download
-make build-l # L for linux
+make linux-amd
+```
+
+On Linux arm64:
+```sh
+go mod download
+make linux-arm
+```
+
+For web deployment:
+```sh
+go mod download
+make wasm # Requires tinygo
+```
+
+To generate distributables:
+```sh
+make build # Requires tinygo
+make dist V=v[a version number] # Requires 7zip
 ```
 
 4) Move the `shippacker.exe` (or `shippacker` on Linux) file in the `bin` directory to anywhere of your choosing, or follow the rest of these steps from within the `bin` directory.
