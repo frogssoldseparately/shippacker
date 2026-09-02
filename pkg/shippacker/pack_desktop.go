@@ -24,7 +24,7 @@ func Pack(musicSrcPath string, outPath string) error {
 	centralW := swriter.NewEmptySimpleWriter(endianness)
 	assetMap, err := maps.NewAssetMap()
 	swriter.TakeTimestamp()
-	filesWritten, banksWritten, err := WriteModEntries(musicSrcPath, localW, centralW, assetMap, 0, globals.StartingBankIndex)
+	filesWritten, songsWritten, banksWritten, err := WriteModEntries(musicSrcPath, localW, centralW, assetMap, 0, 0, globals.StartingBankIndex)
 	if err != nil {
 		return err
 	}
@@ -41,28 +41,30 @@ func Pack(musicSrcPath string, outPath string) error {
 			return err
 		}
 	}
-	fmt.Printf("Wrote %d songs and %d banks\n", filesWritten-uint16(banksWritten), banksWritten)
+	fmt.Printf("Wrote %d songs and %d banks\n", songsWritten, banksWritten)
 	return nil
 }
 
-func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, assetMap *maps.Assets, startFileCount uint16, startBankId uint64) (uint16, uint64, error) {
+func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, assetMap *maps.Assets, startFileCount uint16, startSongCount uint16, startBankId uint64) (uint16, uint16, uint64, error) {
 	files, err := os.ReadDir(srcPath)
 	if err != nil {
-		return 0, 0, err
+		return 0, 0, 0, err
 	}
 	bankId := startBankId
 	includedFileCount := startFileCount
+	songCount := startSongCount
 	for _, file := range files {
 		if file.IsDir() {
 			if globals.RecurseSubdirectories {
-				newCount, newBanks, err := WriteModEntries(filepath.Join(srcPath, file.Name()), lw, cw, assetMap, includedFileCount, bankId)
+				newCount, newSongs, newBanks, err := WriteModEntries(filepath.Join(srcPath, file.Name()), lw, cw, assetMap, includedFileCount, songCount, bankId)
 				if err != nil {
-					return 0, 0, err
+					return 0, 0, 0, err
 				}
 				includedFileCount += newCount
+				songCount += newSongs
 				bankId += newBanks
 				if globals.EarlyExit {
-					return includedFileCount - startFileCount, bankId - startBankId, nil
+					return includedFileCount - startFileCount, songCount - startSongCount, bankId - startBankId, nil
 				}
 			}
 		} else {
@@ -73,7 +75,8 @@ func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.Simpl
 					fmt.Printf("Skipped %s because %s\n", name, err)
 				} else {
 					includedFileCount += newCount
-					if newCount == 2 {
+					songCount++
+					if newCount >= 2 {
 						bankId++
 					}
 				}
@@ -82,6 +85,7 @@ func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.Simpl
 					fmt.Printf("Skipped %s because %s\n", name, err)
 				} else {
 					includedFileCount += newCount
+					songCount++
 				}
 			}
 		}
@@ -90,7 +94,7 @@ func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.Simpl
 			switch iohelper.WarnPromptBanks() {
 			case iohelper.EarlyExit:
 				globals.EarlyExit = true
-				return includedFileCount - startFileCount, bankId - startBankId, nil
+				return includedFileCount - startFileCount, songCount - startSongCount, bankId - startBankId, nil
 			case iohelper.IgnoreOtherBanks:
 				globals.AllowCustomBanks = false
 			case iohelper.ContinueRunning:
@@ -98,23 +102,23 @@ func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.Simpl
 			case iohelper.HaltRunning:
 				fallthrough
 			default:
-				return 0, 0, fmt.Errorf("Halt from excessive banks. No o2r file written")
+				return 0, 0, 0, fmt.Errorf("Halt from excessive banks. No o2r file written")
 			}
 		}
-		if globals.WarnOnTooManySongs && includedFileCount-(uint16(bankId-globals.StartingBankIndex)) == globals.MaxSongCount {
+		if globals.WarnOnTooManySongs && songCount == globals.MaxSongCount {
 			globals.WarnOnTooManySongs = false
 			switch iohelper.WarnPromptSongs() {
 			case iohelper.ContinueRunning:
 				// do nothing
 			case iohelper.EarlyExit:
 				globals.EarlyExit = true
-				return includedFileCount - startFileCount, bankId - startBankId, nil
+				return includedFileCount - startFileCount, songCount - startSongCount, bankId - startBankId, nil
 			default:
-				return 0, 0, fmt.Errorf("Halt from excessive songs. No o2r file written")
+				return 0, 0, 0, fmt.Errorf("Halt from excessive songs. No o2r file written")
 			}
 		}
 	}
-	return includedFileCount - startFileCount, bankId - startBankId, nil
+	return includedFileCount - startFileCount, songCount - startSongCount, bankId - startBankId, nil
 }
 
 func generateModFilename() string {

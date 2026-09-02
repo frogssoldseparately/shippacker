@@ -5,6 +5,7 @@ import (
 )
 
 type Instrument struct {
+	NonNull                bool
 	IsRelocated            uint8
 	NormalRangeLo          uint8
 	NormalRangeHi          uint8
@@ -21,6 +22,7 @@ func (i *Instrument) GetTunedSamples() []*TunedSample {
 
 func ReadInstrument(r *sreader.SimpleReader) *Instrument {
 	return &Instrument{
+		true,
 		Read[uint8](r),
 		Read[uint8](r),
 		Read[uint8](r),

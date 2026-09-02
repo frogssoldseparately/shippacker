@@ -20,6 +20,12 @@ const (
 )
 
 const (
+	SampleType    = 0x4F534D50
+	SampleVersion = 0x0
+	SampleCustom  = 0x0
+)
+
+const (
 	Attributes = 0x81B60000
 )
 

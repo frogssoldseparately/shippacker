@@ -20,6 +20,8 @@ type Soundfont struct {
 	SoundEffects *[]*zbank.Sfx
 	EnvelopeMap  *map[uint32]*zbank.Envelope
 	SampleMap    *map[uint32]*zbank.Sample
+	LoopMap      *map[uint32]*zbank.AdpcmLoop
+	BookMap      *map[uint32]*zbank.AdpcmBook
 	AssetMap     *maps.Assets
 	Path         string
 }
@@ -41,7 +43,7 @@ func NewSoundfontFromBank(bank *zbank.ZBank, name string, am *maps.Assets) (*Sou
 	if err != nil {
 		return nil, err
 	}
-	return &Soundfont{bankId, bank.Meta, bank.Drums, bank.Instruments, bank.SoundEffects, bank.EnvelopeMap, bank.SampleMap, am, "custom/fonts/" + name}, nil
+	return &Soundfont{bankId, bank.Meta, bank.Drums, bank.Instruments, bank.SoundEffects, bank.EnvelopeMap, bank.SampleMap, bank.LoopMap, bank.BookMap, am, name}, nil
 }
 
 func (s *Soundfont) GetCompression() uint16 {
@@ -128,15 +130,26 @@ func (s *Soundfont) WriteTunedSample(w *swriter.SimpleWriter, ts *zbank.TunedSam
 
 func (s *Soundfont) WriteDrums(w *swriter.SimpleWriter) error {
 	for _, drum := range *s.Drums {
-		Write(w, drum.AdsrDecayIndex)
-		Write(w, drum.Pan)
-		Write(w, drum.IsRelocated)
-		if err := s.WriteEnvelopeEntry(w, drum.EnvelopePointer); err != nil {
-			return err
-		}
-		Write[uint8](w, 0x1)
-		if err := s.WriteTunedSample(w, drum.TunedSample); err != nil {
-			return err
+		if drum.NonNull {
+			Write(w, drum.AdsrDecayIndex)
+			Write(w, drum.Pan)
+			Write(w, drum.IsRelocated)
+			if err := s.WriteEnvelopeEntry(w, drum.EnvelopePointer); err != nil {
+				return err
+			}
+			Write[uint8](w, 0x1)
+			if err := s.WriteTunedSample(w, drum.TunedSample); err != nil {
+				return err
+			}
+		} else {
+			// Write a dummy drum
+			Write[uint8](w, 0x0)  // AdsrDecayIndex
+			Write[uint8](w, 0x0)  // Pan
+			Write[uint8](w, 0x0)  // IsRelocated
+			Write[uint32](w, 0x0) // Envelope Length
+			Write[uint8](w, 0x1)
+			WriteString(w, "audio/samples/Accordion_META", true)
+			Write[float32](w, 1)
 		}
 	}
 	return nil
@@ -144,24 +157,37 @@ func (s *Soundfont) WriteDrums(w *swriter.SimpleWriter) error {
 
 func (s *Soundfont) WriteInstruments(w *swriter.SimpleWriter) error {
 	for _, inst := range *s.Instruments {
-		Write[uint8](w, 0x1)
-		Write(w, inst.IsRelocated)
-		Write(w, inst.NormalRangeLo)
-		Write(w, inst.NormalRangeHi)
-		Write(w, inst.AdsrDecayIndex)
-		if err := s.WriteEnvelopeEntry(w, inst.EnvelopePointer); err != nil {
-			return err
-		}
-		for _, tunedSample := range inst.GetTunedSamples() {
-			if tunedSample.SamplePointer != 0x0 {
-				Write[uint8](w, 0x1)
-				Write[uint8](w, 0x1)
-				if err := s.WriteTunedSample(w, tunedSample); err != nil {
-					return err
-				}
-			} else {
-				Write[uint8](w, 0x0)
+		if inst.NonNull {
+			Write[uint8](w, 0x1)
+			Write(w, inst.IsRelocated)
+			Write(w, inst.NormalRangeLo)
+			Write(w, inst.NormalRangeHi)
+			Write(w, inst.AdsrDecayIndex)
+			if err := s.WriteEnvelopeEntry(w, inst.EnvelopePointer); err != nil {
+				return err
 			}
+			for _, tunedSample := range inst.GetTunedSamples() {
+				if tunedSample.SamplePointer != 0x0 {
+					Write[uint8](w, 0x1)
+					Write[uint8](w, 0x1)
+					if err := s.WriteTunedSample(w, tunedSample); err != nil {
+						return err
+					}
+				} else {
+					Write[uint8](w, 0x0)
+				}
+			}
+		} else {
+			// Write a dummy instrument
+			Write[uint8](w, 0x1)
+			Write[uint8](w, 0x0)  // IsRelocated
+			Write[uint8](w, 0x0)  // NormalRangeLo
+			Write[uint8](w, 0x0)  // NormalRangeHi
+			Write[uint8](w, 0x0)  // AdsrDecayIndex
+			Write[uint32](w, 0x0) // Envelope length
+			Write[uint8](w, 0x0)  // TunedSample
+			Write[uint8](w, 0x0)  // TunedSample
+			Write[uint8](w, 0x0)  // TunedSample
 		}
 	}
 	return nil

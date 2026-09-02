@@ -19,7 +19,7 @@ func Pack(srcPaths []string) []byte {
 	centralW := swriter.NewEmptySimpleWriter(endianness)
 	assetMap, err := maps.NewAssetMap()
 	swriter.TakeTimestamp()
-	filesWritten, _, err := WriteModEntries(srcPaths, localW, centralW, assetMap)
+	filesWritten, _, _, err := WriteModEntries(srcPaths, localW, centralW, assetMap)
 	if err != nil {
 		fmt.Println(err)
 		return nil
@@ -34,18 +34,20 @@ func Pack(srcPaths []string) []byte {
 	return nil
 }
 
-func WriteModEntries(srcPaths []string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, assetMap *maps.Assets) (uint16, uint64, error) {
+func WriteModEntries(srcPaths []string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, assetMap *maps.Assets) (uint16, uint16, uint64, error) {
 	bankId := globals.StartingBankIndex
 	includedFileCount := uint16(0)
+	songCount := uint16(0)
 	for _, path := range srcPaths {
 		if newCount, err := mmrs.RepackArchive(path, lw, cw, assetMap, bankId); err != nil {
 			fmt.Printf("Skipped %s because %s\n", path, err)
 		} else {
 			includedFileCount += newCount
-			if newCount == 2 {
+			songCount++
+			if newCount >= 2 {
 				bankId++
 			}
 		}
 	}
-	return includedFileCount, bankId - globals.StartingBankIndex, nil
+	return includedFileCount, songCount, bankId - globals.StartingBankIndex, nil
 }

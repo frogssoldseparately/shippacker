@@ -14,6 +14,8 @@ type ZBank struct {
 	SoundEffects *[]*Sfx
 	EnvelopeMap  *map[uint32]*Envelope
 	SampleMap    *map[uint32]*Sample
+	LoopMap      *map[uint32]*AdpcmLoop
+	BookMap      *map[uint32]*AdpcmBook
 }
 
 // Information on how these .zbank files are structured can be found
@@ -38,7 +40,14 @@ func NewBankFromStream(f io.Reader, meta *Meta) (*ZBank, error) {
 			for _, t := range inst.GetTunedSamples() {
 				sampleMap[t.SamplePointer] = nil
 			}
+		} else {
+			inst := Instrument{}
+			inst.NonNull = false
+			instruments = append(instruments, &inst)
 		}
+	}
+	for len(instruments) > 0 && !instruments[len(instruments)-1].NonNull {
+		instruments = instruments[0 : len(instruments)-1]
 	}
 	if drumPointerArrayPointer != 0 {
 		for i := int8(0); i < meta.NumDrums; i++ {
@@ -49,6 +58,10 @@ func NewBankFromStream(f io.Reader, meta *Meta) (*ZBank, error) {
 				drums = append(drums, drum)
 				envelopeMap[drum.EnvelopePointer] = nil
 				sampleMap[drum.TunedSample.SamplePointer] = nil
+			} else {
+				drum := Drum{}
+				drum.NonNull = false
+				drums = append(drums, &drum)
 			}
 		}
 	}
@@ -66,10 +79,19 @@ func NewBankFromStream(f io.Reader, meta *Meta) (*ZBank, error) {
 		r.Seek(offset, 0)
 		envelopeMap[offset] = ReadEnvelope(r)
 	}
+	loopMap := map[uint32]*AdpcmLoop{}
+	bookMap := map[uint32]*AdpcmBook{}
 	for offset := range sampleMap {
 		r.Seek(offset, 0)
-		sampleMap[offset] = ReadSample(r)
+		sample := ReadSample(r)
+		sampleMap[offset] = sample
+		if sample.SampleAddress > 0xFFFFFFF {
+			r.Seek(sample.LoopPointer, 0)
+			loopMap[sample.SampleAddress] = ReadLoop(r)
+			r.Seek(sample.BookPointer, 0)
+			bookMap[sample.SampleAddress] = ReadBook(r)
+		}
 	}
 
-	return &ZBank{meta, &drums, &instruments, &soundEffects, &envelopeMap, &sampleMap}, nil
+	return &ZBank{meta, &drums, &instruments, &soundEffects, &envelopeMap, &sampleMap, &loopMap, &bookMap}, nil
 }

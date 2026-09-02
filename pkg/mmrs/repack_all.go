@@ -14,6 +14,7 @@ import (
 	"github.com/frogssoldseparately/shippacker/pkg/crc64"
 	"github.com/frogssoldseparately/shippacker/pkg/globals"
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
+	"github.com/frogssoldseparately/shippacker/pkg/sample"
 	"github.com/frogssoldseparately/shippacker/pkg/seq"
 	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
 	"github.com/frogssoldseparately/shippacker/pkg/soundfont"
@@ -27,10 +28,6 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 	archiveBasename := archiveFilename[0 : len(archiveFilename)-len(archiveExtension)]
 	sequenceSuffix := "bgm"
 	fontCount := uint32(1)
-	// Cheaper than GetFirstByExt()
-	if _, ok := archive.GetAllByExt(".zsound"); ok {
-		return 0, fmt.Errorf("it relies on custom instruments.\n")
-	}
 	seqEntry, ok := archive.GetFirstByAnyExt([]string{".seq", ".zseq", ".aseq"})
 	if !ok {
 		return 0, fmt.Errorf("it did not have a valid sequence file.\n")
@@ -69,18 +66,47 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 			return 0, fmt.Errorf("its .zbank file could not be opened\n")
 		}
 		fMeta, err := metaEntry.Open()
-		// Generate a hash to prevent (or minimize) collisions between soundfonts
+		// Determine fontname and index by global settings
+		var fontName string
 		stamp := fmt.Sprintf("%d%d%d", os.Getpid(), swriter.GetTimestamp(), bankId)
-		stampArr := []byte(stamp)
-		stampHash := crc32.ChecksumIEEE(stampArr)
-		fontName := fmt.Sprintf("Soundfont_%d", stampHash)
 		if globals.UseCRC64Encoding {
-			// Using the custom path means the internal font id doesn't get used
-			fontNameArr := fmt.Appendf(nil, "custom/fonts/%s", fontName)
+			// Generate a hash to prevent (or minimize) collisions between soundfonts
+			stampArr := []byte(stamp)
+			stampHash := crc32.ChecksumIEEE(stampArr)
+			fontName = fmt.Sprintf("custom/fonts/Soundfont_%d", stampHash)
+			fontNameArr := []byte(fontName)
 			// Makes 2ship find the correct soundfont by crc instead of index
 			bankId = crc64.CRC64(&fontNameArr)
 			fontCount = 0xFFFFFFFF
+		} else {
+			fontName = fmt.Sprintf("audio/fonts/Soundfont_%d", bankId)
 		}
+		// Get custom samples
+		customSamples := []*sample.Sample{}
+		if zsoundEntries, ok := archive.GetAllByExt(".zsound"); ok {
+			for _, zsoundEntry := range zsoundEntries {
+				instName := zsoundEntry.Name
+				baseName := instName[0:strings.LastIndex(instName, "_")]
+				sampleName := fmt.Sprintf("%s_%s_META", baseName, stamp)
+				addrHex := instName[len(baseName)+1 : strings.LastIndex(instName, ".")]
+				addr, err := strconv.ParseUint(addrHex, 16, 32)
+				if err != nil {
+					return 0, err
+				}
+				fInst, err := zsoundEntry.Open()
+				if err != nil {
+					return 0, err
+				}
+				customSample, err := sample.NewSampleFromStream(fInst, uint32(addr), sampleName, am)
+				if err != nil {
+					return 0, err
+				}
+				customSamples = append(customSamples, customSample)
+				// So this sample can be referenced in .zbank files
+				(*am)[customSample.Addr] = customSample.Name
+			}
+		}
+		// Generate zippable soundfont container
 		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fontName, am)
 		if err != nil {
 			return 0, fmt.Errorf("its soundfont could not be generated\n")
@@ -91,11 +117,30 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		} else {
 			sf.Meta.CachePolicy = int8(0x2)
 		}
+		// Write zippable custom samples
+		for _, customSample := range customSamples {
+			loopPtr, ok := (*sf.LoopMap)[customSample.Addr]
+			if !ok {
+				return 0, fmt.Errorf("could not find AdpcmLoop for instrument")
+			}
+			customSample.Loop = loopPtr
+			bookPtr, ok := (*sf.BookMap)[customSample.Addr]
+			if !ok {
+				return 0, fmt.Errorf("could not find AdpcmBook for instrument")
+			}
+			customSample.Book = bookPtr
+			if err := swriter.WriteZipEntry(customSample, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
+				return 0, err
+			}
+			filesWritten++
+		}
+		// Write zippable soundfont
 		if err := swriter.WriteZipEntry(sf, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
 			return 0, err
 		}
 		filesWritten++
 	} else {
+		// No custom instrument bank
 		seqFilename := seqEntry.Name
 		seqExt := filepath.Ext(seqFilename)
 		seqBasename := seqFilename[0 : len(seqFilename)-len(seqExt)]
