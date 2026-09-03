@@ -57,6 +57,18 @@ go mod download
 make linux-arm
 ```
 
+On Mac amd64:
+```sh
+go mod download
+make mac-amd
+```
+
+On Mac arm64:
+```sh
+go mod download
+make mac-arm
+```
+
 For web deployment:
 ```sh
 go mod download
