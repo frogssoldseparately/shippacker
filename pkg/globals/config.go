@@ -27,6 +27,7 @@ var WarnOnTooManyBanks bool = true
 var WarnOnTooManySongs bool = true
 var AllowCustomBanks bool = true
 var EarlyExit bool = false
+var HasOotO2r = false
 
 func GetAudioXmlKey() string {
 	return strings.ToLower(fmt.Sprintf("%s_%s", Version, RomPlatform))

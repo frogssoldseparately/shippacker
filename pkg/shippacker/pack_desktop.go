@@ -13,6 +13,7 @@ import (
 	"github.com/frogssoldseparately/shippacker/pkg/iohelper"
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/shippacker/pkg/mmrs"
+	"github.com/frogssoldseparately/shippacker/pkg/ootrs"
 	"github.com/frogssoldseparately/shippacker/pkg/seq"
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
@@ -22,9 +23,16 @@ func Pack(musicSrcPath string, outPath string) error {
 	modWriter := swriter.NewEmptySimpleWriter(endianness)
 	localW := swriter.NewEmptySimpleWriter(endianness)
 	centralW := swriter.NewEmptySimpleWriter(endianness)
-	assetMap, err := maps.NewAssetMap()
+	mmrsAssetMap, err := maps.NewAssetMap()
+	if err != nil {
+		return err
+	}
+	ootrsAssetMap, ootrsTranslationMap, err := maps.NewTranslationMaps()
+	if err != nil {
+		return err
+	}
 	swriter.TakeTimestamp()
-	filesWritten, songsWritten, banksWritten, err := WriteModEntries(musicSrcPath, localW, centralW, assetMap, 0, 0, globals.StartingBankIndex)
+	filesWritten, songsWritten, banksWritten, err := WriteModEntries(musicSrcPath, localW, centralW, mmrsAssetMap, ootrsAssetMap, ootrsTranslationMap, 0, 0, globals.StartingBankIndex)
 	if err != nil {
 		return err
 	}
@@ -45,7 +53,7 @@ func Pack(musicSrcPath string, outPath string) error {
 	return nil
 }
 
-func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, assetMap *maps.Assets, startFileCount uint16, startSongCount uint16, startBankId uint64) (uint16, uint16, uint64, error) {
+func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, mmrsAssetMap *maps.AssetMap, ootrsAssetMap *maps.AssetMap, ootrsTranslationMap *maps.TranslationMap, startFileCount uint16, startSongCount uint16, startBankId uint64) (uint16, uint16, uint64, error) {
 	files, err := os.ReadDir(srcPath)
 	if err != nil {
 		return 0, 0, 0, err
@@ -56,7 +64,7 @@ func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.Simpl
 	for _, file := range files {
 		if file.IsDir() {
 			if globals.RecurseSubdirectories {
-				newCount, newSongs, newBanks, err := WriteModEntries(filepath.Join(srcPath, file.Name()), lw, cw, assetMap, includedFileCount, songCount, bankId)
+				newCount, newSongs, newBanks, err := WriteModEntries(filepath.Join(srcPath, file.Name()), lw, cw, mmrsAssetMap, ootrsAssetMap, ootrsTranslationMap, includedFileCount, songCount, bankId)
 				if err != nil {
 					return 0, 0, 0, err
 				}
@@ -71,7 +79,17 @@ func WriteModEntries(srcPath string, lw *swriter.SimpleWriter, cw *swriter.Simpl
 			name := filepath.Base(file.Name())
 			ext := filepath.Ext(name)
 			if ext == ".mmrs" {
-				if newCount, err := mmrs.RepackArchive(srcPath, file, lw, cw, assetMap, bankId); err != nil {
+				if newCount, err := mmrs.RepackArchive(srcPath, file, lw, cw, mmrsAssetMap, bankId); err != nil {
+					fmt.Printf("Skipped %s because %s\n", name, err)
+				} else {
+					includedFileCount += newCount
+					songCount++
+					if newCount >= 2 {
+						bankId++
+					}
+				}
+			} else if ext == ".ootrs" {
+				if newCount, err := ootrs.RepackArchive(srcPath, file, lw, cw, ootrsAssetMap, ootrsTranslationMap, bankId); err != nil {
 					fmt.Printf("Skipped %s because %s\n", name, err)
 				} else {
 					includedFileCount += newCount

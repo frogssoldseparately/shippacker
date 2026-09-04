@@ -1,6 +1,6 @@
 <Root>
     <File Name="code" OutName="audio" RangeStart="0x0">
-        <Audio Name="audio" Offset="0x00" SoundFontTableOffset="0x138F10" SequenceTableOffset="0x1393C0" SampleBankTableOffset="0x139BD0" SequenceFontTableOffset="0x1391B0">
+        <Audio Name="audio" Offset="0x00" SoundFontTableOffset="0x13B6C0" SequenceTableOffset="0x13BB70" SampleBankTableOffset="0x13C380" SequenceFontTableOffset="0x13B960">
             <Sequences>
                 <Sequence Name="Sequence_0"/>
                 <Sequence Name="Sequence_1"/>
@@ -131,7 +131,7 @@
                 <Sequence Name="MoonsDestruction_7E"/>
                 <Sequence Name="Credits(SecondHalf)_7F"/>
             </Sequences>
-            <Samples Bank="0">
+            <Samples Bank="0" Offset="0x000000">
                 <Sample Name="SAMPLE_0_0" FileName="Sample000" Offset="0x000000" SampleRate="16000" BaseNote="C4"/>
                 <Sample Name="InsectChirrup" FileName="InsectChirrup" Offset="0x0006E0" SampleRate="16000" BaseNote="C4"/>
                 <Sample Name="BirdChirp2" FileName="BirdChirp2" Offset="0x0008B0" SampleRate="16000" BaseNote="C4"/>
@@ -707,6 +707,8 @@
                 <Sample Name="SAMPLE_0_572" FileName="Sample572" Offset="0x3BE0A0" SampleRate="16000" BaseNote="C4"/>
                 <Sample Name="SAMPLE_0_573" FileName="Sample573" Offset="0x3BE6C0" SampleRate="16000" BaseNote="C4"/>
                 <Sample Name="SAMPLE_0_574" FileName="Sample574" Offset="0x3BF500" SampleRate="24000" BaseNote="GF3"/>
+            </Samples>
+            <Samples Bank="1" Offset="0x000000">
                 <Sample Name="VocalAahs" FileName="VocalAahs" Offset="0x3C0F20" SampleRate="22050" BaseNote="G3"/>
                 <Sample Name="ResonantVocalAahs" FileName="ResonantVocalAahs" Offset="0x3C83F0" SampleRate="22050" BaseNote="DF3"/>
                 <Sample Name="Harp2" FileName="Harp2" Offset="0x3D0630" SampleRate="24000" BaseNote="C4"/>
@@ -806,7 +808,7 @@
                 <Sample Name="VocalOhs" FileName="VocalOhs" Offset="0x52A260" SampleRate="24000" BaseNote="C4"/>
                 <Blob Name="UNACCOUNTED_530670_538CC0" Offset="0x530670" Size="0x8650" />
             </Samples>
-            <Samples Bank="2">
+            <Samples Bank="2" Offset="0x538CC0">
                 <Sample Name="GoronDrum" FileName="GoronDrum" Offset="0x000000" SampleRate="16000" BaseNote="C4"/>
                 <Sample Name="BassSlap" FileName="BassSlap" Offset="0x002540" SampleRate="32000" BaseNote="C4"/>
                 <Sample Name="GoronOoh" FileName="GoronOoh" Offset="0x004800" SampleRate="22050" BaseNote="BF4"/>

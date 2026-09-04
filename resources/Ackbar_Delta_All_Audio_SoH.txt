@@ -1,0 +1,461 @@
+Bird Chirp 1 : Bird Chirp 1
+Insect Chirrup : Insect Chirrup
+Bird Chirp 2 : Bird Chirp 2
+Crickets : Crickets
+Loud Bird Chirp : Loud Bird Chirp
+Crow Caws : Crow Caws
+Bird Call : Bird Call
+Bird Screech : Bird Screech
+Bird Song (Unused) : Bird Song (Unused)
+Owl Hoot : Owl Hoot
+Hawk Screech : Hawk Screech
+Small Bird Chirps : Small Bird Chirps
+Rushing Water : Rushing Water
+Howling Wind : Howling Wind
+Rainfall : Rainfall
+Low Thunder : Low Thunder
+Lightning : Lightning
+Howling Wind (Short) : Howling Wind (Short)
+Cucco Crows : Cucco Crows
+Cawing Bird : Cawing Bird
+Step - Ground : Step - Ground
+Step - Sand : Step - Sand
+Step - Rock : Step - Rock
+Step - Jabu Jabu : Step - Jabu Jabu
+Step - Water : Step - Water
+Step - Carpet : Step - Carpet
+Step - Thick Carpet : Step - Thick Carpet
+Step - Tall Grass : Step - Tall Grass
+Synth Pad Sting : Synth Pad Sting
+Small Splash : Small Splash
+Crunchy Drop : Crunchy Drop
+Sliding Block : Sliding Block
+Step - Wood : Step - Wood
+Boots Sliding : Boots Sliding
+Heavy Slide : Heavy Slide
+High Static : High Static
+Distorted Static : Distorted Static
+Heavy Static : Heavy Static
+Large Water Splash : Large Water Splash
+Swimming : Swimming
+Stone Doof : Stone Doof
+Step - Wooden Bridge : Step - Wooden Bridge
+Step - Fire : Step - Fire
+Iron Boots 2 : Iron Boots 2
+Step - Ice : Step - Ice
+Crackling Fire (Keese) : Crackling Fire (Keese)
+Metal Clink : Metal Clink
+Whish : Whish
+Sheathe Sword : Sheathe Sword
+Draw Sword : Draw Sword
+Air Swish : Air Swish
+Air Whistle : Air Whistle
+Bow Pulled Taut : Bow Pulled Taut
+Sword Striking Metal Shield : Sword Striking Metal Shield
+Moving Metal Chain : Moving Metal Chain
+Hissing Fuse : Hissing Fuse
+Heavy Thump : Heavy Thump
+Egg Hatching : Egg Hatching
+Arrow Thunk in Wood : Arrow Thunk in Wood
+Air Whoosh : Air Whoosh
+Broken Wood : Broken Wood
+Whip Snap : Whip Snap
+Buzzing Synth : Buzzing Synth
+Soft Thump : Soft Thump
+Sword Strike : Sword Strike
+Eye of Truth : Eye of Truth
+Popping Cork : Popping Cork
+Bowstring Twang : Bowstring Twang
+Bombchu Motor : Bombchu Motor
+Rupee : Rupee
+Opening Wooden Door : Opening Wooden Door
+Closing Wooden Door : Closing Wooden Door
+Explosion 1 : Explosion 1
+Gallop : Gallop
+Horse Neigh : Horse Neigh
+Flowing Creek : Flowing Creek
+Rushing Waterfall : Rushing Waterfall
+Mechanically Shifting Stone : Mechanically Shifting Stone
+Rolling Boulder : Rolling Boulder
+Bubbling Lava : Bubbling Lava
+Retracting Metal Chain : Retracting Metal Chain
+Relaxed Cucco Clucks : Relaxed Cucco Clucks
+Stone Strike : Stone Strike
+Horse Snort : Horse Snort
+Water Splish : Water Splish
+Wooden Strike : Wooden Strike
+Flying Fairy : Flying Fairy
+Settled Stone Block : Settled Stone Block
+Creaking Door : Creaking Door
+Creaking Wood : Creaking Wood
+Ignition : Ignition
+Warp Circle Ambience : Warp Circle Ambience
+Fairy Magic : Fairy Magic
+Water Drips : Water Drips
+Underwater Bubbles : Underwater Bubbles
+Fire Crackling : Fire Crackling
+Heavy Platform Rotating : Heavy Platform Rotating
+Light Rock Slam : Light Rock Slam
+Flapping Cloak : Flapping Cloak
+People Chattering : People Chattering
+Cloth Ripping : Cloth Ripping
+Mechanical Ramp-Up : Mechanical Ramp-Up
+Crystal Synth (Low) : Crystal Synth (Low)
+Shimmering Treasure : Shimmering Treasure
+Gunshot : Gunshot
+Wolf Howl : Wolf Howl
+Frog Ribbit : Frog Ribbit
+Dog Yip : Dog Yip
+Metal Door : Metal Door
+Cow Moo : Cow Moo
+Dialogue Continue (Harp) : Dialogue Continue (Harp)
+Dong (Failed Learning) : Dong (Failed Learning)
+Whistle : Whistle
+Clanging Bells : Clanging Bells
+Person Whistling : Person Whistling
+Ocarina_Looped : Ocarina_Looped
+Accordion : Accordion
+Harp 1 : Harp 1
+Malon : Malon
+Flute : Flute
+Tambo Drum : Tambo Drum
+Small Cymbal : Small Cymbal
+Z Target : Z Target
+Enemy Target Lock-On : Enemy Target Lock-On
+Adult Link - Spur Horse 1 : Adult Link - Spur Horse 1
+Adult Link - Spur Horse 2 : Adult Link - Spur Horse 2
+Adult Link - Attack 1 : Adult Link - Attack 1
+Adult Link - Attack 2 : Adult Link - Attack 2
+Adult Link - Attack 3 : Adult Link - Attack 3
+Adult Link - Attack 4 : Adult Link - Attack 4
+Adult Link - Hup : Adult Link - Hup
+Adult Link - Gasp 1 : Adult Link - Gasp 1
+Adult Link - Strong Attack 1 : Adult Link - Strong Attack 1
+Adult Link - Strong Attack 2 : Adult Link - Strong Attack 2
+Adult Link - Dangling Grunt : Adult Link - Dangling Grunt
+Adult Link - Dangling Gasp 1 : Adult Link - Dangling Gasp 1
+Adult Link - Climb Edge : Adult Link - Climb Edge
+Adult Link - Dangling Gasp 2 : Adult Link - Dangling Gasp 2
+Adult Link - Hurt 1 : Adult Link - Hurt 1
+Adult Link - Hurt 2 : Adult Link - Hurt 2
+Adult Link - Hurt 3 : Adult Link - Hurt 3
+Adult Link - Hurt 4 : Adult Link - Hurt 4
+Adult Link - Knocked Back : Adult Link - Knocked Back
+Adult Link - Hurt 5 : Adult Link - Hurt 5
+Adult Link - Falling 1 : Adult Link - Falling 1
+Adult Link - Falling 2 : Adult Link - Falling 2
+Adult Link - Gasp 2 : Adult Link - Gasp 2
+Adult Link - Gasp 3 : Adult Link - Gasp 3
+Adult Link - Pant 1 : Adult Link - Pant 1
+Adult Link - Pant 2 : Adult Link - Pant 2
+Adult Link - Glug : Adult Link - Glug
+Adult Link - Refreshed : Adult Link - Refreshed
+Adult Link - Lift (Unused) : Adult Link - Lift (Unused)
+Adult Link - Cast Attacking Magic : Adult Link - Cast Attacking Magic
+Adult Link - Painful Landing : Adult Link - Painful Landing
+Adult Link - Dramatic Gasp : Adult Link - Dramatic Gasp
+Adult Link - Hurt (Unused) : Adult Link - Hurt (Unused)
+Adult Link - Choking : Adult Link - Choking
+Adult Link - Gasping (Unused) : Adult Link - Gasping (Unused)
+Adult Link - Small Gasp (Unused) : Adult Link - Small Gasp (Unused)
+Adult Link - Unsettled Moan : Adult Link - Unsettled Moan
+Adult Link - Sneezes : Adult Link - Sneezes
+Adult Link - Sigh 1 : Adult Link - Sigh 1
+Adult Link - Sigh 2 : Adult Link - Sigh 2
+Adult Link - Sigh 3 : Adult Link - Sigh 3
+Adult Link - Stretch Start : Adult Link - Stretch Start
+Adult Link - Stretching : Adult Link - Stretching
+Adult Link - Finished Stretching : Adult Link - Finished Stretching
+Child Link - Attack 1 : Child Link - Attack 1
+Child Link - Attack 2 : Child Link - Attack 2
+Child Link - Attack 3 : Child Link - Attack 3
+Child Link - Attack 4 : Child Link - Attack 4
+Child Link - Hup 1 : Child Link - Hup 1
+Child Link - Hup 2 : Child Link - Hup 2
+Child Link - Strong Attack 1 : Child Link - Strong Attack 1
+Child Link - Strong Attack 2 : Child Link - Strong Attack 2
+Child Link - Dangling Gasp 1 : Child Link - Dangling Gasp 1
+Child Link - Dangling Gasp 2 : Child Link - Dangling Gasp 2
+Child Link - Sigh 1 : Child Link - Sigh 1
+Child Link - Sigh 2 : Child Link - Sigh 2
+Child Link - Hurt 1 : Child Link - Hurt 1
+Child Link - Hurt 2 : Child Link - Hurt 2
+Child Link - Hurt 3 : Child Link - Hurt 3
+Child Link - Hurt 4 : Child Link - Hurt 4
+Child Link - Knocked Back : Child Link - Knocked Back
+Child Link - Hurt 5 : Child Link - Hurt 5
+Child Link - Falling 1 : Child Link - Falling 1
+Child Link - Falling 2 : Child Link - Falling 2
+Child Link - Gasp 1 : Child Link - Gasp 1
+Child Link - Gasp 2 : Child Link - Gasp 2
+Child Link - Wheeze : Child Link - Wheeze
+Child Link - Exhausted Panting : Child Link - Exhausted Panting
+Child Link - Glug : Child Link - Glug
+Child Link - Refreshed : Child Link - Refreshed
+Child Link - Charge Up (Unused) : Child Link - Charge Up (Unused)
+Child Link - Cast Attack Spell : Child Link - Cast Attack Spell
+Child Link - Painful Landing : Child Link - Painful Landing
+Child Link - Dramatic Gasp : Child Link - Dramatic Gasp
+Child Link - Dying Gasp : Child Link - Dying Gasp
+Child Link - Strangled (Unused) : Child Link - Strangled (Unused)
+Child Link - Gasp 3 : Child Link - Gasp 3
+Child Link - Shivers : Child Link - Shivers
+Child Link - Sneeze : Child Link - Sneeze
+Child Link - Grunt : Child Link - Grunt
+Child Link - Moans From Heat : Child Link - Moans From Heat
+Child Link - Awakening Grunt : Child Link - Awakening Grunt
+Child Link - Wiping Off Sweat : Child Link - Wiping Off Sweat
+Child Link - Yawn Starts : Child Link - Yawn Starts
+Child Link - Yawn and Stretch : Child Link - Yawn and Stretch
+Child Link - Stretch Refreshingly : Child Link - Stretch Refreshingly
+Navi - Watch Out! : Navi - Watch Out!
+Navi - Look! : Navi - Look!
+Navi - Hey! : Navi - Hey!
+Navi - Listen! : Navi - Listen!
+Navi - Hello! : Navi - Hello!
+Talon Snoring : Talon Snoring
+Talon Startled : Talon Startled
+Talon Distressed : Talon Distressed
+Talon Fearful : Talon Fearful
+Great Fairy Laughter : Great Fairy Laughter
+Great Fairy Titters : Great Fairy Titters
+Ingo Yowls : Ingo Yowls
+Ingo Exclaims : Ingo Exclaims
+Ingo - Hyeaaaaugh : Ingo - Hyeaaaaugh
+Ingo - Hyah! : Ingo - Hyah!
+Girl Gasps : Girl Gasps
+Girl Screams 1 : Girl Screams 1
+Girl Inquiring 1 : Girl Inquiring 1
+Girl Hurt : Girl Hurt
+Girl Startled 1 : Girl Startled 1
+Girl Screams 2 : Girl Screams 2
+Girl Delighted : Girl Delighted
+Girl Surprised 1 : Girl Surprised 1
+Girl Surprised 2 : Girl Surprised 2
+Girl Discombobulated (Unused) : Girl Discombobulated (Unused)
+Woman Yells : Woman Yells
+Woman Yells, Startled : Woman Yells, Startled
+Woman Grunts : Woman Grunts
+Woman Hup : Woman Hup
+Girl Sighs : Girl Sighs
+Girl Startled 2 : Girl Startled 2
+Girl Inquiring 2 : Girl Inquiring 2
+Girl Disappointed : Girl Disappointed
+Girl Laughing : Girl Laughing
+Girl Startled 3 : Girl Startled 3
+Girl Grunts in Effort : Girl Grunts in Effort
+Girl Screams 3 : Girl Screams 3
+Girl Screams 4 : Girl Screams 4
+Girl Sighs Contentedly : Girl Sighs Contentedly
+Girl Surprised 3 : Girl Surprised 3
+Girl Scared : Girl Scared
+Skulltula Screaming : Skulltula Screaming
+Skulltula Grunts Angrily : Skulltula Grunts Angrily
+King Zora Scoots : King Zora Scoots
+Flamethrower : Flamethrower
+Dodongo Roar : Dodongo Roar
+Heavy Rumbling : Heavy Rumbling
+Clattering Spear : Clattering Spear
+Ganon's Electrical Charge : Ganon's Electrical Charge
+Dramatic Swoosh : Dramatic Swoosh
+Broken Pottery : Broken Pottery
+Shattered Glass : Shattered Glass
+Heavy Gunshot : Heavy Gunshot
+Dodongo Inhale : Dodongo Inhale
+Gulp : Gulp
+Rustling Thicket : Rustling Thicket
+Cracking Egg : Cracking Egg
+Resounding Smash : Resounding Smash
+Cloaking Poe : Cloaking Poe
+Chittering Keese : Chittering Keese
+Rustling Large Wings : Rustling Large Wings
+Guay Hurt : Guay Hurt
+Scritch : Scritch
+Gruff Voice : Gruff Voice
+Lizalfos Triumphant Cry : Lizalfos Triumphant Cry
+Lizalfos Foot Patter : Lizalfos Foot Patter
+Lizalfos Laughter : Lizalfos Laughter
+Deku Scrub Collapses : Deku Scrub Collapses
+Broken Small Pottery : Broken Small Pottery
+Monstrous Growl : Monstrous Growl
+Moaning Phantom Ganon : Moaning Phantom Ganon
+Phantom Ganon Laughing : Phantom Ganon Laughing
+Gerudo Scimitar Slash : Gerudo Scimitar Slash
+Deku Baba Chomp : Deku Baba Chomp
+Deku Baba Lunge : Deku Baba Lunge
+Buzzing : Buzzing
+Electric Burst : Electric Burst
+Ganondorf Hovering : Ganondorf Hovering
+Magical Charge-Up : Magical Charge-Up
+Echoing Thunderburst : Echoing Thunderburst
+Phantom Ganon in Agony : Phantom Ganon in Agony
+Phantom Ganon Attacks : Phantom Ganon Attacks
+Phantom Ganon Groans (Unused) : Phantom Ganon Groans (Unused)
+Thunder and Groan : Thunder and Groan
+Goron and Redead Moan : Goron and Redead Moan
+Phantom Ganon Growls : Phantom Ganon Growls
+Goron Inquiring : Goron Inquiring
+Goron Recognizes : Goron Recognizes
+Goron Yawns : Goron Yawns
+Witch Cackles 1 : Witch Cackles 1
+Witch Cackles 2 : Witch Cackles 2
+Witch Hurt : Witch Hurt
+Witch Attacks : Witch Attacks
+Witch Inquires : Witch Inquires
+Witch Yells a Curse : Witch Yells a Curse
+Witch Arguing : Witch Arguing
+Witch Surprised : Witch Surprised
+Twinrova Gasps : Twinrova Gasps
+Twinrova Thrown Off : Twinrova Thrown Off
+Twinrova Laughs : Twinrova Laughs
+Witch Howls : Witch Howls
+Woman Chuckles : Woman Chuckles
+Witch Charges (Unused) : Witch Charges (Unused)
+Iron Knuckle Attacks : Iron Knuckle Attacks
+Finger Snap : Finger Snap
+Iron Knuckle Grunt (Unused) : Iron Knuckle Grunt (Unused)
+Iron Knuckle Charges : Iron Knuckle Charges
+Iron Knuckle Dies : Iron Knuckle Dies
+Iron Knuckle Grunts : Iron Knuckle Grunts
+Iron Knuckle Murmurs (Unused) : Iron Knuckle Murmurs (Unused)
+Muted Timpani : Muted Timpani
+Chanting : Chanting
+Gerudo Attacks : Gerudo Attacks
+Gerudo Breathes : Gerudo Breathes
+Gerudo Hurt : Gerudo Hurt
+Gerudo Vanquished : Gerudo Vanquished
+Enemy Struck : Enemy Struck
+Ganondorf Laughing : Ganondorf Laughing
+Ganondorf Attacks : Ganondorf Attacks
+Ganondorf Heavy Attack : Ganondorf Heavy Attack
+Ganondorf Rebuffs : Ganondorf Rebuffs
+Ganondorf Strikes the Ground : Ganondorf Strikes the Ground
+Ganondorf Hurt 1 : Ganondorf Hurt 1
+Ganondorf Hurt 2 : Ganondorf Hurt 2
+Ganondorf Breathes (Unused) : Ganondorf Breathes (Unused)
+Ganondorf Recovers : Ganondorf Recovers
+Ganondorf Gurgling Yell (Unused) : Ganondorf Gurgling Yell (Unused)
+Ganondorf Dying Breath : Ganondorf Dying Breath
+Ganondorf Vomits : Ganondorf Vomits
+Ganondorf Yells in Defiance : Ganondorf Yells in Defiance
+Ganondorf's Final Attack (Unused) : Ganondorf's Final Attack (Unused)
+Ganondorf's Final Attack 2 (Unused) : Ganondorf's Final Attack 2 (Unused)
+Ganondorf Chuckles : Ganondorf Chuckles
+Redead Scream : Redead Scream
+Monstrous Roaring : Monstrous Roaring
+Larval Sound Base : Larval Sound Base
+Dinosaur Cry : Dinosaur Cry
+Phantom Ganon's Laughter : Phantom Ganon's Laughter
+Iron Boots 1 : Iron Boots 1
+Metal Clink (Copy) : Metal Clink (Copy)
+Ocarina_Bank1 : Ocarina_Looped
+Accordion : Accordion
+Harp 1 : Harp 1
+Malon : Malon
+Flute : Flute
+Ghostly Wind : Ghostly Wind
+Ghostly Echoes : Ghostly Echoes
+Echoing Drums : Echoing Drums
+Vocal Oohs : Vocal Oohs
+Vocal Eees : Vocal Eees
+Rattling Scream : Rattling Scream
+Harpsichord : Harpsichord
+Piano : Piano
+Piano (Soft) : Piano (Soft)
+Vocal Aahs : Vocal Aahs
+Resonant Vocal Aahs : Resonant Vocal Aahs
+Harp 2 : Harp 2
+Glockenspiel : Glockenspiel
+Mechanical Rumbling : Mechanical Rumbling
+Trumpet : Trumpet
+Trombone : Trombone
+Tuba : Tuba
+Bass Drum 1 : Bass Drum 1
+Snare Drum 1 : Snare Drum 1
+Snare Drum 2 : Snare Drum 2
+Cymbal : Cymbal
+Timpani : Timpani
+Strings (Low) : Strings (Low)
+Strings 1 : Strings 1
+Strings 2 : Strings 2
+Fiddle : Fiddle
+Acoustic Guitar 1 : Acoustic Guitar 1
+Acoustic Guitar 2 : Acoustic Guitar 2
+Tom Drum : Tom Drum
+Drum Sidestick : Drum Sidestick
+Finger Cymbals : Finger Cymbals
+Oboe : Oboe
+Bassoon : Bassoon
+Harp 3 : Harp 3
+Pizzicato Violin : Pizzicato Violin
+Church Organ : Church Organ
+Electric Organ : Electric Organ
+Horn : Horn
+Bass Guitar : Bass Guitar
+Clap : Clap
+Sample_590 : Sample_590
+Sample_591 : Sample_591
+Islamic Chant : Islamic Chant
+Resonant Bass Marimba : Resonant Bass Marimba
+Haunting Wind : Haunting Wind
+Off Hi-Hat : Off Hi-Hat
+Drum and Sitar : Drum and Sitar
+Percussive Resonance : Percussive Resonance
+Clarinet : Clarinet
+Harpsichord (High) : Harpsichord (High)
+Marimba 1 : Marimba 1
+Marimba 2 : Marimba 2
+Crystal Synth : Crystal Synth
+Sitar : Sitar
+Koto : Koto
+Some Manner of Drum : Some Manner of Drum
+Another Type of Drum : Another Type of Drum
+Quick Drum : Quick Drum
+Gong : Gong
+Windchimes : Windchimes
+Goron Drum : Goron Drum
+Melodic Wooden Clacking : Melodic Wooden Clacking
+Vocal Ohs : Vocal Ohs
+Flute and Voice : Flute and Voice
+Off-Kilter Flute : Off-Kilter Flute
+Voice : Voice
+Drum 1 : Drum 1
+Drum 2 : Drum 2
+Slap Bass : Slap Bass
+Shaker : Shaker
+Cowbell : Cowbell
+Guitar (Low) : Guitar (Low)
+Guitar : Guitar
+Guitar (High) : Guitar (High)
+Viola : Viola
+Church Bell : Church Bell
+Goron Oh (High) : Goron Oh (High)
+Goron Oh : Goron Oh
+Banjo (Low) : Banjo (Low)
+Banjo : Banjo
+Steel Drum : Steel Drum
+Steel Drum (High) : Steel Drum (High)
+Warm Pad : sample_2_003FA9E0
+Low Rumbling : sample_3_004006B0
+Drum Sidestick : sample_3_00409270
+Low Drum : sample_3_0040AC40
+Sweep Pad : sample_3_0040BA60
+Organic Gurgling : sample_3_00416B30
+Vocal Ohs : Vocal Ohs
+Flute and Voice : Flute and Voice
+Off-Kilter Flute : Off-Kilter Flute
+Voice : Voice
+Melodic Wooden Clacking : Melodic Wooden Clacking
+Goron Drum : sample_5_00427D30
+Bass Slap : sample_5_0042A270
+Goron Ooh : sample_5_0042C530
+Goron Ooh (High) : sample_5_0042F000
+Tom Drum : sample_5_0042F8A0
+Resonant Bass Marimba : sample_5_00430360
+Warm Synth Pad : sample_6_004377E0
+Egyptian Flute : sample_6_004428B0
+Tom Drum : sample_6_00445900
+Vocal Synth : sample_6_00447BC0
+Gong : sample_6_0044A690
+Bass Slap : sample_6_00454BC0
+Windchimes : sample_6_0045A6C0

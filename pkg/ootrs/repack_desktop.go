@@ -1,6 +1,6 @@
 //go:build !wasm
 
-package mmrs
+package ootrs
 
 import (
 	"os"
@@ -11,11 +11,10 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-// Converts .mmrs to soundfont (if applicable) and sequence pair.
-func RepackArchive(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, bankId uint64) (uint16, error) {
+func RepackArchive(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, tm *maps.TranslationMap, bankId uint64) (uint16, error) {
 	archive, err := sreader.OpenArchive(filepath.Join(musicSrcPath, file.Name()))
 	if err != nil {
 		return 0, err
 	}
-	return RepackArchiveFromZipReader(archive, lw, cw, am, bankId)
+	return RepackArchiveFromZipReader(archive, lw, cw, am, tm, bankId)
 }

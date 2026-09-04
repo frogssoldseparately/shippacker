@@ -3,13 +3,20 @@
 package main
 
 import (
+	"archive/zip"
+	"fmt"
+	"strings"
 	"syscall/js"
 
+	"github.com/frogssoldseparately/shippacker/pkg/globals"
+	"github.com/frogssoldseparately/shippacker/pkg/ootrs"
 	"github.com/frogssoldseparately/shippacker/pkg/shippacker"
+	"github.com/frogssoldseparately/simpleseek/sreader"
 )
 
 func main() {
 	js.Global().Set("PackO2R", js.FuncOf(PackO2R))
+	js.Global().Set("AddOoTO2R", js.FuncOf(AddOoTO2R))
 	<-make(chan bool)
 }
 
@@ -35,4 +42,22 @@ func PackO2R(this js.Value, args []js.Value) any {
 	})
 	promiseConstructor := js.Global().Get("Promise")
 	return promiseConstructor.New(handler)
+}
+
+func AddOoTO2R(this js.Value, args []js.Value) any {
+	buf := make([]byte, args[0].Length())
+	js.CopyBytesToGo(buf, args[0])
+	archive, err := sreader.OpenArchiveFromBytes("oot.o2r", &buf)
+	if err != nil {
+		fmt.Printf("Could not open archive because %s\n", err)
+	}
+	soundfontEntries := []*zip.File{}
+	for _, entry := range archive.GetFiles() {
+		if strings.Contains(entry.Name, "audio/fonts/") {
+			soundfontEntries = append(soundfontEntries, entry)
+		}
+	}
+	ootrs.PrepareOotSoundfonts(&soundfontEntries)
+	globals.HasOotO2r = true
+	return nil
 }

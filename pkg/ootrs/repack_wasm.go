@@ -1,6 +1,6 @@
 //go:build wasm
 
-package mmrs
+package ootrs
 
 import (
 	"syscall/js"
@@ -12,8 +12,7 @@ import (
 
 var fetch = js.Global().Get("fetch")
 
-// Converts .mmrs to soundfont (if applicable) and sequence pair.
-func RepackArchive(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, bankId uint64) (uint16, error) {
+func RepackArchive(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, tm *maps.TranslationMap, bankId uint64) (uint16, error) {
 	newFileCount := uint16(0)
 	awaitable := fetch.Invoke(srcPath)
 	ch := make(chan []js.Value)
@@ -37,7 +36,7 @@ func RepackArchive(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleW
 		if err != nil {
 			cc <- err
 		} else {
-			newFileCount, err = RepackArchiveFromZipReader(archive, lw, cw, am, bankId)
+			newFileCount, err = RepackArchiveFromZipReader(archive, lw, cw, am, tm, bankId)
 			cc <- err
 		}
 	}()

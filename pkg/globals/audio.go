@@ -4,16 +4,21 @@ import _ "embed"
 
 //go:embed Keiichi_Charlie_GC_US_Audio_Stub.xml
 var keiichi_charlie_gc_us_audio_file []byte
+
 //go:embed Keiichi_Charlie_N64_US_Audio_Stub.xml
 var keiichi_charlie_n64_us_audio_file []byte
 
+//go:embed Ackbar_Delta_N64_NTSC_10_Audio_Stub.xml
+var ackbar_delta_n64_ntsc_10_audio_file []byte
+
 var SampleXmls = map[string][]byte{
-    "keiichi_charlie_gc_us" : keiichi_charlie_gc_us_audio_file,
+	"keiichi_charlie_gc_us" : keiichi_charlie_gc_us_audio_file,
 	"keiichi_charlie_n64_us" : keiichi_charlie_n64_us_audio_file,
+	"ackbar_delta_n64_ntsc_10" : ackbar_delta_n64_ntsc_10_audio_file,
 }
 
 var SupportedVersions = []string{
-    "Keiichi_Charlie",
+	"Keiichi_Charlie",
 	"Better_Categories",
 	"Uncapped_Banks",
 }

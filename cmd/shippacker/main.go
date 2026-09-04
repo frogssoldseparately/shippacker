@@ -3,11 +3,15 @@
 package main
 
 import (
+	"archive/zip"
 	"fmt"
+	"strings"
 
 	"github.com/frogssoldseparately/shippacker/internal/cli"
 	"github.com/frogssoldseparately/shippacker/pkg/globals"
+	"github.com/frogssoldseparately/shippacker/pkg/ootrs"
 	"github.com/frogssoldseparately/shippacker/pkg/shippacker"
+	"github.com/frogssoldseparately/simpleseek/sreader"
 )
 
 // The entry point for shippacker.exe. Packages .*seq, .mmrs, and .seq+.meta pairs into an
@@ -31,6 +35,16 @@ func main() {
 		}
 	}
 	if !failedStartup {
+		if ootO2RArchive, err := sreader.OpenArchive("oot.o2r"); err == nil {
+			soundfontEntries := []*zip.File{}
+			for _, entry := range ootO2RArchive.GetFiles() {
+				if strings.Contains(entry.Name, "audio/fonts/") {
+					soundfontEntries = append(soundfontEntries, entry)
+				}
+			}
+			ootrs.PrepareOotSoundfonts(&soundfontEntries)
+			globals.HasOotO2r = true
+		}
 		// Get packing!
 		err := shippacker.Pack(cli.MusicSrcPath, cli.O2ROutPath)
 		if err != nil {

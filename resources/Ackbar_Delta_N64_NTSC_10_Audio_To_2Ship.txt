@@ -1,0 +1,461 @@
+Bird Chirp 1 : SAMPLE_0_0
+Insect Chirrup : InsectChirrup
+Bird Chirp 2 : BirdChirp2
+Crickets : SAMPLE_0_3
+Loud Bird Chirp : SAMPLE_0_4
+Crow Caws : CrowCaws
+Bird Call : BirdCall
+Bird Screech : BirdScreech
+Bird Song (Unused) : BirdSongUnused
+Owl Hoot : SAMPLE_0_9
+Hawk Screech : SAMPLE_0_10
+Small Bird Chirps : SmallBirdChirps
+Rushing Water : SAMPLE_0_12
+Howling Wind : Howling
+Rainfall : unknown
+Low Thunder : unknown
+Lightning : unknown
+Howling Wind (Short) : HowlingWindShort
+Cucco Crows : CuccoCrows
+Cawing Bird : CawingBird
+Step - Ground : StepGround
+Step - Sand : StepSand
+Step - Rock : StepRock
+Step - Jabu Jabu : StepJabuJabu
+Step - Water : StepWater
+Step - Carpet : StepCarpet
+Step - Thick Carpet : StepThickCarpet
+Step - Tall Grass : StepTallGrass
+Synth Pad Sting : SynthPadSting
+Small Splash : SmallSplash
+Crunchy Drop : CrunchyDrop
+Sliding Block : SlidingBlock
+Step - Wood : StepWood
+Boots Sliding : BootsSliding
+Heavy Slide : HeavySlide
+High Static : HighStatic
+Distorted Static : DistortedStatic
+Heavy Static : HeavyStatic
+Large Water Splash : LargeWaterSplash
+Swimming : Swimming
+Stone Doof : StoneDoof
+Step - Wooden Bridge : StepWoodenBridge
+Step - Fire : StepFire
+Iron Boots 2 : unknown
+Step - Ice : StepIce
+Crackling Fire (Keese) : unknown
+Metal Clink : MetalClink
+Whish : Whish
+Sheathe Sword : SheatheSword
+Draw Sword : DrawSword
+Air Swish : AirSwish
+Air Whistle : AirWhistle
+Bow Pulled Taut : SAMPLE_0_55
+Sword Striking Metal Shield : SwordStrikingMetalShield
+Moving Metal Chain : MovingMetalChain
+Hissing Fuse : SAMPLE_0_58
+Heavy Thump : HeavyThump
+Egg Hatching : EggHatching
+Arrow Thunk in Wood : ArrowThunkinWood
+Air Whoosh : AirWhoosh
+Broken Wood : BrokenWood
+Whip Snap : WhipSnap
+Buzzing Synth : BuzzingSynth
+Soft Thump : SoftThump
+Sword Strike : SwordStrike
+Eye of Truth : EyeofTruth
+Popping Cork : PoppingCork
+Bowstring Twang : BowstringTwang
+Bombchu Motor : BombchuMotor
+Rupee : Rupee
+Opening Wooden Door : SAMPLE_0_75
+Closing Wooden Door : ClosingWoodenDoor
+Explosion 1 : Explosion1
+Gallop : Gallop
+Horse Neigh : HorseNeigh
+Flowing Creek : FlowingCreek
+Rushing Waterfall : RushingWaterfall
+Mechanically Shifting Stone : MechanicallyShiftingStone
+Rolling Boulder : RollingBoulder
+Bubbling Lava : SAMPLE_0_84
+Retracting Metal Chain : RetractingMetalChain
+Relaxed Cucco Clucks : RelaxedCuccoClucks
+Stone Strike : StoneStrike
+Horse Snort : HorseSnort
+Water Splish : WaterSplish
+Wooden Strike : WoodenStrike
+Flying Fairy : FlyingFairy
+Settled Stone Block : SettledStoneBlock
+Creaking Door : SAMPLE_0_93
+Creaking Wood : CreakingWood
+Ignition : Ignition
+Warp Circle Ambience : WarpCircleAmbience
+Fairy Magic : FairyMagic
+Water Drips : WaterDrips
+Underwater Bubbles : UnderwaterBubbles
+Fire Crackling : SAMPLE_0_100
+Heavy Platform Rotating : HeavyPlatformRotating
+Light Rock Slam : LightRockSlam
+Flapping Cloak : FlappingCloak
+People Chattering : SAMPLE_0_104
+Cloth Ripping : ClothRipping
+Mechanical Ramp-Up : MechanicalRampUp
+Crystal Synth (Low) : SAMPLE_0_107
+Shimmering Treasure : ShimmeringTreasure
+Gunshot : Gunshot
+Wolf Howl : WolfHowl
+Frog Ribbit : SAMPLE_0_111
+Dog Yip : DogYip
+Metal Door : MetalDoor
+Cow Moo : CowMoo
+Dialogue Continue (Harp) : DialogueContinueHarp
+Dong (Failed Learning) : DongFailedLearning
+Whistle : Whistle
+Clanging Bells : ClangingBells
+Person Whistling : PersonWhistling
+Ocarina_Looped : Ocarina_Looped
+Accordion : Accordion
+Harp 1 : Harp1
+Malon : Malon
+Flute : Flute
+Tambo Drum : TamboDrum
+Small Cymbal : unknown
+Z Target : ZTarget
+Enemy Target Lock-On : EnemyTargetLockOn
+Adult Link - Spur Horse 1 : unknown
+Adult Link - Spur Horse 2 : unknown
+Adult Link - Attack 1 : AdultLinkAttack1
+Adult Link - Attack 2 : AdultLinkAttack2
+Adult Link - Attack 3 : AdultLinkAttack3
+Adult Link - Attack 4 : AdultLinkAttack4
+Adult Link - Hup : AdultLinkHup
+Adult Link - Gasp 1 : AdultLinkGasp1
+Adult Link - Strong Attack 1 : AdultLinkStrongAttack1
+Adult Link - Strong Attack 2 : AdultLinkStrongAttack2
+Adult Link - Dangling Grunt : unknown
+Adult Link - Dangling Gasp 1 : unknown
+Adult Link - Climb Edge : unknown
+Adult Link - Dangling Gasp 2 : unknown
+Adult Link - Hurt 1 : unknown
+Adult Link - Hurt 2 : unknown
+Adult Link - Hurt 3 : unknown
+Adult Link - Hurt 4 : unknown
+Adult Link - Knocked Back : unknown
+Adult Link - Hurt 5 : unknown
+Adult Link - Falling 1 : AdultLinkFalling1
+Adult Link - Falling 2 : AdultLinkFalling2
+Adult Link - Gasp 2 : unknown
+Adult Link - Gasp 3 : unknown
+Adult Link - Pant 1 : unknown
+Adult Link - Pant 2 : unknown
+Adult Link - Glug : unknown
+Adult Link - Refreshed : unknown
+Adult Link - Lift (Unused) : unknown
+Adult Link - Cast Attacking Magic : unknown
+Adult Link - Painful Landing : unknown
+Adult Link - Dramatic Gasp : unknown
+Adult Link - Hurt (Unused) : unknown
+Adult Link - Choking : unknown
+Adult Link - Gasping (Unused) : unknown
+Adult Link - Small Gasp (Unused) : unknown
+Adult Link - Unsettled Moan : unknown
+Adult Link - Sneezes : unknown
+Adult Link - Sigh 1 : unknown
+Adult Link - Sigh 2 : unknown
+Adult Link - Sigh 3 : unknown
+Adult Link - Stretch Start : unknown
+Adult Link - Stretching : unknown
+Adult Link - Finished Stretching : unknown
+Child Link - Attack 1 : unknown
+Child Link - Attack 2 : unknown
+Child Link - Attack 3 : unknown
+Child Link - Attack 4 : unknown
+Child Link - Hup 1 : unknown
+Child Link - Hup 2 : unknown
+Child Link - Strong Attack 1 : ChildLinkStrongAttack1
+Child Link - Strong Attack 2 : ChildLinkStrongAttack2
+Child Link - Dangling Gasp 1 : unknown
+Child Link - Dangling Gasp 2 : unknown
+Child Link - Sigh 1 : unknown
+Child Link - Sigh 2 : unknown
+Child Link - Hurt 1 : unknown
+Child Link - Hurt 2 : unknown
+Child Link - Hurt 3 : unknown
+Child Link - Hurt 4 : unknown
+Child Link - Knocked Back : unknown
+Child Link - Hurt 5 : unknown
+Child Link - Falling 1 : unknown
+Child Link - Falling 2 : unknown
+Child Link - Gasp 1 : ChildLinkGasp1
+Child Link - Gasp 2 : ChildLinkGasp2
+Child Link - Wheeze : unknown
+Child Link - Exhausted Panting : unknown
+Child Link - Glug : ChildLinkGlug
+Child Link - Refreshed : unknown
+Child Link - Charge Up (Unused) : ChildLinkChargeUpUnused
+Child Link - Cast Attack Spell : ChildLinkCastAttackSpell
+Child Link - Painful Landing : unknown
+Child Link - Dramatic Gasp : unknown
+Child Link - Dying Gasp : unknown
+Child Link - Strangled (Unused) : unknown
+Child Link - Gasp 3 : unknown
+Child Link - Shivers : ChildLinkShivers
+Child Link - Sneeze : ChildLinkSneeze
+Child Link - Grunt : ChildLinkGrunt
+Child Link - Moans From Heat : ChildLinkMoansFromHeat
+Child Link - Awakening Grunt : ChildLinkAwakeningGrunt
+Child Link - Wiping Off Sweat : ChildLinkWipingOffSweat
+Child Link - Yawn Starts : ChildLinkYawnStarts
+Child Link - Yawn and Stretch : ChildLinkYawnandStretch
+Child Link - Stretch Refreshingly : ChildLinkStretchRefreshingly
+Navi - Watch Out! : unknown
+Navi - Look! : unknown
+Navi - Hey! : unknown
+Navi - Listen! : unknown
+Navi - Hello! : unknown
+Talon Snoring : unknown
+Talon Startled : unknown
+Talon Distressed : unknown
+Talon Fearful : unknown
+Great Fairy Laughter : GreatFairyLaughter
+Great Fairy Titters : GreatFairyTitters
+Ingo Yowls : IngoYowls
+Ingo Exclaims : IngoExclaims
+Ingo - Hyeaaaaugh : IngoHyeaaaaugh
+Ingo - Hyah! : IngoHyah
+Girl Gasps : unknown
+Girl Screams 1 : unknown
+Girl Inquiring 1 : unknown
+Girl Hurt : unknown
+Girl Startled 1 : unknown
+Girl Screams 2 : unknown
+Girl Delighted : unknown
+Girl Surprised 1 : unknown
+Girl Surprised 2 : unknown
+Girl Discombobulated (Unused) : unknown
+Woman Yells : unknown
+Woman Yells, Startled : unknown
+Woman Grunts : unknown
+Woman Hup : unknown
+Girl Sighs : unknown
+Girl Startled 2 : unknown
+Girl Inquiring 2 : unknown
+Girl Disappointed : unknown
+Girl Laughing : unknown
+Girl Startled 3 : unknown
+Girl Grunts in Effort : unknown
+Girl Screams 3 : unknown
+Girl Screams 4 : unknown
+Girl Sighs Contentedly : unknown
+Girl Surprised 3 : unknown
+Girl Scared : unknown
+Skulltula Screaming : unknown
+Skulltula Grunts Angrily : unknown
+King Zora Scoots : unknown
+Flamethrower : unknown
+Dodongo Roar : unknown
+Heavy Rumbling : unknown
+Clattering Spear : ClatteringSpear
+Ganon's Electrical Charge : GanonsElectricalCharge
+Dramatic Swoosh : DramaticSwoosh
+Broken Pottery : BrokenPottery
+Shattered Glass : ShatteredGlass
+Heavy Gunshot : HeavyGunshot
+Dodongo Inhale : DodongoInhale
+Gulp : Gulp
+Rustling Thicket : RustlingThicket
+Cracking Egg : CrackingEgg
+Resounding Smash : ResoundingSmash
+Cloaking Poe : CloakingPoe
+Chittering Keese : ChitteringKeese
+Rustling Large Wings : RustlingLargeWings
+Guay Hurt : GuayHurt
+Scritch : Scritch
+Gruff Voice : GruffVoice
+Lizalfos Triumphant Cry : LizalfosTriumphantCry
+Lizalfos Foot Patter : LizalfosFootPatter
+Lizalfos Laughter : LizalfosLaughter
+Deku Scrub Collapses : DekuScrubCollapses
+Broken Small Pottery : BrokenSmallPottery
+Monstrous Growl : MonstrousGrowl
+Moaning Phantom Ganon : MoaningPhantomGanon
+Phantom Ganon Laughing : PhantomGanonLaughing
+Gerudo Scimitar Slash : GerudoScimitarSlash
+Deku Baba Chomp : DekuBabaChomp
+Deku Baba Lunge : DekuBabaLunge
+Buzzing : Buzzing
+Electric Burst : ElectricBurst
+Ganondorf Hovering : unknown
+Magical Charge-Up : unknown
+Echoing Thunderburst : unknown
+Phantom Ganon in Agony : unknown
+Phantom Ganon Attacks : PhantomGanonAttacks
+Phantom Ganon Groans (Unused) : unknown
+Thunder and Groan : unknown
+Goron and Redead Moan : GoronandRedeadMoan
+Phantom Ganon Growls : unknown
+Goron Inquiring : GoronInquiring
+Goron Recognizes : GoronRecognizes
+Goron Yawns : GoronYawn
+Witch Cackles 1 : unknown
+Witch Cackles 2 : unknown
+Witch Hurt : unknown
+Witch Attacks : unknown
+Witch Inquires : unknown
+Witch Yells a Curse : unknown
+Witch Arguing : unknown
+Witch Surprised : unknown
+Twinrova Gasps : unknown
+Twinrova Thrown Off : unknown
+Twinrova Laughs : unknown
+Witch Howls : unknown
+Woman Chuckles : unknown
+Witch Charges (Unused) : unknown
+Iron Knuckle Attacks : IronKnuckleAttacks
+Finger Snap : unknown
+Iron Knuckle Grunt (Unused) : IronKnuckleGruntUnused
+Iron Knuckle Charges : IronKnuckleCharges
+Iron Knuckle Dies : IronKnuckleDies
+Iron Knuckle Grunts : IronKnuckleGrunts
+Iron Knuckle Murmurs (Unused) : unknown
+Muted Timpani : unknown
+Chanting : unknown
+Gerudo Attacks : unknown
+Gerudo Breathes : unknown
+Gerudo Hurt : unknown
+Gerudo Vanquished : unknown
+Enemy Struck : EnemyStruck
+Ganondorf Laughing : unknown
+Ganondorf Attacks : unknown
+Ganondorf Heavy Attack : unknown
+Ganondorf Rebuffs : unknown
+Ganondorf Strikes the Ground : unknown
+Ganondorf Hurt 1 : unknown
+Ganondorf Hurt 2 : unknown
+Ganondorf Breathes (Unused) : unknown
+Ganondorf Recovers : unknown
+Ganondorf Gurgling Yell (Unused) : unknown
+Ganondorf Dying Breath : unknown
+Ganondorf Vomits : unknown
+Ganondorf Yells in Defiance : unknown
+Ganondorf's Final Attack (Unused) : unknown
+Ganondorf's Final Attack 2 (Unused) : unknown
+Ganondorf Chuckles : unknown
+Redead Scream : RedeadScream
+Monstrous Roaring : unknown
+Larval Sound Base : unknown
+Dinosaur Cry : unknown
+Phantom Ganon's Laughter : unknown
+Iron Boots 1 : unknown
+Metal Clink (Copy) : unknown
+Ocarina_Looped : unknown
+Accordion : Accordion
+Harp 1 : Harp1
+Malon : Malon
+Flute : Flute
+Ghostly Wind : unknown
+Ghostly Echoes : unknown
+Echoing Drums : unknown
+Vocal Oohs : sample_1_00483620
+Vocal Eees : sample_1_004889B0
+Rattling Scream : unknown
+Harpsichord : sample_1_003F9010
+Piano : sample_1_004009E0
+Piano (Soft) : PianoSoft
+Vocal Aahs : sample_1_003C0F20
+Resonant Vocal Aahs : sample_1_003C83F0
+Harp 2 : sample_1_003D0630
+Glockenspiel : sample_1_003D42E0
+Mechanical Rumbling : unknown
+Trumpet : sample_1_0042F0D0
+Trombone : sample_1_003F43C0
+Tuba : sample_1_004328B0
+Bass Drum 1 : sample_1_003D9670
+Snare Drum 1 : sample_1_003DE410
+Snare Drum 2 : sample_1_003E0BA0
+Cymbal : sample_1_003E3330
+Timpani : Timpani
+Strings (Low) : sample_1_00419100
+Strings 1 : sample_1_0041E120
+Strings 2 : sample_1_004227D0
+Fiddle : sample_1_00435820
+Acoustic Guitar 1 : sample_1_00437AD0
+Acoustic Guitar 2 : sample_1_0043BB30
+Tom Drum : sample_2_00540830
+Drum Sidestick : sample_1_003F3980
+Finger Cymbals : FingerCymbals
+Oboe : sample_1_004264C0
+Bassoon : sample_1_0043E560
+Harp 3 : sample_1_0043FA60
+Pizzicato Violin : sample_1_00442D20
+Church Organ : unknown
+Electric Organ : unknown
+Horn : sample_1_00427770
+Bass Guitar : sample_1_004461A0
+Clap : unknown
+Sample_590 : unknown
+Sample_591 : unknown
+Islamic Chant : unknown
+Resonant Bass Marimba : sample_2_005412F0
+Haunting Wind : sample_1_004520D0
+Off Hi-Hat : unknown
+Drum and Sitar : unknown
+Percussive Resonance : unknown
+Clarinet : sample_1_004EC650
+Harpsichord (High) : sample_1_004DEB10
+Marimba 1 : sample_1_00513220
+Marimba 2 : sample_1_005158C0
+Crystal Synth : sample_1_0044A130
+Sitar : sample_1_004B6610
+Koto : sample_1_004B9CE0
+Some Manner of Drum : sample_1_004BE590
+Another Type of Drum : sample_1_004BF5B0
+Quick Drum : sample_1_004C0DA0
+Gong : sample_1_004C1CC0
+Windchimes : sample_1_004CC1F0
+Goron Drum : sample_2_00538CC0
+Melodic Wooden Clacking : unknown
+Vocal Ohs : sample_1_0052A260
+Flute and Voice : unknown
+Off-Kilter Flute : unknown
+Voice : unknown
+Drum 1 : sample_1_004F8B20
+Drum 2 : sample_1_004FADE0
+Slap Bass : sample_2_0053B200
+Shaker : sample_1_00500080
+Cowbell : sample_1_00500FD0
+Guitar (Low) : sample_1_00517A50
+Guitar : sample_1_0051A230
+Guitar (High) : sample_1_0051C3F0
+Viola : sample_1_0040A1A0
+Church Bell : sample_1_0051E2C0
+Goron Oh (High) : sample_2_0053FF90
+Goron Oh : sample_2_0053D4C0
+Banjo (Low) : sample_1_004F3440
+Banjo : sample_1_004F6280
+Steel Drum : sample_1_00522F10
+Steel Drum (High) : sample_1_00527B70
+sample_2_003FA9E0 : unknown
+sample_3_004006B0 : unknown
+sample_3_00409270 : sample_1_003F3980
+sample_3_0040AC40 : unknown
+sample_3_0040BA60 : unknown
+sample_3_00416B30 : unknown
+Vocal Ohs : sample_1_0052A260
+Flute and Voice : unknown
+Off-Kilter Flute : unknown
+Voice : unknown
+Melodic Wooden Clacking : unknown
+sample_5_00427D30 : sample_2_00538CC0
+sample_5_0042A270 : sample_2_0053B200
+sample_5_0042C530 : sample_2_0053D4C0
+sample_5_0042F000 : sample_2_0053FF90
+sample_5_0042F8A0 : sample_2_00540830
+sample_5_00430360 : sample_2_005412F0
+sample_6_004377E0 : unknown
+sample_6_004428B0 : unknown
+sample_6_00445900 : sample_2_00540830
+sample_6_00447BC0 : unknown
+sample_6_0044A690 : sample_1_004C1CC0
+sample_6_00454BC0 : sample_2_0053B200
+sample_6_0045A6C0 : sample_1_004CC1F0

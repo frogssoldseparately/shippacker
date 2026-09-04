@@ -19,7 +19,7 @@ type Sample struct {
 	Name      string
 }
 
-func NewSampleFromStream(fSample io.Reader, addr uint32, name string, am *maps.Assets) (*Sample, error) {
+func NewSampleFromStream(fSample io.Reader, addr uint32, name string, am *maps.AssetMap) (*Sample, error) {
 	r := sreader.NewSimpleReader(fSample, binary.BigEndian)
 	return &Sample{r.GetBuffer(), &zbank.AdpcmLoop{}, &zbank.AdpcmBook{}, addr, name}, nil
 }

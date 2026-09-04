@@ -14,17 +14,13 @@ func ParseXML(buf []byte) ([]*Sample, error) {
 	}
 	entries := []*Sample{}
 	for _, bank := range *root.SamplesContainer {
-		offsetAdjustment := uint32(0x0)
-		if bank.Bank == "2" {
-			offsetAdjustment = 0x538CC0
+		offsetAdjustment, err := bank.GetOffset()
+		if err != nil {
+			return nil, err
 		}
 		for _, sample := range *bank.Samples {
+			sample.Bank = bank.Bank
 			currentOffset, _ := sample.GetOffset()
-			if currentOffset >= 0x3C0F20 {
-				sample.Bank = "1"
-			} else {
-				sample.Bank = bank.Bank
-			}
 			sample.SetOffset(currentOffset + offsetAdjustment)
 			entries = append(entries, &sample)
 		}
@@ -40,18 +36,37 @@ type Root struct {
 type SamplesContainer struct {
 	XMLName xml.Name  `xml:"Samples"`
 	Bank    string    `xml:"Bank,attr"`
+	Offset  string    `xml:"Offset,attr"`
 	Samples *[]Sample `xml:"Sample"`
 }
 
+func (s *SamplesContainer) GetOffset() (uint32, error) {
+	val, err := strconv.ParseUint(s.Offset[2:len(s.Offset)], 16, 32)
+	if err != nil {
+		return 0x0, err
+	}
+	return uint32(val), nil
+}
+
 type Sample struct {
-	XMLName xml.Name `xml:"Sample"`
-	Name    string   `xml:"Name,attr"`
-	Offset  string   `xml:"Offset,attr"`
-	Bank    string
+	XMLName          xml.Name `xml:"Sample"`
+	Name             string   `xml:"Name,attr"`
+	OriginalName     string   `xml:"OriginalName,attr"`
+	Offset           string   `xml:"Offset,attr"`
+	TranslatedOffset string   `xml:"TranslatedOffset,attr"`
+	Bank             string
 }
 
 func (s *Sample) GetOffset() (uint32, error) {
 	val, err := strconv.ParseUint(s.Offset[2:len(s.Offset)], 16, 32)
+	if err != nil {
+		return 0x0, err
+	}
+	return uint32(val), nil
+}
+
+func (s *Sample) GetTranslatedOffset() (uint32, error) {
+	val, err := strconv.ParseUint(s.TranslatedOffset[2:len(s.TranslatedOffset)], 16, 32)
 	if err != nil {
 		return 0x0, err
 	}

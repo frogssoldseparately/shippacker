@@ -1,7 +1,7 @@
 import { join } from "path";
 import { fileURLToPath } from "url";
 import { getValidatedInput } from "./audio/validate.js";
-import { makeStubs, fillAudioTemplate, fillSetupTemplate } from "./audio/stubs.js";
+import { make2ShipStubs, fillAudioTemplate, fillSetupTemplate, makeSoHStubs } from "./audio/stubs.js";
 import { parseSetups } from "./audio/SetupEntry.js";
 
 /**
@@ -21,12 +21,18 @@ function main() {
 
     const versionSetups = parseSetups(setupJsonPath);
 
+    const [writtenFiles, offsetMap] = make2ShipStubs(source, destination);
+    const shipWrittenFiles = makeSoHStubs(source, destination, offsetMap);
+    while (shipWrittenFiles.length) {
+        writtenFiles.push(shipWrittenFiles.pop());
+    }
+
     fillAudioTemplate(
-        audioTemplatePath, audioGoPath, makeStubs(source, destination), versionSetups
+        audioTemplatePath, audioGoPath, writtenFiles, versionSetups
     );
     fillSetupTemplate(
         setupTemplatePath, setupGoPath, versionSetups
-    )
+    );
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

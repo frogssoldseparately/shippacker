@@ -22,7 +22,7 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.Assets, bankId uint64) (uint16, error) {
+func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, bankId uint64) (uint16, error) {
 	archiveFilename := filepath.Base(archive.Name())
 	archiveExtension := filepath.Ext(archiveFilename)
 	archiveBasename := archiveFilename[0 : len(archiveFilename)-len(archiveExtension)]
@@ -121,12 +121,12 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		for _, customSample := range customSamples {
 			loopPtr, ok := (*sf.LoopMap)[customSample.Addr]
 			if !ok {
-				return 0, fmt.Errorf("could not find AdpcmLoop for instrument")
+				return 0, fmt.Errorf("could not find AdpcmLoop for custom sample")
 			}
 			customSample.Loop = loopPtr
 			bookPtr, ok := (*sf.BookMap)[customSample.Addr]
 			if !ok {
-				return 0, fmt.Errorf("could not find AdpcmBook for instrument")
+				return 0, fmt.Errorf("could not find AdpcmBook for custom sample")
 			}
 			customSample.Book = bookPtr
 			if err := swriter.WriteZipEntry(customSample, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
@@ -156,7 +156,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 	}
 	sequenceName := strings.ReplaceAll(archiveBasename, "_", " ")
 	sequenceName += "_" + sequenceSuffix
-	banks := makeFontIdArray(bankId, fontCount)
+	banks := MakeFontIdArray(bankId, fontCount)
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)
 	seq.NumFonts = fontCount
 	if err := swriter.WriteZipEntry(seq, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
@@ -168,7 +168,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 	return filesWritten, nil
 }
 
-func makeFontIdArray(id uint64, len uint32) *[]byte {
+func MakeFontIdArray(id uint64, len uint32) *[]byte {
 	// clamp array length between 1 and 8
 	out := make([]byte, min32(max32(len, 1), 8))
 	for i := range out {

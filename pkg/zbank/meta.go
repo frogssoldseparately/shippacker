@@ -19,6 +19,10 @@ type Meta struct {
 
 func NewBankmetaFromStream(f io.Reader) (*Meta, error) {
 	r := sreader.NewSimpleReader(f, binary.BigEndian)
+	return ReadBankmeta(r), nil
+}
+
+func ReadBankmeta(r *sreader.SimpleReader) *Meta {
 	return &Meta{
 		Read[int8](r),
 		Read[int8](r),
@@ -27,5 +31,5 @@ func NewBankmetaFromStream(f io.Reader) (*Meta, error) {
 		Read[int8](r),
 		Read[int8](r),
 		Read[int16](r),
-	}, nil
+	}
 }
