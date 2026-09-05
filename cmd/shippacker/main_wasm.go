@@ -57,7 +57,10 @@ func AddOoTO2R(this js.Value, args []js.Value) any {
 			soundfontEntries = append(soundfontEntries, entry)
 		}
 	}
-	ootrs.PrepareOotSoundfonts(&soundfontEntries)
-	globals.HasOotO2r = true
+	if err := ootrs.PrepareOotSoundfonts(&soundfontEntries); err == nil {
+		globals.HasOotO2r = true
+	} else {
+		fmt.Printf("Could not unpack oot.o2r because %s\n", err)
+	}
 	return nil
 }

@@ -90,7 +90,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		for _, zsoundInfo := range metadata.CustomSamples {
 			parts := strings.Split(zsoundInfo, ":")
 			if len(parts) < 3 {
-				return 0, fmt.Errorf("bad custom sample entry")
+				return 0, fmt.Errorf("bad custom sample entry\n")
 			}
 			sourceName := parts[1]
 			sourceExt := filepath.Ext(sourceName)
@@ -130,12 +130,12 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		for _, customSample := range customSamples {
 			loopPtr, ok := (*sf.LoopMap)[customSample.Addr]
 			if !ok {
-				return 0, fmt.Errorf("could not find AdpcmLoop for sample")
+				return 0, fmt.Errorf("could not find AdpcmLoop for sample\n")
 			}
 			customSample.Loop = loopPtr
 			bookPtr, ok := (*sf.BookMap)[customSample.Addr]
 			if !ok {
-				return 0, fmt.Errorf("could not find AdpcmBook for custom sample")
+				return 0, fmt.Errorf("could not find AdpcmBook for custom sample\n")
 			}
 			customSample.Book = bookPtr
 			if err := swriter.WriteZipEntry(customSample, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
@@ -179,7 +179,6 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 			if err != nil {
 				return 0, err
 			}
-			fmt.Println(fontName)
 			if err := swriter.WriteZipEntry(sf, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
 				return 0, err
 			}
@@ -257,14 +256,15 @@ var includedBanks = map[uint64]uint64{}
 
 var ootSoundFonts = map[uint64]*zip.File{}
 
-func PrepareOotSoundfonts(soundfontEntries *[]*zip.File) {
+func PrepareOotSoundfonts(soundfontEntries *[]*zip.File) error {
 	for _, soundfontEntry := range *soundfontEntries {
 		base := filepath.Base(soundfontEntry.Name)
 		bankDec := base[0:strings.Index(base, "_")]
 		if bankNum, err := strconv.ParseUint(bankDec, 10, 32); err != nil {
-			fmt.Println(err)
+			return err
 		} else {
 			ootSoundFonts[bankNum] = soundfontEntry
 		}
 	}
+	return nil
 }

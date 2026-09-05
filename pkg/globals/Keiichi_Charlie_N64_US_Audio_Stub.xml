@@ -648,7 +648,7 @@
 		<Sample Name="sample_1_004C0DA0" OriginalName="QuickDrum" Offset="0x4C0DA0"/>
 		<Sample Name="sample_1_004C1CC0" OriginalName="Gong" Offset="0x4C1CC0"/>
 		<Sample Name="sample_1_004CC1F0" OriginalName="Windchimes" Offset="0x4CC1F0"/>
-		<Sample Name="sample_2_00538CC0" OriginalName="GoronDrum" Offset="0x4D1CF0"/>
+		<Sample Name="sample_1_004D1CF0" OriginalName="GoronDrum" Offset="0x4D1CF0"/>
 		<Sample Name="sample_1_004D4230" OriginalName="SAMPLE_0_646" Offset="0x4D4230"/>
 		<Sample Name="sample_1_004DEB10" OriginalName="HarpsichordHigh" Offset="0x4DEB10"/>
 		<Sample Name="sample_1_004E60A0" OriginalName="SAMPLE_0_648" Offset="0x4E60A0"/>

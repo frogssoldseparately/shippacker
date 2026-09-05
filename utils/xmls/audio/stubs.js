@@ -48,7 +48,11 @@ function findReplacements(dir, suffix = "Audio") {
                 const originalName = parts[0];
                 const replacementName = parts[1];
                 if (replacementName !== "unknown") {
-                    replacements.set(originalName, replacementName);
+                    if (replacements.has(originalName)) {
+                        replacements.get(originalName).unshift(replacementName)
+                    } else {
+                        replacements.set(originalName, [replacementName])
+                    }
                 }
             }
             out.set(key, replacements);
@@ -70,8 +74,8 @@ export function make2ShipStubs(source, destination) {
         .readdirSync(source)
         .filter(elem => elem.endsWith("Audio_2Ship.xml"))
         .map(elem => path.join(source, elem));
-    const replacementMap = findReplacements(source, "Audio_2Ship");
     for (const resourcePath of sourceFiles) {
+        const replacementMap = findReplacements(source, "Audio_2Ship"); // This is bad, but it's a temporary fix
         const [version, platform] = getTargetInfo(resourcePath);
         // Try to get a replacement mappings that works for all platforms of
         // this version. Otherwise, get a platform specific replacement.
@@ -94,8 +98,8 @@ export function make2ShipStubs(source, destination) {
             if (offset == null || offset.length === 0) {
                 w.write(`\t\t${line}`);
             } else {
-                const originalName = extractAttribute(line, "Name");;
-                const replacementName = replacements.get(originalName);
+                const originalName = extractAttribute(line, "Name");
+                const replacementName = (replacements.get(originalName) || []).pop();
                 if (replacementName) {
                     offsetMap.set(replacementName, offset);
                     w.write(`\t\t<Sample Name="${replacementName}" OriginalName="${originalName}" Offset="${offset}"/>`);
@@ -164,8 +168,8 @@ export function makeSoHStubs(source, destination, offsetMap) {
                 }
                 offset = "0x" + offset.padStart(6, "0");
                 const originalName = extractAttribute(line, "Name");
-                const replacementName = replacements.get(originalName);
-                const translatedName = translation.get(replacementName);
+                const replacementName = (replacements.get(originalName) || []).pop();
+                const translatedName = (translation.get(replacementName) || []).pop();
                 if (translatedName && translatedName !== "unknown") {
                     const offset2Ship = offsetMap.get(translatedName);
                     w.write(`\t\t<Sample Name="${translatedName}" OriginalName="${replacementName}" Offset="${offset}" TranslatedOffset="${offset2Ship}"/>`);

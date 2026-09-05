@@ -354,7 +354,7 @@
 		<!-- Missing Metal Clink (Copy) -->
 	</Samples>
 	<Samples Bank="1" Offset="0x000000">
-		<Sample Name="Ocarina_Looped" OriginalName="Ocarina_Looped" Offset="0x0FAD40" TranslatedOffset="0x2786B0"/>
+		<!-- Missing Ocarina_Looped -->
 		<Sample Name="Accordion" OriginalName="Accordion" Offset="0x0FDFC0" TranslatedOffset="0x27B930"/>
 		<Sample Name="Harp1" OriginalName="Harp 1" Offset="0x1026F0" TranslatedOffset="0x280060"/>
 		<Sample Name="Malon" OriginalName="Malon" Offset="0x106C20" TranslatedOffset="0x284590"/>
@@ -387,8 +387,8 @@
 		<Sample Name="sample_1_00435820" OriginalName="Fiddle" Offset="0x32CA00" TranslatedOffset="0x435820"/>
 		<Sample Name="sample_1_00437AD0" OriginalName="Acoustic Guitar 1" Offset="0x32ECB0" TranslatedOffset="0x437AD0"/>
 		<Sample Name="sample_1_0043BB30" OriginalName="Acoustic Guitar 2" Offset="0x332D10" TranslatedOffset="0x43BB30"/>
-		<Sample Name="sample_2_00540830" OriginalName="sample_6_00445900" Offset="0x335740" TranslatedOffset="0x007B70"/>
-		<Sample Name="sample_1_003F3980" OriginalName="sample_3_00409270" Offset="0x337A10" TranslatedOffset="0x3F3980"/>
+		<Sample Name="sample_2_00540830" OriginalName="Tom Drum" Offset="0x335740" TranslatedOffset="0x007B70"/>
+		<Sample Name="sample_1_003F3980" OriginalName="Drum Sidestick" Offset="0x337A10" TranslatedOffset="0x3F3980"/>
 		<Sample Name="FingerCymbals" OriginalName="Finger Cymbals" Offset="0x338450" TranslatedOffset="0x28F270"/>
 		<Sample Name="sample_1_004264C0" OriginalName="Oboe" Offset="0x33A980" TranslatedOffset="0x4264C0"/>
 		<Sample Name="sample_1_0043E560" OriginalName="Bassoon" Offset="0x33BC30" TranslatedOffset="0x43E560"/>
@@ -405,7 +405,7 @@
 		<!-- Missing Sample_591 -->
 		<!-- Missing Islamic Chant -->
 	<!-- ntsc end -->
-		<Sample Name="sample_2_005412F0" OriginalName="sample_5_00430360" Offset="0x37A4B0" TranslatedOffset="0x008630"/>
+		<Sample Name="sample_2_005412F0" OriginalName="Resonant Bass Marimba" Offset="0x37A4B0" TranslatedOffset="0x008630"/>
 		<Sample Name="sample_1_004520D0" OriginalName="Haunting Wind" Offset="0x381930" TranslatedOffset="0x4520D0"/>
 		<!-- Missing Off Hi-Hat -->
 		<!-- Missing Drum and Sitar -->
@@ -420,9 +420,9 @@
 		<Sample Name="sample_1_004BE590" OriginalName="Some Manner of Drum" Offset="0x3B4330" TranslatedOffset="0x4BE590"/>
 		<Sample Name="sample_1_004BF5B0" OriginalName="Another Type of Drum" Offset="0x3B5350" TranslatedOffset="0x4BF5B0"/>
 		<Sample Name="sample_1_004C0DA0" OriginalName="Quick Drum" Offset="0x3B6B40" TranslatedOffset="0x4C0DA0"/>
-		<Sample Name="sample_1_004C1CC0" OriginalName="sample_6_0044A690" Offset="0x3B7A60" TranslatedOffset="0x4C1CC0"/>
-		<Sample Name="sample_1_004CC1F0" OriginalName="sample_6_0045A6C0" Offset="0x3C1F90" TranslatedOffset="0x4CC1F0"/>
-		<Sample Name="sample_2_00538CC0" OriginalName="sample_5_00427D30" Offset="0x3C7A90" TranslatedOffset="0x000000"/>
+		<Sample Name="sample_1_004C1CC0" OriginalName="Gong" Offset="0x3B7A60" TranslatedOffset="0x4C1CC0"/>
+		<Sample Name="sample_1_004CC1F0" OriginalName="Windchimes" Offset="0x3C1F90" TranslatedOffset="0x4CC1F0"/>
+		<Sample Name="sample_2_00538CC0" OriginalName="Goron Drum" Offset="0x3C7A90" TranslatedOffset="0x000000"/>
 		<!-- Missing Melodic Wooden Clacking -->
 		<Sample Name="sample_1_0052A260" OriginalName="Vocal Ohs" Offset="0x3CB570" TranslatedOffset="0x52A260"/>
 		<!-- Missing Flute and Voice -->
@@ -466,10 +466,10 @@
 	
 	<Samples Bank="5" Offset="0x000000">
 		<Sample Name="sample_2_00538CC0" OriginalName="sample_5_00427D30" Offset="0x000000" TranslatedOffset="0x000000"/>
-		<Sample Name="sample_2_0053B200" OriginalName="sample_6_00454BC0" Offset="0x002540" TranslatedOffset="0x002540"/>
+		<Sample Name="sample_2_0053B200" OriginalName="sample_5_0042A270" Offset="0x002540" TranslatedOffset="0x002540"/>
 		<Sample Name="sample_2_0053D4C0" OriginalName="sample_5_0042C530" Offset="0x004800" TranslatedOffset="0x004800"/>
 		<Sample Name="sample_2_0053FF90" OriginalName="sample_5_0042F000" Offset="0x0072D0" TranslatedOffset="0x0072D0"/>
-		<Sample Name="sample_2_00540830" OriginalName="sample_6_00445900" Offset="0x007B70" TranslatedOffset="0x007B70"/>
+		<Sample Name="sample_2_00540830" OriginalName="sample_5_0042F8A0" Offset="0x007B70" TranslatedOffset="0x007B70"/>
 		<Sample Name="sample_2_005412F0" OriginalName="sample_5_00430360" Offset="0x008630" TranslatedOffset="0x008630"/>
 	</Samples>
 	

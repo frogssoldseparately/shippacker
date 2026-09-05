@@ -74,7 +74,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 		assetAddr, ok := (*tm)[assetName]
 		if !ok {
 			// assetAddr = 0
-			return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s", assetName)
+			return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
 		}
 		tuning := Read[float32](r)
 		// Generate Structures
@@ -126,7 +126,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 				assetAddr, ok := (*tm)[assetName]
 				if !ok {
 					// assetAddr = 0
-					return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s", assetName)
+					return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
 				}
 				tuning := Read[float32](r)
 				sampleMap[samplePtr] = &zbank.Sample{
@@ -164,7 +164,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 			assetAddr, ok := (*tm)[assetName]
 			if !ok {
 				// assetAddr = 0
-				return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s", assetName)
+				return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
 			}
 			tuning := Read[float32](r)
 			sampleMap[samplePtr] = &zbank.Sample{

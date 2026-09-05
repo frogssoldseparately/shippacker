@@ -42,8 +42,11 @@ func main() {
 					soundfontEntries = append(soundfontEntries, entry)
 				}
 			}
-			ootrs.PrepareOotSoundfonts(&soundfontEntries)
-			globals.HasOotO2r = true
+			if err := ootrs.PrepareOotSoundfonts(&soundfontEntries); err == nil {
+				globals.HasOotO2r = true
+			} else {
+				fmt.Printf("Could not unpack oot.o2r because %s\n", err)
+			}
 		}
 		// Get packing!
 		err := shippacker.Pack(cli.MusicSrcPath, cli.O2ROutPath)
