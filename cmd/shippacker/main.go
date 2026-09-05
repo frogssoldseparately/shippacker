@@ -43,10 +43,24 @@ func main() {
 				}
 			}
 			if err := ootrs.PrepareOotSoundfonts(&soundfontEntries); err == nil {
-				globals.HasOotO2r = true
+				sampleEntries := map[uint32]*zip.File{}
+				for addr, name := range globals.TargetOotSamples {
+					if entry, ok := ootO2RArchive.GetFile("audio/samples/" + name); ok {
+						sampleEntries[addr] = entry
+					} else {
+						fmt.Printf("Could not find sample %s to inject\n", name)
+					}
+				}
+				if err := ootrs.PrepareOotSamples(&sampleEntries); err == nil {
+					globals.HasOotO2r = true
+				} else {
+					fmt.Printf("Could not unpack oot.o2r because %s\n", err)
+				}
 			} else {
 				fmt.Printf("Could not unpack oot.o2r because %s\n", err)
 			}
+		} else {
+			fmt.Printf("If you would like to include .ootrs files, please place your oot.o2r file in the same directory as shippacker.exe\n")
 		}
 		// Get packing!
 		err := shippacker.Pack(cli.MusicSrcPath, cli.O2ROutPath)

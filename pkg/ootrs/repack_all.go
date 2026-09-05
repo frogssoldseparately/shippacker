@@ -167,6 +167,9 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		if usedBankId, ok := includedBanks[parsedBank]; ok {
 			bankId = usedBankId
 		} else {
+			if parsedBank == 0 {
+				return 0, fmt.Errorf("bank 0 is skipped\n")
+			}
 			soundfontEntry, ok := ootSoundFonts[parsedBank]
 			if !ok {
 				return 0, fmt.Errorf("could not find OoT bank with id %s\n", metadata.Bank)
@@ -256,6 +259,8 @@ var includedBanks = map[uint64]uint64{}
 
 var ootSoundFonts = map[uint64]*zip.File{}
 
+var ootSamples = []*sample.StubbedSample{}
+
 func PrepareOotSoundfonts(soundfontEntries *[]*zip.File) error {
 	for _, soundfontEntry := range *soundfontEntries {
 		base := filepath.Base(soundfontEntry.Name)
@@ -267,4 +272,40 @@ func PrepareOotSoundfonts(soundfontEntries *[]*zip.File) error {
 		}
 	}
 	return nil
+}
+
+func PrepareOotSamples(sampleEntries *map[uint32]*zip.File) error {
+	for addr, sampleEntry := range *sampleEntries {
+		sampleName := filepath.Base(sampleEntry.Name)
+		fSample, err := sampleEntry.Open()
+		if err != nil {
+			return err
+		}
+		sample, err := sample.ReadShipSample(fSample, addr, sampleName)
+		if err != nil {
+			return err
+		}
+		ootSamples = append(ootSamples, sample)
+	}
+	return nil
+}
+
+func InjectOotSamples(lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, tm *maps.TranslationMap) (uint16, error) {
+	bufferedLw := swriter.NewEmptySimpleWriter(binary.LittleEndian)
+	bufferedCw := swriter.NewEmptySimpleWriter(binary.LittleEndian)
+	filesWritten := uint16(0)
+	for _, entry := range ootSamples {
+		if err := swriter.WriteZipEntry(entry, bufferedLw, bufferedCw, lw.GetLength()); err != nil {
+			return 0, err
+		}
+		filesWritten++
+	}
+	lw.CopyFrom(bufferedLw)
+	cw.CopyFrom(bufferedCw)
+	// Second for loop so the asset maps don't have pointers to samples that weren't injected
+	for _, entry := range ootSamples {
+		(*am)[entry.Addr] = entry.Name
+		(*tm)[entry.Name] = entry.Addr
+	}
+	return filesWritten, nil
 }

@@ -25,6 +25,13 @@ func Pack(srcPaths []string) []byte {
 	}
 	ootrsAssetMap, ootrsTranslationMap, err := maps.NewTranslationMaps()
 	swriter.TakeTimestamp()
+	ootSampleCount := uint16(0)
+	if globals.HasOotO2r {
+		ootSampleCount, err = ootrs.InjectOotSamples(localW, centralW, ootrsAssetMap, ootrsTranslationMap)
+		if err != nil {
+			fmt.Printf("Could not inject oot samples because %s\n", err)
+		}
+	}
 	filesWritten, _, _, err := WriteModEntries(srcPaths, localW, centralW, mmrsAssetMap, ootrsAssetMap, ootrsTranslationMap)
 	if err != nil {
 		fmt.Println(err)
@@ -33,7 +40,7 @@ func Pack(srcPaths []string) []byte {
 	if filesWritten != 0 {
 		modWriter.CopyFrom(localW)
 		modWriter.CopyFrom(centralW)
-		swriter.WriteCentralDirectoryEndRecord(modWriter, filesWritten, centralW.GetLength(), localW.GetLength())
+		swriter.WriteCentralDirectoryEndRecord(modWriter, filesWritten+ootSampleCount, centralW.GetLength(), localW.GetLength())
 		return *modWriter.GetBuffer()
 	}
 	fmt.Println("Nothing to write")

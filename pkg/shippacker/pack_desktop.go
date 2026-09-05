@@ -32,6 +32,13 @@ func Pack(musicSrcPath string, outPath string) error {
 		return err
 	}
 	swriter.TakeTimestamp()
+	ootSampleCount := uint16(0)
+	if globals.HasOotO2r {
+		ootSampleCount, err = ootrs.InjectOotSamples(localW, centralW, ootrsAssetMap, ootrsTranslationMap)
+		if err != nil {
+			fmt.Printf("Could not inject oot samples because %s\n", err)
+		}
+	}
 	filesWritten, songsWritten, banksWritten, err := WriteModEntries(musicSrcPath, localW, centralW, mmrsAssetMap, ootrsAssetMap, ootrsTranslationMap, 0, 0, globals.StartingBankIndex)
 	if err != nil {
 		return err
@@ -39,7 +46,7 @@ func Pack(musicSrcPath string, outPath string) error {
 	if filesWritten != 0 {
 		modWriter.CopyFrom(localW)
 		modWriter.CopyFrom(centralW)
-		swriter.WriteCentralDirectoryEndRecord(modWriter, filesWritten, centralW.GetLength(), localW.GetLength())
+		swriter.WriteCentralDirectoryEndRecord(modWriter, filesWritten+ootSampleCount, centralW.GetLength(), localW.GetLength())
 		modFile, err := os.Create(filepath.Join(outPath, generateModFilename()))
 		if err != nil {
 			return err
