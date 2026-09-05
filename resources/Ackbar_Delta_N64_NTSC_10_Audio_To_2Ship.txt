@@ -414,7 +414,7 @@ Quick Drum : sample_1_004C0DA0
 Gong : sample_1_004C1CC0
 Windchimes : sample_1_004CC1F0
 Goron Drum : sample_2_00538CC0
-Melodic Wooden Clacking : unknown
+Melodic Wooden Clacking : sample_1_004D4230
 Vocal Ohs : sample_1_0052A260
 Flute and Voice : unknown
 Off-Kilter Flute : unknown
@@ -437,15 +437,15 @@ Steel Drum : sample_1_00522F10
 Steel Drum (High) : sample_1_00527B70
 sample_2_003FA9E0 : unknown
 sample_3_004006B0 : unknown
-sample_3_00409270 : sample_1_003F3980
-sample_3_0040AC40 : unknown
+sample_3_00409270 : unknown
+sample_3_0040AC40 : sample_1_003F3980
 sample_3_0040BA60 : unknown
 sample_3_00416B30 : unknown
 Vocal Ohs : sample_1_0052A260
 Flute and Voice : unknown
 Off-Kilter Flute : unknown
 Voice : unknown
-Melodic Wooden Clacking : unknown
+Melodic Wooden Clacking : sample_1_004D4230
 sample_5_00427D30 : sample_2_00538CC0
 sample_5_0042A270 : sample_2_0053B200
 sample_5_0042C530 : sample_2_0053D4C0

@@ -1,7 +1,7 @@
 <Root>
 	<File Name="code" OutName="audio" RangeStart="0x0" RangeEnd="0x12CBB0">
 		<Audio Name="audio" Offset="0x00" SoundFontTableOffset="0x1026A0" SequenceTableOffset="0x102AD0" SampleBankTableOffset="0x1031C0" SequenceFontTableOffset="0x102910">
-		<Sequences>
+			<Sequences>
 				<Sequence Name="000_Sound_Effects"/>
 				<Sequence Name="001_Ambient_Effects"/>
 				<Sequence Name="002_Hyrule_Field_Program"/>
@@ -230,8 +230,7 @@
 				<Sample Name="Clanging Bells" Offset="0xF5A90"/>
 				<Sample Name="Person Whistling" Offset="0xF72A0"/>
 				<Sample Name="Ocarina_Looped" Offset="0xFAD40"/>
-				<!--<Sample Name="Ocarina_Looped" Offset="0xFAD40" LoopOffset="0x1550"/>
--->
+				<!--<Sample Name="Ocarina_Looped" Offset="0xFAD40" LoopOffset="0x1550"/>-->
 				<Sample Name="Accordion" Offset="0xFDFC0"/>
 				<Sample Name="Harp 1" Offset="0x1026F0"/>
 				<Sample Name="Malon" Offset="0x106C20"/>
@@ -467,6 +466,7 @@
 				<Sample Name="Iron Boots 1" Offset="0x29B480"/>
 				<Sample Name="Metal Clink (Copy)" Offset="0x29EB20"/>
 			</Samples>
+
 			<Samples Bank="1" Offset="0x000000">
 				<Sample Name="Ocarina_Bank1" Offset="0xFAD40"/>
 				<Sample Name="Accordion" Offset="0xFDFC0"/>
@@ -563,48 +563,49 @@
 				<Sample Name="Steel Drum (High)" Offset="0x3F82F0" SampleRate="14254"/>
 			</Samples>
 
-			<Samples Bank="2" Offset="0x000000">
-				<Sample Name="Warm Pad" Offset="0"/>
-			</Samples>
-			
-			<Samples Bank="3" Offset="0x000000">
+			<!-- Temporarily commented out until mapping is done -->
+			<!-- <Samples Bank="2" Offset="0x3FA9E0"> -->
+				<!-- <Sample Name="Warm Pad" Offset="0"/> -->
+			<!-- </Samples> -->
+		
+			<Samples Bank="3" Offset="0x4006B0">
 				<Sample Name="Low Rumbling" Offset="0"/>
-				<Sample Name="Drum Sidestick" Offset="0xA590"/>
 				<Sample Name="Low Drum" Offset="0x8BC0"/>
+				<Sample Name="Drum Sidestick" Offset="0xA590"/>
 				<Sample Name="Sweep Pad" Offset="0xB3B0"/>
 				<Sample Name="Organic Gurgling" Offset="0x16480"/>
-		</Samples>
-		<Samples Bank="4" Offset="0x000000">
-			<Sample Name="Vocal Ohs" Offset="0"/>
-			<Sample Name="Flute and Voice" Offset="0x6410"/>
-			<Sample Name="Off-Kilter Flute" Offset="0x72D0"/>
-			<Sample Name="Voice" Offset="0x8230"/>
-			<Sample Name="Melodic Wooden Clacking" Offset="0x9030"/>
-	</Samples>
+			</Samples>
 
-	<Samples Bank="5" Offset="0x000000">
-		<Sample Name="Goron Drum" Offset="0"/>
-		<Sample Name="Bass Slap" Offset="0x2540"/>
-		<Sample Name="Goron Ooh" Offset="0x4800"/>
-		<Sample Name="Goron Ooh (High)" Offset="0x72D0"/>
-		<Sample Name="Tom Drum" Offset="0x7B70"/>
-		<Sample Name="Resonant Bass Marimba" Offset="0x8630"/>
-	</Samples>
+			<Samples Bank="4" Offset="0x000000">
+				<Sample Name="Vocal Ohs" Offset="0"/>
+				<Sample Name="Flute and Voice" Offset="0x6410"/>
+				<Sample Name="Off-Kilter Flute" Offset="0x72D0"/>
+				<Sample Name="Voice" Offset="0x8230"/>
+				<Sample Name="Melodic Wooden Clacking" Offset="0x9030"/>
+			</Samples>
 
-	<Samples Bank="6" Offset="0x000000">
-		<Sample Name="Warm Synth Pad" Offset="0"/>
-		<Sample Name="Egyptian Flute" Offset="0xB0D0"/>
-		<Sample Name="Tom Drum" Offset="0xE120"/>
-		<Sample Name="Vocal Synth" Offset="0x103E0"/>
-		<Sample Name="Gong" Offset="0x12EB0"/>
-		<Sample Name="Bass Slap" Offset="0x1D3E0"/>
-		<Sample Name="Windchimes" Offset="0x22EE0"/>
-	</Samples>
-		
+			<Samples Bank="5" Offset="0x427D30">
+				<Sample Name="Goron Drum" Offset="0"/>
+				<Sample Name="Bass Slap" Offset="0x2540"/>
+				<Sample Name="Goron Ooh" Offset="0x4800"/>
+				<Sample Name="Goron Ooh (High)" Offset="0x72D0"/>
+				<Sample Name="Tom Drum" Offset="0x7B70"/>
+				<Sample Name="Resonant Bass Marimba" Offset="0x8630"/>
+			</Samples>
 
-		   <Soundfont Name="02_Ambient_Sounds" Index="2"/>
-		   <Soundfont Name="37_Unused_Deku_Tree" Index="37" OverrideSampleBank="2"/>
-		   <Soundfont Name="04_Deku_Tree" Index="4"/>
+			<Samples Bank="6" Offset="0x4377E0">
+				<Sample Name="Warm Synth Pad" Offset="0"/>
+				<Sample Name="Egyptian Flute" Offset="0xB0D0"/>
+				<Sample Name="Tom Drum" Offset="0xE120"/>
+				<Sample Name="Vocal Synth" Offset="0x103E0"/>
+				<Sample Name="Gong" Offset="0x12EB0"/>
+				<Sample Name="Bass Slap" Offset="0x1D3E0"/>
+				<Sample Name="Windchimes" Offset="0x22EE0"/>
+			</Samples>
+
+			<Soundfont Name="02_Ambient_Sounds" Index="2"/>
+			<Soundfont Name="37_Unused_Deku_Tree" Index="37" OverrideSampleBank="2"/>
+			<Soundfont Name="04_Deku_Tree" Index="4"/>
 			<Soundfont Name="11_Dodongos_Cavern" Index="11"/>
 			<Soundfont Name="33_Ending_1" Index="33"/>
 			<Soundfont Name="34_Ending_2" Index="34"/>
@@ -640,8 +641,6 @@
 			<Soundfont Name="18_Warp_Songs" Index="18"/>
 			<Soundfont Name="25_Water_Temple" Index="25"/>
 			<Soundfont Name="21_Zoras_Domain" Index="21"/>
-		
-		
 		</Audio>
 	</File>
 </Root>

@@ -437,8 +437,8 @@ Steel Drum : Steel Drum
 Steel Drum (High) : Steel Drum (High)
 Warm Pad : sample_2_003FA9E0
 Low Rumbling : sample_3_004006B0
-Drum Sidestick : sample_3_00409270
-Low Drum : sample_3_0040AC40
+Low Drum : sample_3_00409270
+Drum Sidestick : sample_3_0040AC40
 Sweep Pad : sample_3_0040BA60
 Organic Gurgling : sample_3_00416B30
 Vocal Ohs : Vocal Ohs

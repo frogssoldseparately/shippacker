@@ -116,8 +116,7 @@
 		<Sample Name="ClangingBells" OriginalName="Clanging Bells" Offset="0x0F5A90" TranslatedOffset="0x0FBB20"/>
 		<Sample Name="PersonWhistling" OriginalName="Person Whistling" Offset="0x0F72A0" TranslatedOffset="0x0FD330"/>
 		<Sample Name="Ocarina_Looped" OriginalName="Ocarina_Looped" Offset="0x0FAD40" TranslatedOffset="0x2786B0"/>
-	<!--<Sample Name="Ocarina_Looped" Offset="0xFAD40" LoopOffset="0x1550"/>
-	-->
+	<!--<Sample Name="Ocarina_Looped" Offset="0xFAD40" LoopOffset="0x1550"/>-->
 		<Sample Name="Accordion" OriginalName="Accordion" Offset="0x0FDFC0" TranslatedOffset="0x27B930"/>
 		<Sample Name="Harp1" OriginalName="Harp 1" Offset="0x1026F0" TranslatedOffset="0x280060"/>
 		<Sample Name="Malon" OriginalName="Malon" Offset="0x106C20" TranslatedOffset="0x284590"/>
@@ -353,6 +352,7 @@
 		<!-- Missing Iron Boots 1 -->
 		<!-- Missing Metal Clink (Copy) -->
 	</Samples>
+	
 	<Samples Bank="1" Offset="0x000000">
 		<!-- Missing Ocarina_Looped -->
 		<Sample Name="Accordion" OriginalName="Accordion" Offset="0x0FDFC0" TranslatedOffset="0x27B930"/>
@@ -423,7 +423,7 @@
 		<Sample Name="sample_1_004C1CC0" OriginalName="Gong" Offset="0x3B7A60" TranslatedOffset="0x4C1CC0"/>
 		<Sample Name="sample_1_004CC1F0" OriginalName="Windchimes" Offset="0x3C1F90" TranslatedOffset="0x4CC1F0"/>
 		<Sample Name="sample_2_00538CC0" OriginalName="Goron Drum" Offset="0x3C7A90" TranslatedOffset="0x000000"/>
-		<!-- Missing Melodic Wooden Clacking -->
+		<Sample Name="sample_1_004D4230" OriginalName="Melodic Wooden Clacking" Offset="0x3C9FD0" TranslatedOffset="0x4D4230"/>
 		<Sample Name="sample_1_0052A260" OriginalName="Vocal Ohs" Offset="0x3CB570" TranslatedOffset="0x52A260"/>
 		<!-- Missing Flute and Voice -->
 		<!-- Missing Off-Kilter Flute -->
@@ -449,22 +449,28 @@
 		<Sample Name="sample_1_00527B70" OriginalName="Steel Drum (High)" Offset="0x3F82F0" TranslatedOffset="0x527B70"/>
 	</Samples>
 	
-	<Samples Bank="3" Offset="0x000000">
+	<!-- Temporarily commented out until mapping is done -->
+	<!-- <Samples Bank="2" Offset="0x3FA9E0"> -->
+	<!-- <Sample Name="Warm Pad" Offset="0"/> -->
+	<!-- </Samples> -->
+	
+	<Samples Bank="3" Offset="0x4006B0">
 		<!-- Missing sample_3_004006B0 -->
-		<Sample Name="sample_1_003F3980" OriginalName="sample_3_00409270" Offset="0x00A590" TranslatedOffset="0x3F3980"/>
-		<!-- Missing sample_3_0040AC40 -->
+		<!-- Missing sample_3_00409270 -->
+		<Sample Name="sample_1_003F3980" OriginalName="sample_3_0040AC40" Offset="0x00A590" TranslatedOffset="0x3F3980"/>
 		<!-- Missing sample_3_0040BA60 -->
 		<!-- Missing sample_3_00416B30 -->
 	</Samples>
+	
 	<Samples Bank="4" Offset="0x000000">
 		<Sample Name="sample_1_0052A260" OriginalName="Vocal Ohs" Offset="0x000000" TranslatedOffset="0x52A260"/>
 		<!-- Missing Flute and Voice -->
 		<!-- Missing Off-Kilter Flute -->
 		<!-- Missing Voice -->
-		<!-- Missing Melodic Wooden Clacking -->
+		<Sample Name="sample_1_004D4230" OriginalName="Melodic Wooden Clacking" Offset="0x009030" TranslatedOffset="0x4D4230"/>
 	</Samples>
 	
-	<Samples Bank="5" Offset="0x000000">
+	<Samples Bank="5" Offset="0x427D30">
 		<Sample Name="sample_2_00538CC0" OriginalName="sample_5_00427D30" Offset="0x000000" TranslatedOffset="0x000000"/>
 		<Sample Name="sample_2_0053B200" OriginalName="sample_5_0042A270" Offset="0x002540" TranslatedOffset="0x002540"/>
 		<Sample Name="sample_2_0053D4C0" OriginalName="sample_5_0042C530" Offset="0x004800" TranslatedOffset="0x004800"/>
@@ -473,7 +479,7 @@
 		<Sample Name="sample_2_005412F0" OriginalName="sample_5_00430360" Offset="0x008630" TranslatedOffset="0x008630"/>
 	</Samples>
 	
-	<Samples Bank="6" Offset="0x000000">
+	<Samples Bank="6" Offset="0x4377E0">
 		<!-- Missing sample_6_004377E0 -->
 		<!-- Missing sample_6_004428B0 -->
 		<Sample Name="sample_2_00540830" OriginalName="sample_6_00445900" Offset="0x00E120" TranslatedOffset="0x007B70"/>
