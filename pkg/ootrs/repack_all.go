@@ -23,9 +23,6 @@ import (
 )
 
 func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, tm *maps.TranslationMap, bankId uint64) (uint16, error) {
-	archiveFilename := filepath.Base(archive.Name())
-	archiveExtension := filepath.Ext(archiveFilename)
-	archiveBasename := archiveFilename[0 : len(archiveFilename)-len(archiveExtension)]
 	fontCount := uint32(1)
 	metaEntry, ok := archive.GetFirstByExt(".meta")
 	if !ok {
@@ -195,8 +192,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		return 0, err
 	}
 	// TODO: convert ootrs categories to mmrs categories
-	// sequenceName := metadata.Name + "_" + sequenceSuffix
-	sequenceName := archiveBasename + "_" + sequenceSuffix
+	sequenceName := metadata.Name + "_" + sequenceSuffix
 	banks := mmrs.MakeFontIdArray(bankId, fontCount)
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)
 	seq.NumFonts = fontCount
