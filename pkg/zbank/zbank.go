@@ -84,12 +84,17 @@ func NewBankFromStream(f io.Reader, meta *Meta) (*ZBank, error) {
 	for offset := range sampleMap {
 		r.Seek(offset, 0)
 		sample := ReadSample(r)
+		if meta.SampleBankId1 == 6 {
+			sample.SampleAddress += 0x4377E0
+		}
 		sampleMap[offset] = sample
 		r.Seek(sample.LoopPointer, 0)
 		loopMap[sample.SampleAddress] = ReadLoop(r)
 		r.Seek(sample.BookPointer, 0)
 		bookMap[sample.SampleAddress] = ReadBook(r)
 	}
+
+	meta.SampleBankId1 = 1
 
 	return &ZBank{meta, &drums, &instruments, &soundEffects, &envelopeMap, &sampleMap, &loopMap, &bookMap}, nil
 }
