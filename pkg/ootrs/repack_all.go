@@ -192,7 +192,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		return 0, err
 	}
 	// TODO: convert ootrs categories to mmrs categories
-	sequenceName := metadata.Name + "_" + sequenceSuffix
+	sequenceName := strings.ReplaceAll(metadata.Name, "/", "-") + "_" + sequenceSuffix
 	banks := mmrs.MakeFontIdArray(bankId, fontCount)
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)
 	seq.NumFonts = fontCount
