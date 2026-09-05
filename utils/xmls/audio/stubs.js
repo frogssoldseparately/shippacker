@@ -68,7 +68,6 @@ function findReplacements(dir, suffix = "Audio") {
  * @returns Array of names of files written.
  */
 export function make2ShipStubs(source, destination) {
-    const offsetMap = new Map();
     const writtenFiles = [];
     const sourceFiles = fs
         .readdirSync(source)
@@ -101,7 +100,6 @@ export function make2ShipStubs(source, destination) {
                 const originalName = extractAttribute(line, "Name");
                 const replacementName = (replacements.get(originalName) || []).pop();
                 if (replacementName) {
-                    offsetMap.set(replacementName, offset);
                     w.write(`\t\t<Sample Name="${replacementName}" OriginalName="${originalName}" Offset="${offset}"/>`);
                 }
             }
@@ -124,10 +122,10 @@ export function make2ShipStubs(source, destination) {
             }`);
         }
     }
-    return [writtenFiles, offsetMap];
+    return writtenFiles;
 }
 
-export function makeSoHStubs(source, destination, offsetMap) {
+export function makeSoHStubs(source, destination) {
     const writtenFiles = [];
     const sourceFiles = fs
         .readdirSync(source)
@@ -171,8 +169,7 @@ export function makeSoHStubs(source, destination, offsetMap) {
                 const replacementName = (replacements.get(originalName) || []).pop();
                 const translatedName = (translation.get(replacementName) || []).pop();
                 if (translatedName && translatedName !== "unknown") {
-                    const offset2Ship = offsetMap.get(translatedName);
-                    w.write(`\t\t<Sample Name="${translatedName}" OriginalName="${replacementName}" Offset="${offset}" TranslatedOffset="${offset2Ship}"/>`);
+                    w.write(`\t\t<Sample Name="${translatedName}" OriginalName="${replacementName}" Offset="${offset}"/>`);
                 } else {
                     w.write(`\t\t<!-- Missing ${replacementName} -->`);
                 }

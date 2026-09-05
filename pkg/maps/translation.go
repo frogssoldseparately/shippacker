@@ -23,7 +23,6 @@ func NewTranslationMaps() (*AssetMap, *TranslationMap, error) {
 
 	for _, sample := range sampleEntries {
 		currentOffset, _ := sample.GetOffset()
-		// translatedOffset, _ := sample.GetTranslatedOffset()
 		am[currentOffset] = sample.Name + "_META"
 		tm[sample.OriginalName+"_META"] = currentOffset
 	}

@@ -21,8 +21,8 @@ function main() {
 
     const versionSetups = parseSetups(setupJsonPath);
 
-    const [writtenFiles, offsetMap] = make2ShipStubs(source, destination);
-    const shipWrittenFiles = makeSoHStubs(source, destination, offsetMap);
+    const writtenFiles = make2ShipStubs(source, destination);
+    const shipWrittenFiles = makeSoHStubs(source, destination);
     while (shipWrittenFiles.length) {
         writtenFiles.push(shipWrittenFiles.pop());
     }

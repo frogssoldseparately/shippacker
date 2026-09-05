@@ -49,24 +49,15 @@ func (s *SamplesContainer) GetOffset() (uint32, error) {
 }
 
 type Sample struct {
-	XMLName          xml.Name `xml:"Sample"`
-	Name             string   `xml:"Name,attr"`
-	OriginalName     string   `xml:"OriginalName,attr"`
-	Offset           string   `xml:"Offset,attr"`
-	TranslatedOffset string   `xml:"TranslatedOffset,attr"`
-	Bank             string
+	XMLName      xml.Name `xml:"Sample"`
+	Name         string   `xml:"Name,attr"`
+	OriginalName string   `xml:"OriginalName,attr"`
+	Offset       string   `xml:"Offset,attr"`
+	Bank         string
 }
 
 func (s *Sample) GetOffset() (uint32, error) {
 	val, err := strconv.ParseUint(s.Offset[2:len(s.Offset)], 16, 32)
-	if err != nil {
-		return 0x0, err
-	}
-	return uint32(val), nil
-}
-
-func (s *Sample) GetTranslatedOffset() (uint32, error) {
-	val, err := strconv.ParseUint(s.TranslatedOffset[2:len(s.TranslatedOffset)], 16, 32)
 	if err != nil {
 		return 0x0, err
 	}
