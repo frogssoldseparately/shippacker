@@ -23,13 +23,25 @@ func NewBankmetaFromStream(f io.Reader) (*Meta, error) {
 }
 
 func ReadBankmeta(r *sreader.SimpleReader) *Meta {
+	medium := Read[int8](r)
+	cachePolicy := Read[int8](r)
+	sampleBankId1 := Read[int8](r)
+	sampleBankId2 := Read[int8](r)
+	numInstruments := Read[int8](r)
+	numDrums := Read[int8](r)
+	var numSfx int16
+	if r.Seek(0, 1) != r.GetLength() {
+		numSfx = Read[int16](r)
+	} else {
+		numSfx = 0x0
+	}
 	return &Meta{
-		Read[int8](r),
-		Read[int8](r),
-		Read[int8](r),
-		Read[int8](r),
-		Read[int8](r),
-		Read[int8](r),
-		Read[int16](r),
+		medium,
+		cachePolicy,
+		sampleBankId1,
+		sampleBankId2,
+		numInstruments,
+		numDrums,
+		numSfx,
 	}
 }
