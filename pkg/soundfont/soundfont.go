@@ -37,10 +37,14 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 	r := sreader.NewSimpleReader(fSoundfont, binary.LittleEndian)
 	r.Seek(0x44, 0) // skip the o2r header and bank id
 	meta := zbank.ReadBankmeta(r)
-	// swap sample banks due to endianness being different
-	meta.SampleBankId1 = meta.SampleBankId1 ^ meta.SampleBankId2
-	meta.SampleBankId2 = meta.SampleBankId2 ^ meta.SampleBankId1
-	meta.SampleBankId1 = meta.SampleBankId1 ^ meta.SampleBankId2
+	// Swap values, because meta reads big endian, when soundfonts are little endian
+	meta.SampleBankId1 ^= meta.SampleBankId2
+	meta.SampleBankId2 ^= meta.SampleBankId1
+	meta.SampleBankId1 ^= meta.SampleBankId2
+	meta.NumInstruments ^= meta.NumDrums
+	meta.NumDrums ^= meta.NumInstruments
+	meta.NumInstruments ^= meta.NumDrums
+	meta.NumSfx = meta.NumSfx>>8 | meta.NumSfx&0xff<<8
 	envMap := map[uint32]*zbank.Envelope{}
 	sampleMap := map[uint32]*zbank.Sample{}
 	loopMap := map[uint32]*zbank.AdpcmLoop{}
@@ -70,24 +74,29 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 		samplePtr := r.Seek(1, 1)
 		nameLen := Read[uint32](r)
 		assetPath := ReadString(r, nameLen)
-		assetName := filepath.Base(assetPath)
-		assetAddr, ok := (*tm)[assetName]
-		if !ok {
-			// assetAddr = 0
-			return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
-		}
 		tuning := Read[float32](r)
-		// Generate Structures
-		envMap[envPtr] = envelope
-		sampleMap[samplePtr] = &zbank.Sample{
-			BitsAndSize:   0x0,
-			SampleAddress: assetAddr,
-			LoopPointer:   0x0,
-			BookPointer:   0x0,
+		nonNull := true
+		if len(assetPath) > 0 {
+			assetName := filepath.Base(assetPath)
+			assetAddr, ok := (*tm)[assetName]
+			if !ok {
+				return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
+			}
+			sampleMap[samplePtr] = &zbank.Sample{
+				BitsAndSize:   0x0,
+				SampleAddress: assetAddr,
+				LoopPointer:   0x0,
+				BookPointer:   0x0,
+			}
+		} else {
+			nonNull = false
+			samplePtr = 0x0
 		}
 		tunedSample := zbank.TunedSample{SamplePointer: samplePtr, Tuning: tuning}
+		// Generate Structures
+		envMap[envPtr] = envelope
 		drum := zbank.Drum{
-			NonNull:         true,
+			NonNull:         nonNull,
 			AdsrDecayIndex:  adsrDecayIndex,
 			Pan:             pan,
 			IsRelocated:     isRelocated,
@@ -98,7 +107,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 		drums = append(drums, &drum)
 	}
 	for range instCount {
-		r.Seek(1, 1)
+		validByte := Read[uint8](r)
 		isRelocated := Read[uint8](r)
 		normalRangeLo := Read[uint8](r)
 		normalRangeHi := Read[uint8](r)
@@ -125,7 +134,6 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 				assetName := filepath.Base(assetPath)
 				assetAddr, ok := (*tm)[assetName]
 				if !ok {
-					// assetAddr = 0
 					return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
 				}
 				tuning := Read[float32](r)
@@ -142,7 +150,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 			tunedSamples = append(tunedSamples, &tunedSample)
 		}
 		inst := zbank.Instrument{
-			NonNull:                true,
+			ValidByte:              validByte,
 			IsRelocated:            isRelocated,
 			NormalRangeLo:          normalRangeLo,
 			NormalRangeHi:          normalRangeHi,
@@ -163,7 +171,6 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 			assetName := filepath.Base(assetPath)
 			assetAddr, ok := (*tm)[assetName]
 			if !ok {
-				// assetAddr = 0
 				return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
 			}
 			tuning := Read[float32](r)
@@ -289,26 +296,21 @@ func (s *Soundfont) WriteTunedSample(w *swriter.SimpleWriter, ts *zbank.TunedSam
 
 func (s *Soundfont) WriteDrums(w *swriter.SimpleWriter) error {
 	for _, drum := range *s.Drums {
+		Write(w, drum.AdsrDecayIndex)
+		Write(w, drum.Pan)
+		Write(w, drum.IsRelocated)
+		if err := s.WriteEnvelopeEntry(w, drum.EnvelopePointer); err != nil {
+			return err
+		}
 		if drum.NonNull {
-			Write(w, drum.AdsrDecayIndex)
-			Write(w, drum.Pan)
-			Write(w, drum.IsRelocated)
-			if err := s.WriteEnvelopeEntry(w, drum.EnvelopePointer); err != nil {
-				return err
-			}
 			Write[uint8](w, 0x1)
 			if err := s.WriteTunedSample(w, drum.TunedSample); err != nil {
 				return err
 			}
 		} else {
-			// Write a dummy drum
-			Write[uint8](w, 0x0)  // AdsrDecayIndex
-			Write[uint8](w, 0x0)  // Pan
-			Write[uint8](w, 0x0)  // IsRelocated
-			Write[uint32](w, 0x0) // Envelope Length
-			Write[uint8](w, 0x1)
-			WriteString(w, "audio/samples/Accordion_META", true)
-			Write[float32](w, 1)
+			Write[uint8](w, 0x0)
+			Write[uint32](w, 0x0)
+			Write[uint32](w, 0x0)
 		}
 	}
 	return nil
@@ -316,37 +318,24 @@ func (s *Soundfont) WriteDrums(w *swriter.SimpleWriter) error {
 
 func (s *Soundfont) WriteInstruments(w *swriter.SimpleWriter) error {
 	for _, inst := range *s.Instruments {
-		if inst.NonNull {
-			Write[uint8](w, 0x1)
-			Write(w, inst.IsRelocated)
-			Write(w, inst.NormalRangeLo)
-			Write(w, inst.NormalRangeHi)
-			Write(w, inst.AdsrDecayIndex)
-			if err := s.WriteEnvelopeEntry(w, inst.EnvelopePointer); err != nil {
-				return err
-			}
-			for _, tunedSample := range inst.GetTunedSamples() {
-				if tunedSample.SamplePointer != 0x0 {
-					Write[uint8](w, 0x1)
-					Write[uint8](w, 0x1)
-					if err := s.WriteTunedSample(w, tunedSample); err != nil {
-						return err
-					}
-				} else {
-					Write[uint8](w, 0x0)
+		Write(w, inst.ValidByte)
+		Write(w, inst.IsRelocated)
+		Write(w, inst.NormalRangeLo)
+		Write(w, inst.NormalRangeHi)
+		Write(w, inst.AdsrDecayIndex)
+		if err := s.WriteEnvelopeEntry(w, inst.EnvelopePointer); err != nil {
+			return err
+		}
+		for _, tunedSample := range inst.GetTunedSamples() {
+			if tunedSample.SamplePointer != 0x0 {
+				Write[uint8](w, 0x1)
+				Write[uint8](w, 0x1)
+				if err := s.WriteTunedSample(w, tunedSample); err != nil {
+					return err
 				}
+			} else {
+				Write[uint8](w, 0x0)
 			}
-		} else {
-			// Write a dummy instrument
-			Write[uint8](w, 0x1)
-			Write[uint8](w, 0x0)  // IsRelocated
-			Write[uint8](w, 0x0)  // NormalRangeLo
-			Write[uint8](w, 0x0)  // NormalRangeHi
-			Write[uint8](w, 0x0)  // AdsrDecayIndex
-			Write[uint32](w, 0x0) // Envelope length
-			Write[uint8](w, 0x0)  // TunedSample
-			Write[uint8](w, 0x0)  // TunedSample
-			Write[uint8](w, 0x0)  // TunedSample
 		}
 	}
 	return nil

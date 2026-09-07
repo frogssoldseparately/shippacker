@@ -22,6 +22,7 @@ type ZBank struct {
 // in this great writeup by Tharo at https://hackmd.io/6QDQ7l_1T-CExkSsbDCaOA
 
 func NewBankFromStream(f io.Reader, meta *Meta) (*ZBank, error) {
+	emptyTunedSample := &TunedSample{0, 0}
 	r := sreader.NewSimpleReader(f, binary.BigEndian)
 	drumPointerArrayPointer := Read[uint32](r)
 	sfxArrayPointer := Read[uint32](r)
@@ -41,13 +42,19 @@ func NewBankFromStream(f io.Reader, meta *Meta) (*ZBank, error) {
 				sampleMap[t.SamplePointer] = nil
 			}
 		} else {
-			inst := Instrument{}
-			inst.NonNull = false
+			inst := Instrument{
+				ValidByte:              0x1,
+				IsRelocated:            0x0,
+				NormalRangeLo:          0x0,
+				NormalRangeHi:          0x7F,
+				AdsrDecayIndex:         0x75,
+				EnvelopePointer:        0x0,
+				LowPitchTunedSample:    emptyTunedSample,
+				NormalPitchTunedSample: emptyTunedSample,
+				HighPitchTunedSample:   emptyTunedSample,
+			}
 			instruments = append(instruments, &inst)
 		}
-	}
-	for len(instruments) > 0 && !instruments[len(instruments)-1].NonNull {
-		instruments = instruments[0 : len(instruments)-1]
 	}
 	if drumPointerArrayPointer != 0 {
 		for i := int8(0); i < meta.NumDrums; i++ {
@@ -79,14 +86,25 @@ func NewBankFromStream(f io.Reader, meta *Meta) (*ZBank, error) {
 		r.Seek(offset, 0)
 		envelopeMap[offset] = ReadEnvelope(r)
 	}
+	{
+		points := []*EnvelopePoint{}
+		envelopeMap[0] = &Envelope{Points: &points}
+	}
 	loopMap := map[uint32]*AdpcmLoop{}
 	bookMap := map[uint32]*AdpcmBook{}
+	var sampleOffset uint32
+	switch meta.SampleBankId1 {
+	case 3:
+		sampleOffset = 0x4006B0
+	case 6:
+		sampleOffset = 0x4377E0
+	default:
+		sampleOffset = 0x0
+	}
 	for offset := range sampleMap {
 		r.Seek(offset, 0)
 		sample := ReadSample(r)
-		if meta.SampleBankId1 == 6 {
-			sample.SampleAddress += 0x4377E0
-		}
+		sample.SampleAddress += sampleOffset
 		sampleMap[offset] = sample
 		r.Seek(sample.LoopPointer, 0)
 		loopMap[sample.SampleAddress] = ReadLoop(r)

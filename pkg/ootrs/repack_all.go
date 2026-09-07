@@ -164,8 +164,8 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		if usedBankId, ok := includedBanks[parsedBank]; ok {
 			bankId = usedBankId
 		} else {
-			if parsedBank == 0 {
-				return 0, fmt.Errorf("bank 0 is skipped\n")
+			if parsedBank < 3 {
+				return 0, fmt.Errorf("bank %d is skipped\n", parsedBank)
 			}
 			soundfontEntry, ok := ootSoundFonts[parsedBank]
 			if !ok {
@@ -225,24 +225,31 @@ func processOotrsMeta(f *zip.File) (*OotrsMeta, error) {
 	}
 	rawLines := strings.Split(string(buf), "\n")
 	lines := []string{}
+	zsoundLines := []string{}
 	for _, rawLine := range rawLines {
 		line := strings.Trim(rawLine, " \r\t")
 		if len(line) > 0 {
-			lines = append(lines, line)
+			if strings.Contains(line, "ZSOUND") {
+				zsoundLines = append(zsoundLines, line)
+			} else if len(lines) == 4 {
+				lines[3] = line
+			} else {
+				lines = append(lines, line)
+			}
 		}
 	}
 	if len(lines) == 2 {
 		lines = append(lines, "bgm")
 	}
 	if len(lines) == 3 {
-		lines = append(lines, "all")
+		lines = append(lines, "bgm")
 	}
 	return &OotrsMeta{
 		lines[0],
 		lines[1],
 		lines[2],
 		strings.FieldsFunc(lines[3], func(r rune) bool { return r == ',' || r == '-' }),
-		lines[4:],
+		zsoundLines,
 	}, nil
 }
 
