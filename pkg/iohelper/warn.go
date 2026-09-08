@@ -36,7 +36,8 @@ func WarnPromptBanks() int {
 }
 
 func WarnPromptSongs() int {
-	userInput := promptUser("WARNING: The limit of custom sequences has been reached (1923). Adding any more will lead to audio bugs in 2ship.\n\nIf you want to continue adding songs, type \"continue\", or \"no\" to stop")
+	// The song amount is currently hardcoded to avoid an import loop.
+	userInput := promptUser("WARNING: The limit of custom sequences has been reached (1921). Adding any more will lead to audio bugs in 2ship.\n\nIf you want to continue adding songs, type \"continue\", or \"no\" to stop")
 	if userInput != "continue" {
 		return EarlyExit
 	}

@@ -26,7 +26,7 @@ This does not presently work for Ship of Harkinian, but support is planned.
 
 ## Considerations
 
-While this can create .o2r files with essentially unlimited banks, the actual usable custom instrument **bank count is 214**. This limit will change in a future version of 2ship. As there is a bank limit, there is also a **sequence limit of 1923**. Ship Packer will give you warnings when you reach those limits.
+While this can create .o2r files with essentially unlimited banks, the actual usable custom instrument **bank count is 214**. This limit will change in a future version of 2ship. As there is a bank limit, there is also a **sequence limit of 1921**. Ship Packer will give you warnings when you reach those limits.
 
 Using multiple .o2r files with custom instrument banks will cause the sound fonts to overwrite each other, making sequences play with the wrong instruments.
 
