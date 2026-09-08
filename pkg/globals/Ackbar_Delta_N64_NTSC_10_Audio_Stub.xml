@@ -14,9 +14,9 @@
 		<Sample Name="SmallBirdChirps" OriginalName="Small Bird Chirps" Offset="0x00B660"/>
 		<Sample Name="SAMPLE_0_12" OriginalName="Rushing Water" Offset="0x00BC80"/>
 		<Sample Name="Howling" OriginalName="Howling Wind" Offset="0x00E4B0"/>
-		<!-- Missing Rainfall -->
-		<!-- Missing Low Thunder -->
-		<!-- Missing Lightning -->
+		<Sample Name="unknown" OriginalName="Rainfall" Offset="0x011D80"/>
+		<Sample Name="unknown" OriginalName="Low Thunder" Offset="0x01C4A0"/>
+		<Sample Name="unknown" OriginalName="Lightning" Offset="0x027DA0"/>
 		<Sample Name="HowlingWindShort" OriginalName="Howling Wind (Short)" Offset="0x033800"/>
 		<Sample Name="CuccoCrows" OriginalName="Cucco Crows" Offset="0x0393F0"/>
 		<Sample Name="CawingBird" OriginalName="Cawing Bird" Offset="0x03D090"/>
@@ -43,9 +43,9 @@
 		<Sample Name="StoneDoof" OriginalName="Stone Doof" Offset="0x061B90"/>
 		<Sample Name="StepWoodenBridge" OriginalName="Step - Wooden Bridge" Offset="0x063350"/>
 		<Sample Name="StepFire" OriginalName="Step - Fire" Offset="0x063B70"/>
-		<!-- Missing Iron Boots 2 -->
+		<Sample Name="unknown" OriginalName="Iron Boots 2" Offset="0x064600"/>
 		<Sample Name="StepIce" OriginalName="Step - Ice" Offset="0x064F70"/>
-		<!-- Missing Crackling Fire (Keese) -->
+		<Sample Name="unknown" OriginalName="Crackling Fire (Keese)" Offset="0x065580"/>
 		<Sample Name="MetalClink" OriginalName="Metal Clink" Offset="0x067FA0"/>
 		<Sample Name="Whish" OriginalName="Whish" Offset="0x068CC0"/>
 		<Sample Name="SheatheSword" OriginalName="Sheathe Sword" Offset="0x069130"/>
@@ -122,11 +122,11 @@
 		<Sample Name="Malon" OriginalName="Malon" Offset="0x106C20"/>
 		<Sample Name="Flute" OriginalName="Flute" Offset="0x108690"/>
 		<Sample Name="TamboDrum" OriginalName="Tambo Drum" Offset="0x10CD20"/>
-		<!-- Missing Small Cymbal -->
+		<Sample Name="unknown" OriginalName="Small Cymbal" Offset="0x10EFF0"/>
 		<Sample Name="ZTarget" OriginalName="Z Target" Offset="0x111520"/>
 		<Sample Name="EnemyTargetLockOn" OriginalName="Enemy Target Lock-On" Offset="0x1129E0"/>
-		<!-- Missing Adult Link - Spur Horse 1 -->
-		<!-- Missing Adult Link - Spur Horse 2 -->
+		<Sample Name="unknown" OriginalName="Adult Link - Spur Horse 1" Offset="0x114D70"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Spur Horse 2" Offset="0x1165E0"/>
 		<Sample Name="AdultLinkAttack1" OriginalName="Adult Link - Attack 1" Offset="0x1176B0"/>
 		<Sample Name="AdultLinkAttack2" OriginalName="Adult Link - Attack 2" Offset="0x118910"/>
 		<Sample Name="AdultLinkAttack3" OriginalName="Adult Link - Attack 3" Offset="0x119870"/>
@@ -135,73 +135,73 @@
 		<Sample Name="AdultLinkGasp1" OriginalName="Adult Link - Gasp 1" Offset="0x11B790"/>
 		<Sample Name="AdultLinkStrongAttack1" OriginalName="Adult Link - Strong Attack 1" Offset="0x11BE20"/>
 		<Sample Name="AdultLinkStrongAttack2" OriginalName="Adult Link - Strong Attack 2" Offset="0x11D6D0"/>
-		<!-- Missing Adult Link - Dangling Grunt -->
-		<!-- Missing Adult Link - Dangling Gasp 1 -->
-		<!-- Missing Adult Link - Climb Edge -->
-		<!-- Missing Adult Link - Dangling Gasp 2 -->
-		<!-- Missing Adult Link - Hurt 1 -->
-		<!-- Missing Adult Link - Hurt 2 -->
-		<!-- Missing Adult Link - Hurt 3 -->
-		<!-- Missing Adult Link - Hurt 4 -->
-		<!-- Missing Adult Link - Knocked Back -->
-		<!-- Missing Adult Link - Hurt 5 -->
+		<Sample Name="unknown" OriginalName="Adult Link - Dangling Grunt" Offset="0x11EE50"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Dangling Gasp 1" Offset="0x11FB00"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Climb Edge" Offset="0x120D60"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Dangling Gasp 2" Offset="0x121BF0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Hurt 1" Offset="0x122C10"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Hurt 2" Offset="0x1243F0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Hurt 3" Offset="0x125A90"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Hurt 4" Offset="0x126ED0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Knocked Back" Offset="0x128DA0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Hurt 5" Offset="0x12AC80"/>
 		<Sample Name="AdultLinkFalling1" OriginalName="Adult Link - Falling 1" Offset="0x12CD30"/>
 		<Sample Name="AdultLinkFalling2" OriginalName="Adult Link - Falling 2" Offset="0x133AB0"/>
-		<!-- Missing Adult Link - Gasp 2 -->
-		<!-- Missing Adult Link - Gasp 3 -->
-		<!-- Missing Adult Link - Pant 1 -->
-		<!-- Missing Adult Link - Pant 2 -->
-		<!-- Missing Adult Link - Glug -->
-		<!-- Missing Adult Link - Refreshed -->
-		<!-- Missing Adult Link - Lift (Unused) -->
-		<!-- Missing Adult Link - Cast Attacking Magic -->
-		<!-- Missing Adult Link - Painful Landing -->
-		<!-- Missing Adult Link - Dramatic Gasp -->
-		<!-- Missing Adult Link - Hurt (Unused) -->
-		<!-- Missing Adult Link - Choking -->
-		<!-- Missing Adult Link - Gasping (Unused) -->
-		<!-- Missing Adult Link - Small Gasp (Unused) -->
-		<!-- Missing Adult Link - Unsettled Moan -->
-		<!-- Missing Adult Link - Sneezes -->
-		<!-- Missing Adult Link - Sigh 1 -->
-		<!-- Missing Adult Link - Sigh 2 -->
-		<!-- Missing Adult Link - Sigh 3 -->
-		<!-- Missing Adult Link - Stretch Start -->
-		<!-- Missing Adult Link - Stretching -->
-		<!-- Missing Adult Link - Finished Stretching -->
-		<!-- Missing Child Link - Attack 1 -->
-		<!-- Missing Child Link - Attack 2 -->
-		<!-- Missing Child Link - Attack 3 -->
-		<!-- Missing Child Link - Attack 4 -->
-		<!-- Missing Child Link - Hup 1 -->
-		<!-- Missing Child Link - Hup 2 -->
+		<Sample Name="unknown" OriginalName="Adult Link - Gasp 2" Offset="0x139D70"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Gasp 3" Offset="0x13AF50"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Pant 1" Offset="0x13C040"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Pant 2" Offset="0x13D3B0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Glug" Offset="0x13E870"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Refreshed" Offset="0x13F6B0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Lift (Unused)" Offset="0x140FC0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Cast Attacking Magic" Offset="0x141960"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Painful Landing" Offset="0x143690"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Dramatic Gasp" Offset="0x146490"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Hurt (Unused)" Offset="0x1478F0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Choking" Offset="0x148390"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Gasping (Unused)" Offset="0x1493C0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Small Gasp (Unused)" Offset="0x14B440"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Unsettled Moan" Offset="0x14C250"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Sneezes" Offset="0x151520"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Sigh 1" Offset="0x15A6A0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Sigh 2" Offset="0x15BE50"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Sigh 3" Offset="0x15DCB0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Stretch Start" Offset="0x15F4B0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Stretching" Offset="0x1617F0"/>
+		<Sample Name="unknown" OriginalName="Adult Link - Finished Stretching" Offset="0x163280"/>
+		<Sample Name="unknown" OriginalName="Child Link - Attack 1" Offset="0x166790"/>
+		<Sample Name="unknown" OriginalName="Child Link - Attack 2" Offset="0x167800"/>
+		<Sample Name="unknown" OriginalName="Child Link - Attack 3" Offset="0x168650"/>
+		<Sample Name="unknown" OriginalName="Child Link - Attack 4" Offset="0x1698E0"/>
+		<Sample Name="unknown" OriginalName="Child Link - Hup 1" Offset="0x16A450"/>
+		<Sample Name="unknown" OriginalName="Child Link - Hup 2" Offset="0x16AEA0"/>
 		<Sample Name="ChildLinkStrongAttack1" OriginalName="Child Link - Strong Attack 1" Offset="0x16B3E0"/>
 		<Sample Name="ChildLinkStrongAttack2" OriginalName="Child Link - Strong Attack 2" Offset="0x16CE20"/>
-		<!-- Missing Child Link - Dangling Gasp 1 -->
-		<!-- Missing Child Link - Dangling Gasp 2 -->
-		<!-- Missing Child Link - Sigh 1 -->
-		<!-- Missing Child Link - Sigh 2 -->
-		<!-- Missing Child Link - Hurt 1 -->
-		<!-- Missing Child Link - Hurt 2 -->
-		<!-- Missing Child Link - Hurt 3 -->
-		<!-- Missing Child Link - Hurt 4 -->
-		<!-- Missing Child Link - Knocked Back -->
-		<!-- Missing Child Link - Hurt 5 -->
-		<!-- Missing Child Link - Falling 1 -->
-		<!-- Missing Child Link - Falling 2 -->
+		<Sample Name="unknown" OriginalName="Child Link - Dangling Gasp 1" Offset="0x16EEA0"/>
+		<Sample Name="unknown" OriginalName="Child Link - Dangling Gasp 2" Offset="0x16FE60"/>
+		<Sample Name="unknown" OriginalName="Child Link - Sigh 1" Offset="0x170E80"/>
+		<Sample Name="unknown" OriginalName="Child Link - Sigh 2" Offset="0x171DA0"/>
+		<Sample Name="unknown" OriginalName="Child Link - Hurt 1" Offset="0x173320"/>
+		<Sample Name="unknown" OriginalName="Child Link - Hurt 2" Offset="0x174240"/>
+		<Sample Name="unknown" OriginalName="Child Link - Hurt 3" Offset="0x175140"/>
+		<Sample Name="unknown" OriginalName="Child Link - Hurt 4" Offset="0x175C30"/>
+		<Sample Name="unknown" OriginalName="Child Link - Knocked Back" Offset="0x177480"/>
+		<Sample Name="unknown" OriginalName="Child Link - Hurt 5" Offset="0x178D40"/>
+		<Sample Name="unknown" OriginalName="Child Link - Falling 1" Offset="0x1795F0"/>
+		<Sample Name="unknown" OriginalName="Child Link - Falling 2" Offset="0x17E6C0"/>
 		<Sample Name="ChildLinkGasp1" OriginalName="Child Link - Gasp 1" Offset="0x182EC0"/>
 		<Sample Name="ChildLinkGasp2" OriginalName="Child Link - Gasp 2" Offset="0x1844E0"/>
-		<!-- Missing Child Link - Wheeze -->
-		<!-- Missing Child Link - Exhausted Panting -->
+		<Sample Name="unknown" OriginalName="Child Link - Wheeze" Offset="0x185BA0"/>
+		<Sample Name="unknown" OriginalName="Child Link - Exhausted Panting" Offset="0x188170"/>
 		<Sample Name="ChildLinkGlug" OriginalName="Child Link - Glug" Offset="0x18A560"/>
-		<!-- Missing Child Link - Refreshed -->
+		<Sample Name="unknown" OriginalName="Child Link - Refreshed" Offset="0x18B650"/>
 		<Sample Name="ChildLinkChargeUpUnused" OriginalName="Child Link - Charge Up (Unused)" Offset="0x18D090"/>
 		<Sample Name="ChildLinkCastAttackSpell" OriginalName="Child Link - Cast Attack Spell" Offset="0x18E480"/>
-		<!-- Missing Child Link - Painful Landing -->
-		<!-- Missing Child Link - Dramatic Gasp -->
-		<!-- Missing Child Link - Dying Gasp -->
-		<!-- Missing Child Link - Strangled (Unused) -->
-		<!-- Missing Child Link - Gasp 3 -->
+		<Sample Name="unknown" OriginalName="Child Link - Painful Landing" Offset="0x190200"/>
+		<Sample Name="unknown" OriginalName="Child Link - Dramatic Gasp" Offset="0x193410"/>
+		<Sample Name="unknown" OriginalName="Child Link - Dying Gasp" Offset="0x196950"/>
+		<Sample Name="unknown" OriginalName="Child Link - Strangled (Unused)" Offset="0x1971A0"/>
+		<Sample Name="unknown" OriginalName="Child Link - Gasp 3" Offset="0x197500"/>
 		<Sample Name="ChildLinkShivers" OriginalName="Child Link - Shivers" Offset="0x198F30"/>
 		<Sample Name="ChildLinkSneeze" OriginalName="Child Link - Sneeze" Offset="0x19F6D0"/>
 		<Sample Name="ChildLinkGrunt" OriginalName="Child Link - Grunt" Offset="0x1A1670"/>
@@ -211,53 +211,53 @@
 		<Sample Name="ChildLinkYawnStarts" OriginalName="Child Link - Yawn Starts" Offset="0x1AF2E0"/>
 		<Sample Name="ChildLinkYawnandStretch" OriginalName="Child Link - Yawn and Stretch" Offset="0x1AFEE0"/>
 		<Sample Name="ChildLinkStretchRefreshingly" OriginalName="Child Link - Stretch Refreshingly" Offset="0x1B3F50"/>
-		<!-- Missing Navi - Watch Out! -->
-		<!-- Missing Navi - Look! -->
-		<!-- Missing Navi - Hey! -->
-		<!-- Missing Navi - Listen! -->
-		<!-- Missing Navi - Hello! -->
-		<!-- Missing Talon Snoring -->
-		<!-- Missing Talon Startled -->
-		<!-- Missing Talon Distressed -->
-		<!-- Missing Talon Fearful -->
+		<Sample Name="unknown" OriginalName="Navi - Watch Out!" Offset="0x1B6530"/>
+		<Sample Name="unknown" OriginalName="Navi - Look!" Offset="0x1B7B40"/>
+		<Sample Name="unknown" OriginalName="Navi - Hey!" Offset="0x1B8DB0"/>
+		<Sample Name="unknown" OriginalName="Navi - Listen!" Offset="0x1B9D70"/>
+		<Sample Name="unknown" OriginalName="Navi - Hello!" Offset="0x1BB410"/>
+		<Sample Name="unknown" OriginalName="Talon Snoring" Offset="0x1BC380"/>
+		<Sample Name="unknown" OriginalName="Talon Startled" Offset="0x1BFA40"/>
+		<Sample Name="unknown" OriginalName="Talon Distressed" Offset="0x1C0F80"/>
+		<Sample Name="unknown" OriginalName="Talon Fearful" Offset="0x1C2510"/>
 		<Sample Name="GreatFairyLaughter" OriginalName="Great Fairy Laughter" Offset="0x1C6870"/>
 		<Sample Name="GreatFairyTitters" OriginalName="Great Fairy Titters" Offset="0x1CC560"/>
 		<Sample Name="IngoYowls" OriginalName="Ingo Yowls" Offset="0x1CF9C0"/>
 		<Sample Name="IngoExclaims" OriginalName="Ingo Exclaims" Offset="0x1D25C0"/>
 		<Sample Name="IngoHyeaaaaugh" OriginalName="Ingo - Hyeaaaaugh" Offset="0x1D58F0"/>
 		<Sample Name="IngoHyah" OriginalName="Ingo - Hyah!" Offset="0x1D74B0"/>
-		<!-- Missing Girl Gasps -->
-		<!-- Missing Girl Screams 1 -->
-		<!-- Missing Girl Inquiring 1 -->
-		<!-- Missing Girl Hurt -->
-		<!-- Missing Girl Startled 1 -->
-		<!-- Missing Girl Screams 2 -->
-		<!-- Missing Girl Delighted -->
-		<!-- Missing Girl Surprised 1 -->
-		<!-- Missing Girl Surprised 2 -->
-		<!-- Missing Girl Discombobulated (Unused) -->
-		<!-- Missing Woman Yells -->
-		<!-- Missing Woman Yells, Startled -->
-		<!-- Missing Woman Grunts -->
-		<!-- Missing Woman Hup -->
-		<!-- Missing Girl Sighs -->
-		<!-- Missing Girl Startled 2 -->
-		<!-- Missing Girl Inquiring 2 -->
-		<!-- Missing Girl Disappointed -->
-		<!-- Missing Girl Laughing -->
-		<!-- Missing Girl Startled 3 -->
-		<!-- Missing Girl Grunts in Effort -->
-		<!-- Missing Girl Screams 3 -->
-		<!-- Missing Girl Screams 4 -->
-		<!-- Missing Girl Sighs Contentedly -->
-		<!-- Missing Girl Surprised 3 -->
-		<!-- Missing Girl Scared -->
-		<!-- Missing Skulltula Screaming -->
-		<!-- Missing Skulltula Grunts Angrily -->
-		<!-- Missing King Zora Scoots -->
-		<!-- Missing Flamethrower -->
-		<!-- Missing Dodongo Roar -->
-		<!-- Missing Heavy Rumbling -->
+		<Sample Name="unknown" OriginalName="Girl Gasps" Offset="0x1D8420"/>
+		<Sample Name="unknown" OriginalName="Girl Screams 1" Offset="0x1D9880"/>
+		<Sample Name="unknown" OriginalName="Girl Inquiring 1" Offset="0x1DDA40"/>
+		<Sample Name="unknown" OriginalName="Girl Hurt" Offset="0x1DE3C0"/>
+		<Sample Name="unknown" OriginalName="Girl Startled 1" Offset="0x1DF040"/>
+		<Sample Name="unknown" OriginalName="Girl Screams 2" Offset="0x1E0140"/>
+		<Sample Name="unknown" OriginalName="Girl Delighted" Offset="0x1E3160"/>
+		<Sample Name="unknown" OriginalName="Girl Surprised 1" Offset="0x1E48E0"/>
+		<Sample Name="unknown" OriginalName="Girl Surprised 2" Offset="0x1E55F0"/>
+		<Sample Name="unknown" OriginalName="Girl Discombobulated (Unused)" Offset="0x1E6000"/>
+		<Sample Name="unknown" OriginalName="Woman Yells" Offset="0x1E7E90"/>
+		<Sample Name="unknown" OriginalName="Woman Yells, Startled" Offset="0x1E9960"/>
+		<Sample Name="unknown" OriginalName="Woman Grunts" Offset="0x1EB6B0"/>
+		<Sample Name="unknown" OriginalName="Woman Hup" Offset="0x1EC2B0"/>
+		<Sample Name="unknown" OriginalName="Girl Sighs" Offset="0x1EC990"/>
+		<Sample Name="unknown" OriginalName="Girl Startled 2" Offset="0x1EE390"/>
+		<Sample Name="unknown" OriginalName="Girl Inquiring 2" Offset="0x1EF1B0"/>
+		<Sample Name="unknown" OriginalName="Girl Disappointed" Offset="0x1EFCE0"/>
+		<Sample Name="unknown" OriginalName="Girl Laughing" Offset="0x1F1600"/>
+		<Sample Name="unknown" OriginalName="Girl Startled 3" Offset="0x1F3020"/>
+		<Sample Name="unknown" OriginalName="Girl Grunts in Effort" Offset="0x1F4010"/>
+		<Sample Name="unknown" OriginalName="Girl Screams 3" Offset="0x1F4EB0"/>
+		<Sample Name="unknown" OriginalName="Girl Screams 4" Offset="0x1F5E50"/>
+		<Sample Name="unknown" OriginalName="Girl Sighs Contentedly" Offset="0x1F7220"/>
+		<Sample Name="unknown" OriginalName="Girl Surprised 3" Offset="0x1F9490"/>
+		<Sample Name="unknown" OriginalName="Girl Scared" Offset="0x1FA230"/>
+		<Sample Name="unknown" OriginalName="Skulltula Screaming" Offset="0x1FB850"/>
+		<Sample Name="unknown" OriginalName="Skulltula Grunts Angrily" Offset="0x1FEA30"/>
+		<Sample Name="unknown" OriginalName="King Zora Scoots" Offset="0x1FFD80"/>
+		<Sample Name="unknown" OriginalName="Flamethrower" Offset="0x200840"/>
+		<Sample Name="unknown" OriginalName="Dodongo Roar" Offset="0x206D10"/>
+		<Sample Name="unknown" OriginalName="Heavy Rumbling" Offset="0x209E40"/>
 		<Sample Name="ClatteringSpear" OriginalName="Clattering Spear" Offset="0x20B580"/>
 		<Sample Name="GanonsElectricalCharge" OriginalName="Ganon's Electrical Charge" Offset="0x20BDA0"/>
 		<Sample Name="DramaticSwoosh" OriginalName="Dramatic Swoosh" Offset="0x20C9E0"/>
@@ -288,83 +288,83 @@
 		<Sample Name="DekuBabaLunge" OriginalName="Deku Baba Lunge" Offset="0x2230B0"/>
 		<Sample Name="Buzzing" OriginalName="Buzzing" Offset="0x223C90"/>
 		<Sample Name="ElectricBurst" OriginalName="Electric Burst" Offset="0x224FD0"/>
-		<!-- Missing Ganondorf Hovering -->
-		<!-- Missing Magical Charge-Up -->
-		<!-- Missing Echoing Thunderburst -->
-		<!-- Missing Phantom Ganon in Agony -->
+		<Sample Name="unknown" OriginalName="Ganondorf Hovering" Offset="0x228A70"/>
+		<Sample Name="unknown" OriginalName="Magical Charge-Up" Offset="0x22C380"/>
+		<Sample Name="unknown" OriginalName="Echoing Thunderburst" Offset="0x22DD50"/>
+		<Sample Name="unknown" OriginalName="Phantom Ganon in Agony" Offset="0x233280"/>
 		<Sample Name="PhantomGanonAttacks" OriginalName="Phantom Ganon Attacks" Offset="0x236F80"/>
-		<!-- Missing Phantom Ganon Groans (Unused) -->
-		<!-- Missing Thunder and Groan -->
+		<Sample Name="unknown" OriginalName="Phantom Ganon Groans (Unused)" Offset="0x237BA0"/>
+		<Sample Name="unknown" OriginalName="Thunder and Groan" Offset="0x23AD60"/>
 		<Sample Name="GoronandRedeadMoan" OriginalName="Goron and Redead Moan" Offset="0x23D490"/>
-		<!-- Missing Phantom Ganon Growls -->
+		<Sample Name="unknown" OriginalName="Phantom Ganon Growls" Offset="0x240600"/>
 		<Sample Name="GoronInquiring" OriginalName="Goron Inquiring" Offset="0x241690"/>
 		<Sample Name="GoronRecognizes" OriginalName="Goron Recognizes" Offset="0x241C20"/>
 		<Sample Name="GoronYawn" OriginalName="Goron Yawns" Offset="0x243440"/>
-		<!-- Missing Witch Cackles 1 -->
-		<!-- Missing Witch Cackles 2 -->
-		<!-- Missing Witch Hurt -->
-		<!-- Missing Witch Attacks -->
-		<!-- Missing Witch Inquires -->
-		<!-- Missing Witch Yells a Curse -->
-		<!-- Missing Witch Arguing -->
-		<!-- Missing Witch Surprised -->
-		<!-- Missing Twinrova Gasps -->
-		<!-- Missing Twinrova Thrown Off -->
-		<!-- Missing Twinrova Laughs -->
-		<!-- Missing Witch Howls -->
-		<!-- Missing Woman Chuckles -->
-		<!-- Missing Witch Charges (Unused) -->
+		<Sample Name="unknown" OriginalName="Witch Cackles 1" Offset="0x244DD0"/>
+		<Sample Name="unknown" OriginalName="Witch Cackles 2" Offset="0x247290"/>
+		<Sample Name="unknown" OriginalName="Witch Hurt" Offset="0x249810"/>
+		<Sample Name="unknown" OriginalName="Witch Attacks" Offset="0x24AB70"/>
+		<Sample Name="unknown" OriginalName="Witch Inquires" Offset="0x24BBE0"/>
+		<Sample Name="unknown" OriginalName="Witch Yells a Curse" Offset="0x24C2C0"/>
+		<Sample Name="unknown" OriginalName="Witch Arguing" Offset="0x24E060"/>
+		<Sample Name="unknown" OriginalName="Witch Surprised" Offset="0x24F440"/>
+		<Sample Name="unknown" OriginalName="Twinrova Gasps" Offset="0x24FED0"/>
+		<Sample Name="unknown" OriginalName="Twinrova Thrown Off" Offset="0x250E20"/>
+		<Sample Name="unknown" OriginalName="Twinrova Laughs" Offset="0x2516D0"/>
+		<Sample Name="unknown" OriginalName="Witch Howls" Offset="0x252B10"/>
+		<Sample Name="unknown" OriginalName="Woman Chuckles" Offset="0x255720"/>
+		<Sample Name="unknown" OriginalName="Witch Charges (Unused)" Offset="0x2564A0"/>
 		<Sample Name="IronKnuckleAttacks" OriginalName="Iron Knuckle Attacks" Offset="0x258360"/>
-		<!-- Missing Finger Snap -->
+		<Sample Name="unknown" OriginalName="Finger Snap" Offset="0x2581C0"/>
 		<Sample Name="IronKnuckleGruntUnused" OriginalName="Iron Knuckle Grunt (Unused)" Offset="0x259120"/>
 		<Sample Name="IronKnuckleCharges" OriginalName="Iron Knuckle Charges" Offset="0x259BF0"/>
 		<Sample Name="IronKnuckleDies" OriginalName="Iron Knuckle Dies" Offset="0x25AAC0"/>
 		<Sample Name="IronKnuckleGrunts" OriginalName="Iron Knuckle Grunts" Offset="0x25C140"/>
-		<!-- Missing Iron Knuckle Murmurs (Unused) -->
-		<!-- Missing Muted Timpani -->
-		<!-- Missing Chanting -->
-		<!-- Missing Gerudo Attacks -->
-		<!-- Missing Gerudo Breathes -->
-		<!-- Missing Gerudo Hurt -->
-		<!-- Missing Gerudo Vanquished -->
+		<Sample Name="unknown" OriginalName="Iron Knuckle Murmurs (Unused)" Offset="0x25CD60"/>
+		<Sample Name="unknown" OriginalName="Muted Timpani" Offset="0x25DB50"/>
+		<Sample Name="unknown" OriginalName="Chanting" Offset="0x25E9E0"/>
+		<Sample Name="unknown" OriginalName="Gerudo Attacks" Offset="0x25FC50"/>
+		<Sample Name="unknown" OriginalName="Gerudo Breathes" Offset="0x260420"/>
+		<Sample Name="unknown" OriginalName="Gerudo Hurt" Offset="0x261790"/>
+		<Sample Name="unknown" OriginalName="Gerudo Vanquished" Offset="0x262170"/>
 		<Sample Name="EnemyStruck" OriginalName="Enemy Struck" Offset="0x263270"/>
-		<!-- Missing Ganondorf Laughing -->
-		<!-- Missing Ganondorf Attacks -->
-		<!-- Missing Ganondorf Heavy Attack -->
-		<!-- Missing Ganondorf Rebuffs -->
-		<!-- Missing Ganondorf Strikes the Ground -->
-		<!-- Missing Ganondorf Hurt 1 -->
-		<!-- Missing Ganondorf Hurt 2 -->
-		<!-- Missing Ganondorf Breathes (Unused) -->
-		<!-- Missing Ganondorf Recovers -->
-		<!-- Missing Ganondorf Gurgling Yell (Unused) -->
-		<!-- Missing Ganondorf Dying Breath -->
-		<!-- Missing Ganondorf Vomits -->
-		<!-- Missing Ganondorf Yells in Defiance -->
-		<!-- Missing Ganondorf's Final Attack (Unused) -->
-		<!-- Missing Ganondorf's Final Attack 2 (Unused) -->
-		<!-- Missing Ganondorf Chuckles -->
+		<Sample Name="unknown" OriginalName="Ganondorf Laughing" Offset="0x264B60"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Attacks" Offset="0x26A060"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Heavy Attack" Offset="0x26AAD0"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Rebuffs" Offset="0x26B960"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Strikes the Ground" Offset="0x26BEF0"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Hurt 1" Offset="0x26CE70"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Hurt 2" Offset="0x26DF40"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Breathes (Unused)" Offset="0x26FC60"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Recovers" Offset="0x270E40"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Gurgling Yell (Unused)" Offset="0x271A70"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Dying Breath" Offset="0x273860"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Vomits" Offset="0x274EA0"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Yells in Defiance" Offset="0x2765B0"/>
+		<Sample Name="unknown" OriginalName="Ganondorf's Final Attack (Unused)" Offset="0x27C0A0"/>
+		<Sample Name="unknown" OriginalName="Ganondorf's Final Attack 2 (Unused)" Offset="0x27E260"/>
+		<Sample Name="unknown" OriginalName="Ganondorf Chuckles" Offset="0x280C70"/>
 		<Sample Name="RedeadScream" OriginalName="Redead Scream" Offset="0x283440"/>
-		<!-- Missing Monstrous Roaring -->
-		<!-- Missing Larval Sound Base -->
-		<!-- Missing Dinosaur Cry -->
-		<!-- Missing Phantom Ganon's Laughter -->
-		<!-- Missing Iron Boots 1 -->
-		<!-- Missing Metal Clink (Copy) -->
+		<Sample Name="unknown" OriginalName="Monstrous Roaring" Offset="0x2869C0"/>
+		<Sample Name="unknown" OriginalName="Larval Sound Base" Offset="0x28BF50"/>
+		<Sample Name="unknown" OriginalName="Dinosaur Cry" Offset="0x28CE90"/>
+		<Sample Name="unknown" OriginalName="Phantom Ganon's Laughter" Offset="0x2938F0"/>
+		<Sample Name="unknown" OriginalName="Iron Boots 1" Offset="0x29B480"/>
+		<Sample Name="unknown" OriginalName="Metal Clink (Copy)" Offset="0x29EB20"/>
 	</Samples>
 	
 	<Samples Bank="1" Offset="0x000000">
-		<!-- Missing Ocarina_Looped -->
+		<Sample Name="unknown" OriginalName="Ocarina_Looped" Offset="0x0FAD40"/>
 		<Sample Name="Accordion" OriginalName="Accordion" Offset="0x0FDFC0"/>
 		<Sample Name="Harp1" OriginalName="Harp 1" Offset="0x1026F0"/>
 		<Sample Name="Malon" OriginalName="Malon" Offset="0x106C20"/>
 		<Sample Name="Flute" OriginalName="Flute" Offset="0x108690"/>
-		<!-- Missing Ghostly Wind -->
-		<!-- Missing Ghostly Echoes -->
-		<!-- Missing Echoing Drums -->
+		<Sample Name="unknown" OriginalName="Ghostly Wind" Offset="0x29FE30"/>
+		<Sample Name="unknown" OriginalName="Ghostly Echoes" Offset="0x2A4D40"/>
+		<Sample Name="unknown" OriginalName="Echoing Drums" Offset="0x2A8500"/>
 		<Sample Name="sample_1_00483620" OriginalName="Vocal Oohs" Offset="0x2AF020"/>
 		<Sample Name="sample_1_004889B0" OriginalName="Vocal Eees" Offset="0x2B43B0"/>
-		<!-- Missing Rattling Scream -->
+		<Sample Name="unknown" OriginalName="Rattling Scream" Offset="0x2B9E60"/>
 		<Sample Name="sample_1_003F9010" OriginalName="Harpsichord" Offset="0x2C8510"/>
 		<Sample Name="sample_1_004009E0" OriginalName="Piano" Offset="0x2CFEE0"/>
 		<Sample Name="PianoSoft" OriginalName="Piano (Soft)" Offset="0x2D96A0"/>
@@ -372,7 +372,7 @@
 		<Sample Name="sample_1_003C83F0" OriginalName="Resonant Vocal Aahs" Offset="0x2E7410"/>
 		<Sample Name="sample_1_003D0630" OriginalName="Harp 2" Offset="0x2EF650"/>
 		<Sample Name="sample_1_003D42E0" OriginalName="Glockenspiel" Offset="0x2F3300"/>
-		<!-- Missing Mechanical Rumbling -->
+		<Sample Name="unknown" OriginalName="Mechanical Rumbling" Offset="0x2F8690"/>
 		<Sample Name="sample_1_0042F0D0" OriginalName="Trumpet" Offset="0x2F9A90"/>
 		<Sample Name="sample_1_003F43C0" OriginalName="Trombone" Offset="0x2FD270"/>
 		<Sample Name="sample_1_004328B0" OriginalName="Tuba" Offset="0x301EC0"/>
@@ -394,22 +394,22 @@
 		<Sample Name="sample_1_0043E560" OriginalName="Bassoon" Offset="0x33BC30"/>
 		<Sample Name="sample_1_0043FA60" OriginalName="Harp 3" Offset="0x33D130"/>
 		<Sample Name="sample_1_00442D20" OriginalName="Pizzicato Violin" Offset="0x3403F0"/>
-		<!-- Missing Church Organ -->
-		<!-- Missing Electric Organ -->
+		<Sample Name="unknown" OriginalName="Church Organ" Offset="0x343870"/>
+		<Sample Name="unknown" OriginalName="Electric Organ" Offset="0x34D670"/>
 		<Sample Name="sample_1_00427770" OriginalName="Horn" Offset="0x351810"/>
 		<Sample Name="sample_1_004461A0" OriginalName="Bass Guitar" Offset="0x359170"/>
-		<!-- Missing Clap -->
+		<Sample Name="unknown" OriginalName="Clap" Offset="0x35C900"/>
 	<!-- ntsc start -->
 	<!-- todo: document sample names -->
-		<!-- Missing Sample_590 -->
-		<!-- Missing Sample_591 -->
-		<!-- Missing Islamic Chant -->
+		<Sample Name="unknown" OriginalName="Sample_590" Offset="0x35D100"/>
+		<Sample Name="unknown" OriginalName="Sample_591" Offset="0x365DB0"/>
+		<Sample Name="unknown" OriginalName="Islamic Chant" Offset="0x36C840"/>
 	<!-- ntsc end -->
 		<Sample Name="sample_2_005412F0" OriginalName="Resonant Bass Marimba" Offset="0x37A4B0"/>
 		<Sample Name="sample_1_004520D0" OriginalName="Haunting Wind" Offset="0x381930"/>
-		<!-- Missing Off Hi-Hat -->
-		<!-- Missing Drum and Sitar -->
-		<!-- Missing Percussive Resonance -->
+		<Sample Name="unknown" OriginalName="Off Hi-Hat" Offset="0x38D230"/>
+		<Sample Name="unknown" OriginalName="Drum and Sitar" Offset="0x391FD0"/>
+		<Sample Name="unknown" OriginalName="Percussive Resonance" Offset="0x395710"/>
 		<Sample Name="sample_1_004EC650" OriginalName="Clarinet" Offset="0x397A60"/>
 		<Sample Name="sample_1_004DEB10" OriginalName="Harpsichord (High)" Offset="0x398650"/>
 		<Sample Name="sample_1_00513220" OriginalName="Marimba 1" Offset="0x39FBE0"/>
@@ -425,9 +425,9 @@
 		<Sample Name="sample_2_00538CC0" OriginalName="Goron Drum" Offset="0x3C7A90"/>
 		<Sample Name="sample_1_004D4230" OriginalName="Melodic Wooden Clacking" Offset="0x3C9FD0"/>
 		<Sample Name="sample_1_0052A260" OriginalName="Vocal Ohs" Offset="0x3CB570"/>
-		<!-- Missing Flute and Voice -->
-		<!-- Missing Off-Kilter Flute -->
-		<!-- Missing Voice -->
+		<Sample Name="unknown" OriginalName="Flute and Voice" Offset="0x3D1980"/>
+		<Sample Name="unknown" OriginalName="Off-Kilter Flute" Offset="0x3D2840"/>
+		<Sample Name="unknown" OriginalName="Voice" Offset="0x3D37A0"/>
 		<Sample Name="sample_1_004F8B20" OriginalName="Drum 1" Offset="0x3D45A0"/>
 		<Sample Name="sample_1_004FADE0" OriginalName="Drum 2" Offset="0x3D6860"/>
 		<Sample Name="sample_2_0053B200" OriginalName="Slap Bass" Offset="0x3D9030"/>
@@ -455,18 +455,18 @@
 	<!-- </Samples> -->
 	
 	<Samples Bank="3" Offset="0x4006B0">
-		<!-- Missing sample_3_004006B0 -->
-		<!-- Missing sample_3_00409270 -->
+		<Sample Name="unknown" OriginalName="sample_3_004006B0" Offset="0x000000"/>
+		<Sample Name="unknown" OriginalName="sample_3_00409270" Offset="0x008BC0"/>
 		<Sample Name="sample_1_003F3980" OriginalName="sample_3_0040AC40" Offset="0x00A590"/>
-		<!-- Missing sample_3_0040BA60 -->
-		<!-- Missing sample_3_00416B30 -->
+		<Sample Name="unknown" OriginalName="sample_3_0040BA60" Offset="0x00B3B0"/>
+		<Sample Name="unknown" OriginalName="sample_3_00416B30" Offset="0x016480"/>
 	</Samples>
 	
 	<Samples Bank="4" Offset="0x000000">
 		<Sample Name="sample_1_0052A260" OriginalName="Vocal Ohs" Offset="0x000000"/>
-		<!-- Missing Flute and Voice -->
-		<!-- Missing Off-Kilter Flute -->
-		<!-- Missing Voice -->
+		<Sample Name="unknown" OriginalName="Flute and Voice" Offset="0x006410"/>
+		<Sample Name="unknown" OriginalName="Off-Kilter Flute" Offset="0x0072D0"/>
+		<Sample Name="unknown" OriginalName="Voice" Offset="0x008230"/>
 		<Sample Name="sample_1_004D4230" OriginalName="Melodic Wooden Clacking" Offset="0x009030"/>
 	</Samples>
 	
@@ -480,10 +480,10 @@
 	</Samples>
 	
 	<Samples Bank="6" Offset="0x4377E0">
-		<!-- Missing sample_6_004377E0 -->
-		<!-- Missing sample_6_004428B0 -->
+		<Sample Name="unknown" OriginalName="sample_6_004377E0" Offset="0x000000"/>
+		<Sample Name="unknown" OriginalName="sample_6_004428B0" Offset="0x00B0D0"/>
 		<Sample Name="sample_2_00540830" OriginalName="sample_6_00445900" Offset="0x00E120"/>
-		<!-- Missing sample_6_00447BC0 -->
+		<Sample Name="unknown" OriginalName="sample_6_00447BC0" Offset="0x0103E0"/>
 		<Sample Name="sample_1_004C1CC0" OriginalName="sample_6_0044A690" Offset="0x012EB0"/>
 		<Sample Name="sample_2_0053B200" OriginalName="sample_6_00454BC0" Offset="0x01D3E0"/>
 		<Sample Name="sample_1_004CC1F0" OriginalName="sample_6_0045A6C0" Offset="0x022EE0"/>

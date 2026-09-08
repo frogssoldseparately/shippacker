@@ -11,10 +11,10 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func RepackArchive(musicSrcPath string, file os.DirEntry, zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap, tm *maps.TranslationMap) error {
+func RepackArchive(musicSrcPath string, file os.DirEntry, zipWriter *swriter.SimpleZipWriter, gsm *maps.GameSampleMap) error {
 	archive, err := sreader.OpenArchive(filepath.Join(musicSrcPath, file.Name()))
 	if err != nil {
 		return err
 	}
-	return RepackArchiveFromZipReader(archive, zipWriter, am, tm)
+	return RepackArchiveFromZipReader(archive, zipWriter, gsm)
 }

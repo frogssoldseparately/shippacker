@@ -166,13 +166,11 @@ export function makeSoHStubs(source, destination) {
                 }
                 offset = "0x" + offset.padStart(6, "0");
                 const originalName = extractAttribute(line, "Name");
-                const replacementName = (replacements.get(originalName) || []).pop();
-                const translatedName = (translation.get(replacementName) || []).pop();
-                if (translatedName && translatedName !== "unknown") {
-                    w.write(`\t\t<Sample Name="${translatedName}" OriginalName="${replacementName}" Offset="${offset}"/>`);
-                } else {
-                    w.write(`\t\t<!-- Missing ${replacementName} -->`);
-                }
+                let replacementNameArr = replacements.get(originalName);
+                const replacementName = replacementNameArr == null ? "unknown" : replacementNameArr.pop() || "unknown";
+                let translatedNameArr = translation.get(replacementName);
+                const translatedName = translatedNameArr == null ? "unknown" : translatedNameArr.pop() || "unknown";
+                w.write(`\t\t<Sample Name="${translatedName}" OriginalName="${replacementName}" Offset="${offset}"/>`);
             }
         });
         xml.addTagRule((w, tagName, line) => {

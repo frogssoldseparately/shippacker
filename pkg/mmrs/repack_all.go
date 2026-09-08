@@ -21,7 +21,7 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap) error {
+func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swriter.SimpleZipWriter, gsm *maps.GameSampleMap) error {
 	bankId := globals.GetCurrentBank(zipWriter)
 	bufferedWriter := zipWriter.NewBuffer()
 	archiveFilename := filepath.Base(archive.Name())
@@ -95,17 +95,17 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 				if err != nil {
 					return err
 				}
-				customSample, err := sample.NewSampleFromStream(fInst, uint32(addr), sampleName, am)
+				customSample, err := sample.NewSampleFromStream(fInst, uint32(addr), sampleName)
 				if err != nil {
 					return err
 				}
 				customSamples = append(customSamples, customSample)
 				// So this sample can be referenced in .zbank files
-				(*am)[customSample.Addr] = customSample.Name
+				(*gsm.ByAddress)[customSample.Addr] = customSample.Name
 			}
 		}
 		// Generate zippable soundfont container
-		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fontName, am)
+		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fontName, gsm)
 		if err != nil {
 			return fmt.Errorf("its soundfont could not be generated\n")
 		}

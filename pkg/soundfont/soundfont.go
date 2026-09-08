@@ -16,20 +16,20 @@ import (
 )
 
 type Soundfont struct {
-	BankId       uint32
-	Meta         *zbank.Meta
-	Drums        *[]*zbank.Drum
-	Instruments  *[]*zbank.Instrument
-	SoundEffects *[]*zbank.Sfx
-	EnvelopeMap  *map[uint32]*zbank.Envelope
-	SampleMap    *map[uint32]*zbank.Sample
-	LoopMap      *map[uint32]*zbank.AdpcmLoop
-	BookMap      *map[uint32]*zbank.AdpcmBook
-	AssetMap     *maps.AssetMap
-	Path         string
+	BankId        uint32
+	Meta          *zbank.Meta
+	Drums         *[]*zbank.Drum
+	Instruments   *[]*zbank.Instrument
+	SoundEffects  *[]*zbank.Sfx
+	EnvelopeMap   *map[uint32]*zbank.Envelope
+	SampleMap     *map[uint32]*zbank.Sample
+	LoopMap       *map[uint32]*zbank.AdpcmLoop
+	BookMap       *map[uint32]*zbank.AdpcmBook
+	GameSampleMap *maps.GameSampleMap
+	Path          string
 }
 
-func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *maps.TranslationMap) (*Soundfont, error) {
+func ReadSoundfont(fSoundfont io.Reader, name string, gsm *maps.GameSampleMap) (*Soundfont, error) {
 	bankId, err := getBankFromFontName(name)
 	if err != nil {
 		return nil, err
@@ -78,7 +78,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 		nonNull := true
 		if len(assetPath) > 0 {
 			assetName := filepath.Base(assetPath)
-			assetAddr, ok := (*tm)[assetName]
+			assetAddr, ok := (*gsm.ByName)[assetName]
 			if !ok {
 				return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
 			}
@@ -132,7 +132,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 				nameLen := Read[uint32](r)
 				assetPath := ReadString(r, nameLen)
 				assetName := filepath.Base(assetPath)
-				assetAddr, ok := (*tm)[assetName]
+				assetAddr, ok := (*gsm.ByName)[assetName]
 				if !ok {
 					return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
 				}
@@ -169,7 +169,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 			nameLen := Read[uint32](r)
 			assetPath := ReadString(r, nameLen)
 			assetName := filepath.Base(assetPath)
-			assetAddr, ok := (*tm)[assetName]
+			assetAddr, ok := (*gsm.ByName)[assetName]
 			if !ok {
 				return nil, fmt.Errorf("could not find Ship of Harkinian translation for %s\n", assetName)
 			}
@@ -189,10 +189,22 @@ func ReadSoundfont(fSoundfont io.Reader, name string, am *maps.AssetMap, tm *map
 		}
 		soundEffects = append(soundEffects, &sfx)
 	}
-	return &Soundfont{bankId, meta, &drums, &instruments, &soundEffects, &envMap, &sampleMap, &loopMap, &bookMap, am, name}, nil
+	return &Soundfont{
+		BankId:        bankId,
+		Meta:          meta,
+		Drums:         &drums,
+		Instruments:   &instruments,
+		SoundEffects:  &soundEffects,
+		EnvelopeMap:   &envMap,
+		SampleMap:     &sampleMap,
+		LoopMap:       &loopMap,
+		BookMap:       &bookMap,
+		GameSampleMap: gsm,
+		Path:          name,
+	}, nil
 }
 
-func NewSoundfontFromBankStreams(fBank io.Reader, fMeta io.Reader, name string, am *maps.AssetMap) (*Soundfont, error) {
+func NewSoundfontFromBankStreams(fBank io.Reader, fMeta io.Reader, name string, gsm *maps.GameSampleMap) (*Soundfont, error) {
 	meta, err := zbank.NewBankmetaFromStream(fMeta)
 	if err != nil {
 		return nil, err
@@ -201,15 +213,27 @@ func NewSoundfontFromBankStreams(fBank io.Reader, fMeta io.Reader, name string, 
 	if err != nil {
 		return nil, err
 	}
-	return NewSoundfontFromBank(bank, name, am)
+	return NewSoundfontFromBank(bank, name, gsm)
 }
 
-func NewSoundfontFromBank(bank *zbank.ZBank, name string, am *maps.AssetMap) (*Soundfont, error) {
+func NewSoundfontFromBank(bank *zbank.ZBank, name string, gsm *maps.GameSampleMap) (*Soundfont, error) {
 	bankId, err := getBankFromFontName(name)
 	if err != nil {
 		return nil, err
 	}
-	return &Soundfont{bankId, bank.Meta, bank.Drums, bank.Instruments, bank.SoundEffects, bank.EnvelopeMap, bank.SampleMap, bank.LoopMap, bank.BookMap, am, name}, nil
+	return &Soundfont{
+		BankId:        bankId,
+		Meta:          bank.Meta,
+		Drums:         bank.Drums,
+		Instruments:   bank.Instruments,
+		SoundEffects:  bank.SoundEffects,
+		EnvelopeMap:   bank.EnvelopeMap,
+		SampleMap:     bank.SampleMap,
+		LoopMap:       bank.LoopMap,
+		BookMap:       bank.BookMap,
+		GameSampleMap: gsm,
+		Path:          name,
+	}, nil
 }
 
 func (s *Soundfont) GetCompression() uint16 {
@@ -289,7 +313,7 @@ func (s *Soundfont) WriteEnvelopeEntry(w *swriter.SimpleWriter, ptr uint32) erro
 
 func (s *Soundfont) WriteTunedSample(w *swriter.SimpleWriter, ts *zbank.TunedSample) error {
 	sample := (*s.SampleMap)[ts.SamplePointer]
-	assetName, ok := (*s.AssetMap)[sample.SampleAddress]
+	assetName, ok := (*s.GameSampleMap.ByAddress)[sample.SampleAddress]
 	if !ok {
 		return fmt.Errorf("invalid sample address of %08X\n", sample.SampleAddress)
 	}

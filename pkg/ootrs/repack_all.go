@@ -21,7 +21,7 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap, tm *maps.TranslationMap) error {
+func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swriter.SimpleZipWriter, gsm *maps.GameSampleMap) error {
 	bankId := globals.GetCurrentBank(zipWriter)
 	bufferedWriter := zipWriter.NewBuffer()
 	fontCount := uint32(1)
@@ -104,15 +104,15 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 			if err != nil {
 				return err
 			}
-			customSample, err := sample.NewSampleFromStream(fSample, uint32(addr), sampleName, am)
+			customSample, err := sample.NewSampleFromStream(fSample, uint32(addr), sampleName)
 			if err != nil {
 				return err
 			}
 			customSamples = append(customSamples, customSample)
-			(*am)[customSample.Addr] = customSample.Name
+			(*gsm.ByAddress)[customSample.Addr] = customSample.Name
 		}
 		// Generate zippable soundfont container
-		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fBankmeta, fontName, am)
+		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fBankmeta, fontName, gsm)
 		if err != nil {
 			return fmt.Errorf("its soundfont could not be generated\n")
 		}
@@ -171,7 +171,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 			if err != nil {
 				return err
 			}
-			sf, err := soundfont.ReadSoundfont(fSoundfont, fontName, am, tm)
+			sf, err := soundfont.ReadSoundfont(fSoundfont, fontName, gsm)
 			if err != nil {
 				return err
 			}
@@ -285,7 +285,7 @@ func PrepareOotSamples(sampleEntries *map[uint32]*zip.File) error {
 	return nil
 }
 
-func InjectOotSamples(zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap, tm *maps.TranslationMap) error {
+func InjectOotSamples(zipWriter *swriter.SimpleZipWriter, gsm *maps.GameSampleMap) error {
 	buffered := zipWriter.NewBuffer()
 	for _, entry := range ootSamples {
 		if err := buffered.WriteEntry(entry); err != nil {
@@ -294,8 +294,8 @@ func InjectOotSamples(zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap, tm 
 	}
 	// Second for loop so the asset maps don't have pointers to samples that weren't injected
 	for _, entry := range ootSamples {
-		(*am)[entry.Addr] = entry.Name
-		(*tm)[entry.Name] = entry.Addr
+		(*gsm.ByAddress)[entry.Addr] = entry.Name
+		(*gsm.ByName)[entry.Name] = entry.Addr
 	}
 	zipWriter.ConsumeBuffer()
 	return nil

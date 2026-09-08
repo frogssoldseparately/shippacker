@@ -16,22 +16,17 @@ import (
 
 func Pack(srcPaths []string) []byte {
 	zipWriter := swriter.NewEmptyZipWriter(binary.LittleEndian)
-	mmrsAssetMap, err := maps.NewAssetMap()
-	if err != nil {
-		fmt.Println(err)
-		return nil
-	}
-	ootrsAssetMap, ootrsTranslationMap, err := maps.NewTranslationMaps()
+	sampleMap, err := maps.NewSampleMap()
 	if err != nil {
 		fmt.Println(err)
 		return nil
 	}
 	if globals.HasOotO2r {
-		if err := ootrs.InjectOotSamples(zipWriter, ootrsAssetMap, ootrsTranslationMap); err != nil {
+		if err := ootrs.InjectOotSamples(zipWriter, sampleMap.OcarinaOfTime); err != nil {
 			fmt.Printf("Could not inject oot samples because %s\n", err)
 		}
 	}
-	if err := WriteModEntries(srcPaths, zipWriter, mmrsAssetMap, ootrsAssetMap, ootrsTranslationMap); err != nil {
+	if err := WriteModEntries(srcPaths, zipWriter, sampleMap); err != nil {
 		fmt.Println(err)
 		return nil
 	}
@@ -43,15 +38,15 @@ func Pack(srcPaths []string) []byte {
 	return nil
 }
 
-func WriteModEntries(srcPaths []string, zipWriter *swriter.SimpleZipWriter, mmrsAssetMap *maps.AssetMap, ootrsAssetMap *maps.AssetMap, ootrsTranslationMap *maps.TranslationMap) error {
+func WriteModEntries(srcPaths []string, zipWriter *swriter.SimpleZipWriter, sampleMap *maps.SampleMap) error {
 	for _, path := range srcPaths {
 		switch filepath.Ext(path) {
 		case ".mmrs":
-			if err := mmrs.RepackArchive(path, zipWriter, mmrsAssetMap); err != nil {
+			if err := mmrs.RepackArchive(path, zipWriter, sampleMap.MajorasMask); err != nil {
 				fmt.Printf("Skipped %s because %s\n", path, err)
 			}
 		case ".ootrs":
-			if err := ootrs.RepackArchive(path, zipWriter, ootrsAssetMap, ootrsTranslationMap); err != nil {
+			if err := ootrs.RepackArchive(path, zipWriter, sampleMap.OcarinaOfTime); err != nil {
 				fmt.Printf("Skipped %s because %s\n", path, err)
 			}
 		default:

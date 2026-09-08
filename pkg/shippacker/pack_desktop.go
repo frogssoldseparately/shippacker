@@ -20,20 +20,16 @@ import (
 
 func Pack(musicSrcPath string, outPath string) error {
 	zipWriter := swriter.NewEmptyZipWriter(binary.LittleEndian)
-	mmrsAssetMap, err := maps.NewAssetMap()
-	if err != nil {
-		return err
-	}
-	ootrsAssetMap, ootrsTranslationMap, err := maps.NewTranslationMaps()
+	sampleMap, err := maps.NewSampleMap()
 	if err != nil {
 		return err
 	}
 	if globals.HasOotO2r {
-		if err := ootrs.InjectOotSamples(zipWriter, ootrsAssetMap, ootrsTranslationMap); err != nil {
+		if err := ootrs.InjectOotSamples(zipWriter, sampleMap.OcarinaOfTime); err != nil {
 			fmt.Printf("Could not inject oot samples because %s\n", err)
 		}
 	}
-	if err := WriteModEntries(musicSrcPath, zipWriter, mmrsAssetMap, ootrsAssetMap, ootrsTranslationMap); err != nil {
+	if err := WriteModEntries(musicSrcPath, zipWriter, sampleMap); err != nil {
 		return err
 	}
 	sequencesWritten := zipWriter.GetTypedFileCount("Sequence")
@@ -70,7 +66,7 @@ func Pack(musicSrcPath string, outPath string) error {
 	return nil
 }
 
-func WriteModEntries(srcPath string, zipWriter *swriter.SimpleZipWriter, mmrsAssetMap *maps.AssetMap, ootrsAssetMap *maps.AssetMap, ootrsTranslationMap *maps.TranslationMap) error {
+func WriteModEntries(srcPath string, zipWriter *swriter.SimpleZipWriter, sampleMap *maps.SampleMap) error {
 	files, err := os.ReadDir(srcPath)
 	if err != nil {
 		return err
@@ -78,7 +74,7 @@ func WriteModEntries(srcPath string, zipWriter *swriter.SimpleZipWriter, mmrsAss
 	for _, file := range files {
 		if file.IsDir() {
 			if globals.RecurseSubdirectories {
-				if err := WriteModEntries(filepath.Join(srcPath, file.Name()), zipWriter, mmrsAssetMap, ootrsAssetMap, ootrsTranslationMap); err != nil {
+				if err := WriteModEntries(filepath.Join(srcPath, file.Name()), zipWriter, sampleMap); err != nil {
 					return err
 				}
 				if globals.EarlyExit {
@@ -89,11 +85,11 @@ func WriteModEntries(srcPath string, zipWriter *swriter.SimpleZipWriter, mmrsAss
 			name := filepath.Base(file.Name())
 			ext := filepath.Ext(name)
 			if ext == ".mmrs" {
-				if err := mmrs.RepackArchive(srcPath, file, zipWriter, mmrsAssetMap); err != nil {
+				if err := mmrs.RepackArchive(srcPath, file, zipWriter, sampleMap.MajorasMask); err != nil {
 					fmt.Printf("Skipped %s because %s\n", name, err)
 				}
 			} else if ext == ".ootrs" {
-				if err := ootrs.RepackArchive(srcPath, file, zipWriter, ootrsAssetMap, ootrsTranslationMap); err != nil {
+				if err := ootrs.RepackArchive(srcPath, file, zipWriter, sampleMap.OcarinaOfTime); err != nil {
 					fmt.Printf("Skipped %s because %s\n", name, err)
 				}
 			} else if isSequenceExtension(ext) {

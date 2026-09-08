@@ -12,10 +12,10 @@ import (
 )
 
 // Converts .mmrs to soundfont (if applicable) and sequence pair.
-func RepackArchive(musicSrcPath string, file os.DirEntry, zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap) error {
+func RepackArchive(musicSrcPath string, file os.DirEntry, zipWriter *swriter.SimpleZipWriter, gsm *maps.GameSampleMap) error {
 	archive, err := sreader.OpenArchive(filepath.Join(musicSrcPath, file.Name()))
 	if err != nil {
 		return err
 	}
-	return RepackArchiveFromZipReader(archive, zipWriter, am)
+	return RepackArchiveFromZipReader(archive, zipWriter, gsm)
 }

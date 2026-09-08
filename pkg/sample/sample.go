@@ -4,7 +4,6 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/shippacker/pkg/o2r"
 	"github.com/frogssoldseparately/shippacker/pkg/zbank"
 	"github.com/frogssoldseparately/simpleseek/sreader"
@@ -19,7 +18,7 @@ type Sample struct {
 	Name      string
 }
 
-func NewSampleFromStream(fSample io.Reader, addr uint32, name string, am *maps.AssetMap) (*Sample, error) {
+func NewSampleFromStream(fSample io.Reader, addr uint32, name string) (*Sample, error) {
 	r := sreader.NewSimpleReader(fSample, binary.BigEndian)
 	return &Sample{r.GetBuffer(), &zbank.AdpcmLoop{}, &zbank.AdpcmBook{}, addr, name}, nil
 }
