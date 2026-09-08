@@ -24,11 +24,6 @@ func Pack(musicSrcPath string, outPath string) error {
 	if err != nil {
 		return err
 	}
-	if globals.HasOotO2r {
-		if err := ootrs.InjectOotSamples(zipWriter, sampleMap.OcarinaOfTime); err != nil {
-			fmt.Printf("Could not inject oot samples because %s\n", err)
-		}
-	}
 	if err := WriteModEntries(musicSrcPath, zipWriter, sampleMap); err != nil {
 		return err
 	}

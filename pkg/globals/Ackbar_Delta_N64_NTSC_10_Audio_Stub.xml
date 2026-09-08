@@ -449,10 +449,9 @@
 		<Sample Name="sample_1_00527B70" OriginalName="Steel Drum (High)" Offset="0x3F82F0"/>
 	</Samples>
 	
-	<!-- Temporarily commented out until mapping is done -->
-	<!-- <Samples Bank="2" Offset="0x3FA9E0"> -->
-	<!-- <Sample Name="Warm Pad" Offset="0"/> -->
-	<!-- </Samples> -->
+	<Samples Bank="2" Offset="0x3FA9E0">
+		<Sample Name="unknown" OriginalName="sample_2_003FA9E0" Offset="0x000000"/>
+	</Samples>
 	
 	<Samples Bank="3" Offset="0x4006B0">
 		<Sample Name="unknown" OriginalName="sample_3_004006B0" Offset="0x000000"/>

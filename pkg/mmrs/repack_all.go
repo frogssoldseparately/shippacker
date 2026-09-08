@@ -24,6 +24,7 @@ import (
 func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swriter.SimpleZipWriter, gsm *maps.GameSampleMap) error {
 	bankId := globals.GetCurrentBank(zipWriter)
 	bufferedWriter := zipWriter.NewBuffer()
+	sample.NewSampleQueue()
 	archiveFilename := filepath.Base(archive.Name())
 	archiveExtension := filepath.Ext(archiveFilename)
 	archiveBasename := archiveFilename[0 : len(archiveFilename)-len(archiveExtension)]
@@ -100,8 +101,9 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 					return err
 				}
 				customSamples = append(customSamples, customSample)
+				sample.QueueSample(customSample.Name, customSample.Addr)
 				// So this sample can be referenced in .zbank files
-				(*gsm.ByAddress)[customSample.Addr] = customSample.Name
+				// (*gsm.ByAddress)[customSample.Addr] = customSample.Name
 			}
 		}
 		// Generate zippable soundfont container
@@ -159,6 +161,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 		return err
 	}
 	zipWriter.ConsumeBuffer()
+	sample.AcceptQueuedSamples(gsm)
 	return nil
 }
 

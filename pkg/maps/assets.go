@@ -12,9 +12,10 @@ type SampleMap struct {
 }
 
 type GameSampleMap struct {
-	ByAddress *SampleAddressMap
-	ByName    *SampleNameMap
-	Unmapped  *SampleNameMap
+	ByAddress         *SampleAddressMap
+	ByName            *SampleNameMap
+	UnmappedByAddress *SampleAddressMap
+	UnmappedByName    *SampleNameMap
 }
 
 type SampleAddressMap map[uint32]string
@@ -49,7 +50,8 @@ func NewMmrsMap() (*GameSampleMap, error) {
 
 	byAddress := SampleAddressMap{}
 	byName := SampleNameMap{}
-	unmapped := SampleNameMap{}
+	unmappedByAddress := SampleAddressMap{}
+	unmappedByName := SampleNameMap{}
 
 	for _, sample := range sampleEntries {
 		newName := sample.Name + "_META"
@@ -58,9 +60,10 @@ func NewMmrsMap() (*GameSampleMap, error) {
 		byName[newName] = currentOffset
 	}
 	return &GameSampleMap{
-		ByAddress: &byAddress,
-		ByName:    &byName,
-		Unmapped:  &unmapped,
+		ByAddress:         &byAddress,
+		ByName:            &byName,
+		UnmappedByAddress: &unmappedByAddress,
+		UnmappedByName:    &unmappedByName,
 	}, nil
 }
 
@@ -77,7 +80,8 @@ func NewOotrsMap() (*GameSampleMap, error) {
 
 	byAddress := SampleAddressMap{}
 	byName := SampleNameMap{}
-	unmapped := SampleNameMap{}
+	unmappedByAddress := SampleAddressMap{}
+	unmappedByName := SampleNameMap{}
 
 	for _, sample := range sampleEntries {
 		oldName := sample.OriginalName + "_META"
@@ -86,12 +90,18 @@ func NewOotrsMap() (*GameSampleMap, error) {
 		if err != nil {
 			return nil, err
 		}
-		if newName == "unknown" {
-			unmapped[oldName] = currentOffset
+		if newName == "unknown_META" {
+			unmappedByAddress[currentOffset] = oldName
+			unmappedByName[oldName] = currentOffset
 		} else {
 			byAddress[currentOffset] = newName
 			byName[oldName] = currentOffset
 		}
 	}
-	return &GameSampleMap{&byAddress, &byName, &unmapped}, nil
+	return &GameSampleMap{
+		ByAddress:         &byAddress,
+		ByName:            &byName,
+		UnmappedByAddress: &unmappedByAddress,
+		UnmappedByName:    &unmappedByName,
+	}, nil
 }

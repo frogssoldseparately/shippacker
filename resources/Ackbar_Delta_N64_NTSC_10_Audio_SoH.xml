@@ -563,10 +563,9 @@
 				<Sample Name="Steel Drum (High)" Offset="0x3F82F0" SampleRate="14254"/>
 			</Samples>
 
-			<!-- Temporarily commented out until mapping is done -->
-			<!-- <Samples Bank="2" Offset="0x3FA9E0"> -->
-				<!-- <Sample Name="Warm Pad" Offset="0"/> -->
-			<!-- </Samples> -->
+			<Samples Bank="2" Offset="0x3FA9E0">
+				<Sample Name="Warm Pad" Offset="0"/>
+			</Samples>
 		
 			<Samples Bank="3" Offset="0x4006B0">
 				<Sample Name="Low Rumbling" Offset="0"/>

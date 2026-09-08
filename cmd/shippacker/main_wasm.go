@@ -3,14 +3,13 @@
 package main
 
 import (
-	"archive/zip"
 	"fmt"
-	"strings"
 	"syscall/js"
 
 	"github.com/frogssoldseparately/shippacker/pkg/globals"
-	"github.com/frogssoldseparately/shippacker/pkg/ootrs"
+	"github.com/frogssoldseparately/shippacker/pkg/sample"
 	"github.com/frogssoldseparately/shippacker/pkg/shippacker"
+	"github.com/frogssoldseparately/shippacker/pkg/soundfont"
 	"github.com/frogssoldseparately/simpleseek/sreader"
 )
 
@@ -51,26 +50,9 @@ func AddOoTO2R(this js.Value, args []js.Value) any {
 	if err != nil {
 		fmt.Printf("Could not open archive because %s\n", err)
 	}
-	soundfontEntries := []*zip.File{}
-	for _, entry := range archive.GetFiles() {
-		if strings.Contains(entry.Name, "audio/fonts/") {
-			soundfontEntries = append(soundfontEntries, entry)
-		}
-	}
-	if err := ootrs.PrepareOotSoundfonts(&soundfontEntries); err == nil {
-		sampleEntries := map[uint32]*zip.File{}
-		for addr, name := range globals.TargetOotSamples {
-			if entry, ok := archive.GetFile("audio/samples/" + name); ok {
-				sampleEntries[addr] = entry
-			} else {
-				fmt.Printf("Could not find sample %s to inject\n", name)
-			}
-		}
-		if err := ootrs.PrepareOotSamples(&sampleEntries); err == nil {
-			globals.HasOotO2r = true
-		} else {
-			fmt.Printf("Could not unpack oot.o2r because %s\n", err)
-		}
+	if err := soundfont.RegisterSoundfonts(archive); err == nil {
+		sample.RegisterSamples(archive)
+		globals.HasOotO2r = true
 	} else {
 		fmt.Printf("Could not unpack oot.o2r because %s\n", err)
 	}

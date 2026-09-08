@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/frogssoldseparately/shippacker/pkg/globals"
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/shippacker/pkg/mmrs"
 	"github.com/frogssoldseparately/shippacker/pkg/ootrs"
@@ -20,11 +19,6 @@ func Pack(srcPaths []string) []byte {
 	if err != nil {
 		fmt.Println(err)
 		return nil
-	}
-	if globals.HasOotO2r {
-		if err := ootrs.InjectOotSamples(zipWriter, sampleMap.OcarinaOfTime); err != nil {
-			fmt.Printf("Could not inject oot samples because %s\n", err)
-		}
 	}
 	if err := WriteModEntries(srcPaths, zipWriter, sampleMap); err != nil {
 		fmt.Println(err)

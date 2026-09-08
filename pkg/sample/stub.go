@@ -1,25 +1,17 @@
 package sample
 
 import (
-	"encoding/binary"
-	"io"
-
 	"github.com/frogssoldseparately/shippacker/pkg/o2r"
-	"github.com/frogssoldseparately/simpleseek/sreader"
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
+
+// TODO: This should eventually should just be removed, and instead parse the sample
+// file so we don't have Sample and StubbledSample structures.
 
 type StubbedSample struct {
 	RawBinary *[]byte
 	Addr      uint32
 	Name      string
-}
-
-func ReadShipSample(fSample io.Reader, addr uint32, name string) (*StubbedSample, error) {
-	r := sreader.NewSimpleReader(fSample, binary.LittleEndian)
-	fullBinary := r.GetBuffer()
-	binaryBody := (*fullBinary)[0x40:]
-	return &StubbedSample{&binaryBody, addr, name}, nil
 }
 
 func (s *StubbedSample) GetCompression() uint16 {

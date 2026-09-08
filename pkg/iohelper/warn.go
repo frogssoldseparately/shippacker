@@ -31,7 +31,6 @@ func WarnPromptBanks() int {
 	case "quit":
 		fallthrough
 	default:
-		fmt.Println("HaltRunning")
 		return HaltRunning
 	}
 }

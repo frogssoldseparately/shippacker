@@ -24,6 +24,8 @@ import (
 func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swriter.SimpleZipWriter, gsm *maps.GameSampleMap) error {
 	bankId := globals.GetCurrentBank(zipWriter)
 	bufferedWriter := zipWriter.NewBuffer()
+	sample.NewSampleQueue()
+	soundfont.NewSoundfontQueue()
 	fontCount := uint32(1)
 	metaEntry, ok := archive.GetFirstByExt(".meta")
 	if !ok {
@@ -109,7 +111,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 				return err
 			}
 			customSamples = append(customSamples, customSample)
-			(*gsm.ByAddress)[customSample.Addr] = customSample.Name
+			sample.QueueSample(customSample.Name, customSample.Addr)
 		}
 		// Generate zippable soundfont container
 		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fBankmeta, fontName, gsm)
@@ -137,6 +139,16 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 				return err
 			}
 		}
+		for _, usedSample := range *sf.SampleMap {
+			assetAddr := usedSample.SampleAddress
+			if assetAddr != 0 {
+				if _, ok := (*gsm.ByAddress)[assetAddr]; !ok {
+					if _, err := sample.InjectSampleByAddress(bufferedWriter, assetAddr, gsm); err != nil {
+						return err
+					}
+				}
+			}
+		}
 		// Write zippable soundfont
 		if err := bufferedWriter.WriteEntry(sf); err != nil {
 			return err
@@ -145,40 +157,8 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 		if !globals.HasOotO2r {
 			return fmt.Errorf("oot.o2r was not provided\n")
 		}
-		var parsedBank uint64
-		if len(metadata.Bank) >= 2 && metadata.Bank[0:2] == "0x" {
-			parsedBank, err = strconv.ParseUint(metadata.Bank[2:], 16, 32)
-			if err != nil {
-				return err
-			}
-		} else {
-			parsedBank, err = strconv.ParseUint(metadata.Bank, 16, 32)
-			if err != nil {
-				return err
-			}
-		}
-		if usedBankId, ok := includedBanks[parsedBank]; ok {
-			bankId = usedBankId
-		} else {
-			if parsedBank < 3 {
-				return fmt.Errorf("bank %d is skipped\n", parsedBank)
-			}
-			soundfontEntry, ok := ootSoundFonts[parsedBank]
-			if !ok {
-				return fmt.Errorf("could not find OoT bank with id %s\n", metadata.Bank)
-			}
-			fSoundfont, err := soundfontEntry.Open()
-			if err != nil {
-				return err
-			}
-			sf, err := soundfont.ReadSoundfont(fSoundfont, fontName, gsm)
-			if err != nil {
-				return err
-			}
-			if err := bufferedWriter.WriteEntry(sf); err != nil {
-				return err
-			}
-			includedBanks[parsedBank] = bankId
+		if err := soundfont.InjectSoundfont(bufferedWriter, metadata.Bank, &bankId, fontName, gsm); err != nil {
+			return err
 		}
 	}
 	fSeq, err := seqEntry.Open()
@@ -194,6 +174,8 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 		return err
 	}
 	zipWriter.ConsumeBuffer()
+	sample.AcceptQueuedSamples(gsm)
+	soundfont.AcceptQueuedSoundfonts()
 	return nil
 }
 
@@ -249,54 +231,3 @@ func processOotrsMeta(f *zip.File) (*OotrsMeta, error) {
 // func mapOotrsCategories(original []string) []string {
 // 	return original
 // }
-
-var includedBanks = map[uint64]uint64{}
-
-var ootSoundFonts = map[uint64]*zip.File{}
-
-var ootSamples = []*sample.StubbedSample{}
-
-func PrepareOotSoundfonts(soundfontEntries *[]*zip.File) error {
-	for _, soundfontEntry := range *soundfontEntries {
-		base := filepath.Base(soundfontEntry.Name)
-		bankDec := base[0:strings.Index(base, "_")]
-		if bankNum, err := strconv.ParseUint(bankDec, 10, 32); err != nil {
-			return err
-		} else {
-			ootSoundFonts[bankNum] = soundfontEntry
-		}
-	}
-	return nil
-}
-
-func PrepareOotSamples(sampleEntries *map[uint32]*zip.File) error {
-	for addr, sampleEntry := range *sampleEntries {
-		sampleName := filepath.Base(sampleEntry.Name)
-		fSample, err := sampleEntry.Open()
-		if err != nil {
-			return err
-		}
-		sample, err := sample.ReadShipSample(fSample, addr, sampleName)
-		if err != nil {
-			return err
-		}
-		ootSamples = append(ootSamples, sample)
-	}
-	return nil
-}
-
-func InjectOotSamples(zipWriter *swriter.SimpleZipWriter, gsm *maps.GameSampleMap) error {
-	buffered := zipWriter.NewBuffer()
-	for _, entry := range ootSamples {
-		if err := buffered.WriteEntry(entry); err != nil {
-			return err
-		}
-	}
-	// Second for loop so the asset maps don't have pointers to samples that weren't injected
-	for _, entry := range ootSamples {
-		(*gsm.ByAddress)[entry.Addr] = entry.Name
-		(*gsm.ByName)[entry.Name] = entry.Addr
-	}
-	zipWriter.ConsumeBuffer()
-	return nil
-}
