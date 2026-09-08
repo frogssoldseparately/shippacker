@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"runtime"
 	"strings"
+
+	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
 const Platform string = runtime.GOOS
@@ -56,4 +58,8 @@ var HasOotO2r = false
 
 func GetAudioXmlKey() string {
 	return strings.ToLower(fmt.Sprintf("%s_%s", Version, RomPlatform))
+}
+
+func GetCurrentBank(zipWriter *swriter.SimpleZipWriter) uint64 {
+	return uint64(zipWriter.GetTypedFileCount("Soundfont")) + StartingBankIndex
 }

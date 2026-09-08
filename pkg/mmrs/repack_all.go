@@ -2,7 +2,6 @@ package mmrs
 
 import (
 	"archive/zip"
-	"encoding/binary"
 	"fmt"
 	"hash/crc32"
 	"io"
@@ -22,7 +21,9 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, bankId uint64) (uint16, error) {
+func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap) error {
+	bankId := globals.GetCurrentBank(zipWriter)
+	bufferedWriter := zipWriter.NewBuffer()
 	archiveFilename := filepath.Base(archive.Name())
 	archiveExtension := filepath.Ext(archiveFilename)
 	archiveBasename := archiveFilename[0 : len(archiveFilename)-len(archiveExtension)]
@@ -30,7 +31,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 	fontCount := uint32(1)
 	seqEntry, ok := archive.GetFirstByAnyExt([]string{".seq", ".zseq", ".aseq"})
 	if !ok {
-		return 0, fmt.Errorf("it did not have a valid sequence file.\n")
+		return fmt.Errorf("it did not have a valid sequence file.\n")
 	}
 	var seqName string
 	{
@@ -50,25 +51,22 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		}
 	}
 
-	bufferedLW := swriter.NewEmptySimpleWriter(binary.LittleEndian)
-	bufferedCW := swriter.NewEmptySimpleWriter(binary.LittleEndian)
-	filesWritten := uint16(0)
 	if bankEntry, ok := archive.GetFile(seqName + ".zbank"); ok {
 		if !globals.AllowCustomBanks {
-			return 0, fmt.Errorf("it has a custom bank\n")
+			return fmt.Errorf("it has a custom bank\n")
 		}
 		metaEntry, ok := archive.GetFile(seqName + ".bankmeta")
 		if !ok {
-			return 0, fmt.Errorf("it is missing a .bankmeta file\n")
+			return fmt.Errorf("it is missing a .bankmeta file\n")
 		}
 		fBank, err := bankEntry.Open()
 		if err != nil {
-			return 0, fmt.Errorf("its .zbank file could not be opened\n")
+			return fmt.Errorf("its .zbank file could not be opened\n")
 		}
 		fMeta, err := metaEntry.Open()
 		// Determine fontname and index by global settings
 		var fontName string
-		stamp := fmt.Sprintf("%d%d%d", os.Getpid(), swriter.GetTimestamp(), bankId)
+		stamp := fmt.Sprintf("%d%d%d", os.Getpid(), zipWriter.GetTimestamp(), bankId)
 		if globals.UseCRC64Encoding {
 			// Generate a hash to prevent (or minimize) collisions between soundfonts
 			stampArr := []byte(stamp)
@@ -91,15 +89,15 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 				addrHex := instName[len(baseName)+1 : strings.LastIndex(instName, ".")]
 				addr, err := strconv.ParseUint(addrHex, 16, 32)
 				if err != nil {
-					return 0, err
+					return err
 				}
 				fInst, err := zsoundEntry.Open()
 				if err != nil {
-					return 0, err
+					return err
 				}
 				customSample, err := sample.NewSampleFromStream(fInst, uint32(addr), sampleName, am)
 				if err != nil {
-					return 0, err
+					return err
 				}
 				customSamples = append(customSamples, customSample)
 				// So this sample can be referenced in .zbank files
@@ -109,7 +107,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		// Generate zippable soundfont container
 		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fMeta, fontName, am)
 		if err != nil {
-			return 0, fmt.Errorf("its soundfont could not be generated\n")
+			return fmt.Errorf("its soundfont could not be generated\n")
 		}
 		// Should this always be 1?
 		if isFanfare {
@@ -121,24 +119,22 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		for _, customSample := range customSamples {
 			loopPtr, ok := (*sf.LoopMap)[customSample.Addr]
 			if !ok {
-				return 0, fmt.Errorf("could not find AdpcmLoop for custom sample")
+				return fmt.Errorf("could not find AdpcmLoop for custom sample")
 			}
 			customSample.Loop = loopPtr
 			bookPtr, ok := (*sf.BookMap)[customSample.Addr]
 			if !ok {
-				return 0, fmt.Errorf("could not find AdpcmBook for custom sample")
+				return fmt.Errorf("could not find AdpcmBook for custom sample")
 			}
 			customSample.Book = bookPtr
-			if err := swriter.WriteZipEntry(customSample, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
-				return 0, err
+			if err := bufferedWriter.WriteEntry(customSample); err != nil {
+				return err
 			}
-			filesWritten++
 		}
 		// Write zippable soundfont
-		if err := swriter.WriteZipEntry(sf, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
-			return 0, err
+		if err := bufferedWriter.WriteEntry(sf); err != nil {
+			return err
 		}
-		filesWritten++
 	} else {
 		// No custom instrument bank
 		seqFilename := seqEntry.Name
@@ -147,25 +143,23 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		newBank, err := strconv.ParseUint(seqBasename, 16, 16)
 		bankId = uint64(newBank)
 		if err != nil {
-			return 0, fmt.Errorf("its bank could not be parsed")
+			return fmt.Errorf("its bank could not be parsed")
 		}
 	}
 	fSeq, err := seqEntry.Open()
 	if err != nil {
-		return 0, err
+		return err
 	}
 	sequenceName := strings.ReplaceAll(archiveBasename, "_", " ")
 	sequenceName += "_" + sequenceSuffix
 	banks := MakeFontIdArray(bankId, fontCount)
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)
 	seq.NumFonts = fontCount
-	if err := swriter.WriteZipEntry(seq, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
-		return 0, err
+	if err := bufferedWriter.WriteEntry(seq); err != nil {
+		return err
 	}
-	filesWritten++
-	lw.CopyFrom(bufferedLW)
-	cw.CopyFrom(bufferedCW)
-	return filesWritten, nil
+	zipWriter.ConsumeBuffer()
+	return nil
 }
 
 func MakeFontIdArray(id uint64, len uint32) *[]byte {

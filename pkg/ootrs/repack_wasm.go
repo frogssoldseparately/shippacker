@@ -12,8 +12,7 @@ import (
 
 var fetch = js.Global().Get("fetch")
 
-func RepackArchive(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, tm *maps.TranslationMap, bankId uint64) (uint16, error) {
-	newFileCount := uint16(0)
+func RepackArchive(srcPath string, zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap, tm *maps.TranslationMap) error {
 	awaitable := fetch.Invoke(srcPath)
 	ch := make(chan []js.Value)
 	cb := js.FuncOf(func(this js.Value, args []js.Value) any {
@@ -36,10 +35,9 @@ func RepackArchive(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleW
 		if err != nil {
 			cc <- err
 		} else {
-			newFileCount, err = RepackArchiveFromZipReader(archive, lw, cw, am, tm, bankId)
-			cc <- err
+			cc <- RepackArchiveFromZipReader(archive, zipWriter, am, tm)
 		}
 	}()
 	outErr := <-cc
-	return newFileCount, outErr
+	return outErr
 }

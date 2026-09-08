@@ -32,6 +32,10 @@ func (s *Sample) GetFilename() string {
 	return "audio/samples/" + s.Name
 }
 
+func (s *Sample) GetFiletype() string {
+	return "Sample"
+}
+
 func (s *Sample) GetEndianness() uint32 {
 	return o2r.LittleEndian
 }

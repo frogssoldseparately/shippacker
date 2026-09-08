@@ -220,6 +220,10 @@ func (s *Soundfont) GetFilename() string {
 	return s.Path
 }
 
+func (s *Soundfont) GetFiletype() string {
+	return "Soundfont"
+}
+
 func (s *Soundfont) GetEndianness() uint32 {
 	return o2r.LittleEndian
 }

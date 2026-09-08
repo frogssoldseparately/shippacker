@@ -12,7 +12,8 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func RepackSequence(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter) (uint16, error) {
+func RepackSequence(musicSrcPath string, file os.DirEntry, zipWriter *swriter.SimpleZipWriter) error {
+	bufferedWriter := zipWriter.NewBuffer()
 	filename := filepath.Base(file.Name())
 	ext := filepath.Ext(filename)
 	basename := filename[0 : len(filename)-len(ext)]
@@ -20,12 +21,13 @@ func RepackSequence(musicSrcPath string, file os.DirEntry, lw *swriter.SimpleWri
 	metaPath := filepath.Join(musicSrcPath, basename+".meta")
 	seq, err := NewSequenceFromFileWithMeta(seqPath, metaPath)
 	if err != nil {
-		return 0, err
+		return err
 	}
-	if err := swriter.WriteZipEntry(seq, lw, cw, 0x0); err != nil {
-		return 0, err
+	if err := bufferedWriter.WriteEntry(seq); err != nil {
+		return err
 	}
-	return 1, nil
+	zipWriter.ConsumeBuffer()
+	return nil
 }
 
 func ExtractInformationFromPath(path string) (string, *[]byte, error) {

@@ -13,8 +13,7 @@ import (
 var fetch = js.Global().Get("fetch")
 
 // Converts .mmrs to soundfont (if applicable) and sequence pair.
-func RepackArchive(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, bankId uint64) (uint16, error) {
-	newFileCount := uint16(0)
+func RepackArchive(srcPath string, zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap) error {
 	awaitable := fetch.Invoke(srcPath)
 	ch := make(chan []js.Value)
 	cb := js.FuncOf(func(this js.Value, args []js.Value) any {
@@ -37,10 +36,9 @@ func RepackArchive(srcPath string, lw *swriter.SimpleWriter, cw *swriter.SimpleW
 		if err != nil {
 			cc <- err
 		} else {
-			newFileCount, err = RepackArchiveFromZipReader(archive, lw, cw, am, bankId)
-			cc <- err
+			cc <- RepackArchiveFromZipReader(archive, zipWriter, am)
 		}
 	}()
 	outErr := <-cc
-	return newFileCount, outErr
+	return outErr
 }

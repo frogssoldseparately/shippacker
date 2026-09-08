@@ -2,7 +2,6 @@ package ootrs
 
 import (
 	"archive/zip"
-	"encoding/binary"
 	"fmt"
 	"hash/crc32"
 	"io"
@@ -22,15 +21,17 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, tm *maps.TranslationMap, bankId uint64) (uint16, error) {
+func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap, tm *maps.TranslationMap) error {
+	bankId := globals.GetCurrentBank(zipWriter)
+	bufferedWriter := zipWriter.NewBuffer()
 	fontCount := uint32(1)
 	metaEntry, ok := archive.GetFirstByExt(".meta")
 	if !ok {
-		return 0, fmt.Errorf("it did not have a valid meta file.\n")
+		return fmt.Errorf("it did not have a valid meta file.\n")
 	}
 	metadata, err := processOotrsMeta(metaEntry)
 	if err != nil {
-		return 0, err
+		return err
 	}
 	sequenceSuffix := metadata.Type
 	isFanfare := sequenceSuffix == "fanfare"
@@ -40,10 +41,10 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 	// }
 	seqEntry, ok := archive.GetFirstByAnyExt([]string{".seq", ".zseq", ".aseq"})
 	if !ok {
-		return 0, fmt.Errorf("it did not have a valid sequence file.\n")
+		return fmt.Errorf("it did not have a valid sequence file.\n")
 	}
 	var fontName string
-	stamp := fmt.Sprintf("%d%d%d", os.Getpid(), swriter.GetTimestamp(), bankId)
+	stamp := fmt.Sprintf("%d%d%d", os.Getpid(), zipWriter.GetTimestamp(), bankId)
 	if globals.UseCRC64Encoding {
 		// Generate a hash to prevent (or minimize) collisions between soundfonts
 		stampArr := []byte(stamp)
@@ -57,12 +58,9 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		fontName = fmt.Sprintf("audio/fonts/Soundfont_%d", bankId)
 	}
 
-	bufferedLW := swriter.NewEmptySimpleWriter(binary.LittleEndian)
-	bufferedCW := swriter.NewEmptySimpleWriter(binary.LittleEndian)
-	filesWritten := uint16(0)
 	if bankEntry, ok := archive.GetFirstByExt(".zbank"); ok {
 		if !globals.AllowCustomBanks {
-			return 0, fmt.Errorf("it has a custom bank\n")
+			return fmt.Errorf("it has a custom bank\n")
 		}
 		var bankName string
 		{
@@ -72,22 +70,22 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		}
 		bankmetaEntry, ok := archive.GetFile(bankName + ".bankmeta")
 		if !ok {
-			return 0, fmt.Errorf("it is missing a .bankmeta file\n")
+			return fmt.Errorf("it is missing a .bankmeta file\n")
 		}
 		fBank, err := bankEntry.Open()
 		if err != nil {
-			return 0, fmt.Errorf("its .zbank file could not be opened\n")
+			return fmt.Errorf("its .zbank file could not be opened\n")
 		}
 		fBankmeta, err := bankmetaEntry.Open()
 		if err != nil {
-			return 0, fmt.Errorf("its .bankmeta file could not be opened\n")
+			return fmt.Errorf("its .bankmeta file could not be opened\n")
 		}
 		// Get custom samples
 		customSamples := []*sample.Sample{}
 		for _, zsoundInfo := range metadata.CustomSamples {
 			parts := strings.Split(zsoundInfo, ":")
 			if len(parts) < 3 {
-				return 0, fmt.Errorf("bad custom sample entry\n")
+				return fmt.Errorf("bad custom sample entry\n")
 			}
 			sourceName := parts[1]
 			sourceExt := filepath.Ext(sourceName)
@@ -96,19 +94,19 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 			addrHex := parts[2]
 			addr, err := strconv.ParseUint(addrHex, 16, 32)
 			if err != nil {
-				return 0, err
+				return err
 			}
 			zsoundEntry, ok := archive.GetFile(sourceName)
 			if !ok {
-				return 0, fmt.Errorf("could not find %s in archive\n", sourceName)
+				return fmt.Errorf("could not find %s in archive\n", sourceName)
 			}
 			fSample, err := zsoundEntry.Open()
 			if err != nil {
-				return 0, err
+				return err
 			}
 			customSample, err := sample.NewSampleFromStream(fSample, uint32(addr), sampleName, am)
 			if err != nil {
-				return 0, err
+				return err
 			}
 			customSamples = append(customSamples, customSample)
 			(*am)[customSample.Addr] = customSample.Name
@@ -116,7 +114,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		// Generate zippable soundfont container
 		sf, err := soundfont.NewSoundfontFromBankStreams(fBank, fBankmeta, fontName, am)
 		if err != nil {
-			return 0, fmt.Errorf("its soundfont could not be generated\n")
+			return fmt.Errorf("its soundfont could not be generated\n")
 		}
 		if isFanfare {
 			sf.Meta.CachePolicy = 0x1
@@ -127,82 +125,76 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, lw *swriter.Si
 		for _, customSample := range customSamples {
 			loopPtr, ok := (*sf.LoopMap)[customSample.Addr]
 			if !ok {
-				return 0, fmt.Errorf("could not find AdpcmLoop for sample\n")
+				return fmt.Errorf("could not find AdpcmLoop for sample\n")
 			}
 			customSample.Loop = loopPtr
 			bookPtr, ok := (*sf.BookMap)[customSample.Addr]
 			if !ok {
-				return 0, fmt.Errorf("could not find AdpcmBook for custom sample\n")
+				return fmt.Errorf("could not find AdpcmBook for custom sample\n")
 			}
 			customSample.Book = bookPtr
-			if err := swriter.WriteZipEntry(customSample, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
-				return 0, err
+			if err := bufferedWriter.WriteEntry(customSample); err != nil {
+				return err
 			}
-			filesWritten++
 		}
 		// Write zippable soundfont
-		if err := swriter.WriteZipEntry(sf, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
-			return 0, err
+		if err := bufferedWriter.WriteEntry(sf); err != nil {
+			return err
 		}
-		filesWritten++
 	} else {
 		if !globals.HasOotO2r {
-			return 0, fmt.Errorf("oot.o2r was not provided\n")
+			return fmt.Errorf("oot.o2r was not provided\n")
 		}
 		var parsedBank uint64
 		if len(metadata.Bank) >= 2 && metadata.Bank[0:2] == "0x" {
 			parsedBank, err = strconv.ParseUint(metadata.Bank[2:], 16, 32)
 			if err != nil {
-				return 0, err
+				return err
 			}
 		} else {
 			parsedBank, err = strconv.ParseUint(metadata.Bank, 16, 32)
 			if err != nil {
-				return 0, err
+				return err
 			}
 		}
 		if usedBankId, ok := includedBanks[parsedBank]; ok {
 			bankId = usedBankId
 		} else {
 			if parsedBank < 3 {
-				return 0, fmt.Errorf("bank %d is skipped\n", parsedBank)
+				return fmt.Errorf("bank %d is skipped\n", parsedBank)
 			}
 			soundfontEntry, ok := ootSoundFonts[parsedBank]
 			if !ok {
-				return 0, fmt.Errorf("could not find OoT bank with id %s\n", metadata.Bank)
+				return fmt.Errorf("could not find OoT bank with id %s\n", metadata.Bank)
 			}
 			fSoundfont, err := soundfontEntry.Open()
 			if err != nil {
-				return 0, err
+				return err
 			}
 			sf, err := soundfont.ReadSoundfont(fSoundfont, fontName, am, tm)
 			if err != nil {
-				return 0, err
+				return err
 			}
-			if err := swriter.WriteZipEntry(sf, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
-				return 0, err
+			if err := bufferedWriter.WriteEntry(sf); err != nil {
+				return err
 			}
-			filesWritten++
-
 			includedBanks[parsedBank] = bankId
 		}
 	}
 	fSeq, err := seqEntry.Open()
 	if err != nil {
-		return 0, err
+		return err
 	}
 	// TODO: convert ootrs categories to mmrs categories
 	sequenceName := strings.ReplaceAll(metadata.Name, "/", "-") + "_" + sequenceSuffix
 	banks := mmrs.MakeFontIdArray(bankId, fontCount)
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)
 	seq.NumFonts = fontCount
-	if err := swriter.WriteZipEntry(seq, bufferedLW, bufferedCW, lw.GetLength()); err != nil {
-		return 0, err
+	if err := bufferedWriter.WriteEntry(seq); err != nil {
+		return err
 	}
-	filesWritten++
-	lw.CopyFrom(bufferedLW)
-	cw.CopyFrom(bufferedCW)
-	return filesWritten, nil
+	zipWriter.ConsumeBuffer()
+	return nil
 }
 
 type OotrsMeta struct {
@@ -293,22 +285,18 @@ func PrepareOotSamples(sampleEntries *map[uint32]*zip.File) error {
 	return nil
 }
 
-func InjectOotSamples(lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, am *maps.AssetMap, tm *maps.TranslationMap) (uint16, error) {
-	bufferedLw := swriter.NewEmptySimpleWriter(binary.LittleEndian)
-	bufferedCw := swriter.NewEmptySimpleWriter(binary.LittleEndian)
-	filesWritten := uint16(0)
+func InjectOotSamples(zipWriter *swriter.SimpleZipWriter, am *maps.AssetMap, tm *maps.TranslationMap) error {
+	buffered := zipWriter.NewBuffer()
 	for _, entry := range ootSamples {
-		if err := swriter.WriteZipEntry(entry, bufferedLw, bufferedCw, lw.GetLength()); err != nil {
-			return 0, err
+		if err := buffered.WriteEntry(entry); err != nil {
+			return err
 		}
-		filesWritten++
 	}
-	lw.CopyFrom(bufferedLw)
-	cw.CopyFrom(bufferedCw)
 	// Second for loop so the asset maps don't have pointers to samples that weren't injected
 	for _, entry := range ootSamples {
 		(*am)[entry.Addr] = entry.Name
 		(*tm)[entry.Name] = entry.Addr
 	}
-	return filesWritten, nil
+	zipWriter.ConsumeBuffer()
+	return nil
 }

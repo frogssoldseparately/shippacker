@@ -82,6 +82,10 @@ func (s *Sequence) GetFilename() string {
 	return s.Path
 }
 
+func (s *Sequence) GetFiletype() string {
+	return "Sequence"
+}
+
 func (s *Sequence) GetEndianness() uint32 {
 	return o2r.LittleEndian
 }

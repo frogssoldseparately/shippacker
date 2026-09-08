@@ -15,67 +15,48 @@ import (
 )
 
 func Pack(srcPaths []string) []byte {
-	endianness := binary.LittleEndian
-	modWriter := swriter.NewEmptySimpleWriter(endianness)
-	localW := swriter.NewEmptySimpleWriter(endianness)
-	centralW := swriter.NewEmptySimpleWriter(endianness)
+	zipWriter := swriter.NewEmptyZipWriter(binary.LittleEndian)
 	mmrsAssetMap, err := maps.NewAssetMap()
-	if err != nil {
-		return nil
-	}
-	ootrsAssetMap, ootrsTranslationMap, err := maps.NewTranslationMaps()
-	swriter.TakeTimestamp()
-	ootSampleCount := uint16(0)
-	if globals.HasOotO2r {
-		ootSampleCount, err = ootrs.InjectOotSamples(localW, centralW, ootrsAssetMap, ootrsTranslationMap)
-		if err != nil {
-			fmt.Printf("Could not inject oot samples because %s\n", err)
-		}
-	}
-	filesWritten, _, _, err := WriteModEntries(srcPaths, localW, centralW, mmrsAssetMap, ootrsAssetMap, ootrsTranslationMap)
 	if err != nil {
 		fmt.Println(err)
 		return nil
 	}
-	if filesWritten != 0 {
-		modWriter.CopyFrom(localW)
-		modWriter.CopyFrom(centralW)
-		swriter.WriteCentralDirectoryEndRecord(modWriter, filesWritten+ootSampleCount, centralW.GetLength(), localW.GetLength())
-		return *modWriter.GetBuffer()
+	ootrsAssetMap, ootrsTranslationMap, err := maps.NewTranslationMaps()
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	if globals.HasOotO2r {
+		if err := ootrs.InjectOotSamples(zipWriter, ootrsAssetMap, ootrsTranslationMap); err != nil {
+			fmt.Printf("Could not inject oot samples because %s\n", err)
+		}
+	}
+	if err := WriteModEntries(srcPaths, zipWriter, mmrsAssetMap, ootrsAssetMap, ootrsTranslationMap); err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	if zipWriter.GetTypedFileCount("Sequence") != 0 {
+		o2rWriter := zipWriter.Finish()
+		return *o2rWriter.GetBuffer()
 	}
 	fmt.Println("Nothing to write")
 	return nil
 }
 
-func WriteModEntries(srcPaths []string, lw *swriter.SimpleWriter, cw *swriter.SimpleWriter, mmrsAssetMap *maps.AssetMap, ootrsAssetMap *maps.AssetMap, ootrsTranslationMap *maps.TranslationMap) (uint16, uint16, uint64, error) {
-	bankId := globals.StartingBankIndex
-	includedFileCount := uint16(0)
-	songCount := uint16(0)
+func WriteModEntries(srcPaths []string, zipWriter *swriter.SimpleZipWriter, mmrsAssetMap *maps.AssetMap, ootrsAssetMap *maps.AssetMap, ootrsTranslationMap *maps.TranslationMap) error {
 	for _, path := range srcPaths {
 		switch filepath.Ext(path) {
 		case ".mmrs":
-			if newCount, err := mmrs.RepackArchive(path, lw, cw, mmrsAssetMap, bankId); err != nil {
+			if err := mmrs.RepackArchive(path, zipWriter, mmrsAssetMap); err != nil {
 				fmt.Printf("Skipped %s because %s\n", path, err)
-			} else {
-				includedFileCount += newCount
-				songCount++
-				if newCount >= 2 {
-					bankId++
-				}
 			}
 		case ".ootrs":
-			if newCount, err := ootrs.RepackArchive(path, lw, cw, ootrsAssetMap, ootrsTranslationMap, bankId); err != nil {
+			if err := ootrs.RepackArchive(path, zipWriter, ootrsAssetMap, ootrsTranslationMap); err != nil {
 				fmt.Printf("Skipped %s because %s\n", path, err)
-			} else {
-				includedFileCount += newCount
-				songCount++
-				if newCount >= 2 {
-					bankId++
-				}
 			}
 		default:
 			// do nothing
 		}
 	}
-	return includedFileCount, songCount, bankId - globals.StartingBankIndex, nil
+	return nil
 }

@@ -6,3 +6,7 @@ github.com/frogssoldseparately/simpleseek/sreader v0.0.0-20260829173054-7e1b17a7
 github.com/frogssoldseparately/simpleseek/sreader v0.0.0-20260829173054-7e1b17a73aea/go.mod h1:zI6o3UOnYBIppN8jOpGtu180N2/SNp/zsclleG+MYrY=
 github.com/frogssoldseparately/simpleseek/swriter v0.0.0-20260809060209-1cc7db118e69 h1:EOpFs6YXEeSlu5wraWEqLRMMHCvJ+YmsAJJ+kg/iNPg=
 github.com/frogssoldseparately/simpleseek/swriter v0.0.0-20260809060209-1cc7db118e69/go.mod h1:ZAHfldy09407kSaNw+9JB+1EFyE4/dUfDmi0jUc99Hw=
+github.com/frogssoldseparately/simpleseek/swriter v0.0.0-20260908061234-84cfb426fe18 h1:fBKlwlNi+U9i8KHZF+NYOkNFgXxbaTRn1hzjTgnFnL4=
+github.com/frogssoldseparately/simpleseek/swriter v0.0.0-20260908061234-84cfb426fe18/go.mod h1:ZAHfldy09407kSaNw+9JB+1EFyE4/dUfDmi0jUc99Hw=
+github.com/frogssoldseparately/simpleseek/swriter v0.0.0-20260908064029-c93ba24cfe4e h1:510EhIugGXwTUvCop3S61JjIviH78Q+IPEXQQ9fZLtE=
+github.com/frogssoldseparately/simpleseek/swriter v0.0.0-20260908064029-c93ba24cfe4e/go.mod h1:ZAHfldy09407kSaNw+9JB+1EFyE4/dUfDmi0jUc99Hw=
