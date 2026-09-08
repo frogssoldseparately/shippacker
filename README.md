@@ -5,7 +5,7 @@ A custom sequence and instrument bank packaging tool for 2ship2harkinian.
 
 - [ ] Support `.ootrs` sequences.
     - [X] Convert `.ootrs` to 2ship2harkinian's format.
-    - [ ] Change sample injection infrastructure so bank 0 and 1 can be supported.
+    - [X] Change sample injection infrastructure so bank 0 and 1 can be supported.
     - [ ] Convert `.ootrs` categories to `.mmrs` categories.
     - [X] Better parse Ship of Harkinian soundfonts.
 - [X] Support custom samples.
@@ -31,8 +31,6 @@ While this can create .o2r files with essentially unlimited banks, the actual us
 Using multiple .o2r files with custom instrument banks will cause the sound fonts to overwrite each other, making sequences play with the wrong instruments.
 
 To convert most `.ootrs` files, you must provide your copy `oot.o2r` in the same folder as your `shippacker` executable. This has only been tested so far using an `oot.o2r` that was generated from the **N64 NTSC 1.0 version** of the game. If you generated yours with a different version of the game, this might not work as intended. Further testing is required.
-
-Due to how the sample injections work currently, any `.ootrs` using instrument bank 0 and 1 will be ignored.
 
 Category information is currently not preserved when including an `.ootrs` file. It defaults to either `bgm` or `fanfare`.
 
