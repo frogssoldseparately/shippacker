@@ -7,7 +7,7 @@ import (
 type AdpcmLoop struct {
 	Start   uint32
 	End     uint32
-	Count   uint32
+	Count   int32
 	Padding uint32
 	State   *[16]uint16
 	// State *[32]uint8
@@ -16,7 +16,7 @@ type AdpcmLoop struct {
 func ReadLoop(r *sreader.SimpleReader) *AdpcmLoop {
 	startV := Read[uint32](r)
 	endV := Read[uint32](r)
-	countV := Read[uint32](r)
+	countV := Read[int32](r)
 	paddingV := Read[uint32](r)
 	stateV := [16]uint16{}
 	if countV > 0 {
