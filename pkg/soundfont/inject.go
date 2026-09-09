@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/frogssoldseparately/shippacker/pkg/globals"
 	"github.com/frogssoldseparately/shippacker/pkg/maps"
 	"github.com/frogssoldseparately/simpleseek/sreader"
 	"github.com/frogssoldseparately/simpleseek/swriter"
@@ -42,22 +43,16 @@ func RegisterSoundfonts(archive *sreader.SimpleZipReader) error {
 }
 
 func InjectSoundfont(zipWriter *swriter.SimpleZipWriter, metaBank string, currentBankId *uint64, name string, gsm *maps.GameSampleMap) error {
-	var parsedBank uint64
-	var err error
-	if len(metaBank) >= 2 && metaBank[0:2] == "0x" {
-		parsedBank, err = strconv.ParseUint(metaBank[2:], 16, 32)
-		if err != nil {
-			return err
-		}
-	} else {
-		parsedBank, err = strconv.ParseUint(metaBank, 16, 32)
-		if err != nil {
-			return err
-		}
+	parsedBank, err := strconv.ParseUint(strings.TrimPrefix(metaBank, "0x"), 16, 32)
+	if err != nil {
+		return err
 	}
 	if usedBankId, ok := includedBanks[parsedBank]; ok {
 		*currentBankId = usedBankId
 		return nil
+	}
+	if !globals.AllowCustomBanks {
+		return fmt.Errorf("it has a custom bank\n")
 	}
 	soundfontEntry, ok := storedOotSoundfonts[parsedBank]
 	if !ok {
