@@ -94,7 +94,7 @@ func (s *Soundfont) WriteEnvelopeEntry(w *swriter.SimpleWriter, ptr uint32) erro
 			Write(w, p.Arg)
 		}
 	} else {
-		return fmt.Errorf("invalid envelope pointer of %08X\n", ptr)
+		return fmt.Errorf("envelope pointer 0x%08X is invalid\n", ptr)
 	}
 	return nil
 }
@@ -102,10 +102,11 @@ func (s *Soundfont) WriteEnvelopeEntry(w *swriter.SimpleWriter, ptr uint32) erro
 func (s *Soundfont) WriteTunedSample(w *swriter.SimpleWriter, ts *zbank.TunedSample) error {
 	sampleStruct := (*s.SampleMap)[ts.SamplePointer]
 	assetAddr := sampleStruct.SampleAddress
-	assetName, ok := (*s.GameSampleMap.ByAddress)[assetAddr]
+	// Queued custom samples take priority, so check here first.
+	assetName, ok := sample.GetQueuedByAddress(assetAddr)
 	if !ok {
-		if assetName, ok = sample.GetQueuedByAddress(assetAddr); !ok {
-			return fmt.Errorf("invalid sample address of %08X\n", assetAddr)
+		if assetName, ok = (*s.GameSampleMap.ByAddress)[assetAddr]; !ok {
+			return fmt.Errorf("sample address 0x%08X is invalid\n", assetAddr)
 		}
 	}
 	WriteString(w, "audio/samples/"+assetName, true)
