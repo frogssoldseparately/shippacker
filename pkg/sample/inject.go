@@ -44,11 +44,11 @@ func InjectSampleByAddress(zipWriter *swriter.SimpleZipWriter, assetAddr uint32,
 	}
 	assetName, ok := (*gsm.UnmappedByAddress)[assetAddr]
 	if !ok {
-		return "", fmt.Errorf("Ship of Harkinian sample of address %X could not be found\n", assetAddr)
+		return "", fmt.Errorf("Ship of Harkinian sample of address 0x%08X could not be found\n", assetAddr)
 	}
 	sampleEntry, ok := storedOotSamples[assetName]
 	if !ok {
-		return "", fmt.Errorf("Ship of Harkinian sample of address %X could not be found\n", assetAddr)
+		return "", fmt.Errorf("Ship of Harkinian sample of address 0x%08X could not be found\n", assetAddr)
 	}
 	fSample, err := sampleEntry.Open()
 	if err != nil {

@@ -37,11 +37,11 @@ func WriteModEntries(srcPaths []string, zipWriter *swriter.SimpleZipWriter, samp
 		switch filepath.Ext(path) {
 		case ".mmrs":
 			if err := mmrs.RepackArchive(path, zipWriter, sampleMap.MajorasMask); err != nil {
-				fmt.Printf("Skipped %s because %s\n", path, err)
+				fmt.Printf("\tSkipped %s because %s\n", path, err)
 			}
 		case ".ootrs":
 			if err := ootrs.RepackArchive(path, zipWriter, sampleMap.OcarinaOfTime); err != nil {
-				fmt.Printf("Skipped %s because %s\n", path, err)
+				fmt.Printf("\tSkipped %s because %s\n", path, err)
 			}
 		default:
 			// do nothing

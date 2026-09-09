@@ -127,12 +127,12 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 		for _, customSample := range customSamples {
 			loopPtr, ok := (*sf.LoopMap)[customSample.Addr]
 			if !ok {
-				return fmt.Errorf("could not find AdpcmLoop for sample\n")
+				return fmt.Errorf("AdpcmLoop is missing for custom sample \"%s\"\n", customSample.Name)
 			}
 			customSample.Loop = loopPtr
 			bookPtr, ok := (*sf.BookMap)[customSample.Addr]
 			if !ok {
-				return fmt.Errorf("could not find AdpcmBook for custom sample\n")
+				return fmt.Errorf("AdpcmBook is missing for custom sample \"%s\"\n", customSample.Name)
 			}
 			customSample.Book = bookPtr
 			if err := bufferedWriter.WriteEntry(customSample); err != nil {

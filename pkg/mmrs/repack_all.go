@@ -83,11 +83,17 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 		// Get custom samples
 		customSamples := []*sample.Sample{}
 		if zsoundEntries, ok := archive.GetAllByExt(".zsound"); ok {
-			for _, zsoundEntry := range zsoundEntries {
+			for i, zsoundEntry := range zsoundEntries {
 				instName := zsoundEntry.Name
-				baseName := instName[0:strings.LastIndex(instName, "_")]
+				hexStartExclusive := strings.LastIndex(instName, "_")
+				var baseName string
+				if hexStartExclusive == -1 {
+					baseName = fmt.Sprintf("sample_%d", i)
+				} else {
+					baseName = instName[0:hexStartExclusive]
+				}
 				sampleName := fmt.Sprintf("%s_%s_META", baseName, stamp)
-				addrHex := instName[len(baseName)+1 : strings.LastIndex(instName, ".")]
+				addrHex := instName[hexStartExclusive+1 : strings.LastIndex(instName, ".")]
 				addr, err := strconv.ParseUint(addrHex, 16, 32)
 				if err != nil {
 					return err
@@ -121,12 +127,12 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 		for _, customSample := range customSamples {
 			loopPtr, ok := (*sf.LoopMap)[customSample.Addr]
 			if !ok {
-				return fmt.Errorf("could not find AdpcmLoop for custom sample")
+				return fmt.Errorf("AdpcmLoop is missing for custom sample \"%s\"\n", customSample.Name)
 			}
 			customSample.Loop = loopPtr
 			bookPtr, ok := (*sf.BookMap)[customSample.Addr]
 			if !ok {
-				return fmt.Errorf("could not find AdpcmBook for custom sample")
+				return fmt.Errorf("AdpcmBook is missing for custom sample \"%s\"\n", customSample.Name)
 			}
 			customSample.Book = bookPtr
 			if err := bufferedWriter.WriteEntry(customSample); err != nil {
@@ -141,12 +147,12 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 		// No custom instrument bank
 		seqFilename := seqEntry.Name
 		seqExt := filepath.Ext(seqFilename)
-		seqBasename := seqFilename[0 : len(seqFilename)-len(seqExt)]
+		seqBasename := strings.TrimPrefix(seqFilename[0:len(seqFilename)-len(seqExt)], "0x")
 		newBank, err := strconv.ParseUint(seqBasename, 16, 16)
-		bankId = uint64(newBank)
 		if err != nil {
-			return fmt.Errorf("its bank could not be parsed")
+			return fmt.Errorf("its bank could not be parsed:\n\t%s\n", err)
 		}
+		bankId = uint64(newBank)
 	}
 	fSeq, err := seqEntry.Open()
 	if err != nil {

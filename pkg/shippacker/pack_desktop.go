@@ -5,8 +5,11 @@ package shippacker
 import (
 	"encoding/binary"
 	"fmt"
+	"math/rand"
 	"os"
 	"path/filepath"
+	"slices"
+	"strings"
 	"time"
 
 	"github.com/frogssoldseparately/shippacker/pkg/globals"
@@ -24,7 +27,14 @@ func Pack(musicSrcPath string, outPath string) error {
 	if err != nil {
 		return err
 	}
-	if err := WriteModEntries(musicSrcPath, zipWriter, sampleMap); err != nil {
+	songList, err := FindSongs(musicSrcPath)
+	if err != nil {
+		return err
+	}
+	rand.Shuffle(len(songList), func(i, j int) {
+		songList[i], songList[j] = songList[j], songList[i]
+	})
+	if err := WriteModEntries(songList, zipWriter, sampleMap); err != nil {
 		return err
 	}
 	sequencesWritten := zipWriter.GetTypedFileCount("Sequence")
@@ -61,36 +71,55 @@ func Pack(musicSrcPath string, outPath string) error {
 	return nil
 }
 
-func WriteModEntries(srcPath string, zipWriter *swriter.SimpleZipWriter, sampleMap *maps.SampleMap) error {
-	files, err := os.ReadDir(srcPath)
+type CustomSong struct {
+	Path string
+	File os.DirEntry
+}
+
+func FindSongs(root string) ([]CustomSong, error) {
+	out := []CustomSong{}
+	files, err := os.ReadDir(root)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	for _, file := range files {
+		ext := filepath.Ext(file.Name())
 		if file.IsDir() {
-			if globals.RecurseSubdirectories {
-				if err := WriteModEntries(filepath.Join(srcPath, file.Name()), zipWriter, sampleMap); err != nil {
-					return err
+			if globals.RecurseSubdirectories && !strings.HasPrefix(file.Name(), "_") {
+				newEntries, err := FindSongs(filepath.Join(root, file.Name()))
+				if err != nil {
+					return nil, err
 				}
-				if globals.EarlyExit {
-					return nil
-				}
+				out = slices.Concat(out, newEntries)
 			}
-		} else {
-			name := filepath.Base(file.Name())
-			ext := filepath.Ext(name)
-			if ext == ".mmrs" {
-				if err := mmrs.RepackArchive(srcPath, file, zipWriter, sampleMap.MajorasMask); err != nil {
-					fmt.Printf("Skipped %s because %s\n", name, err)
-				}
-			} else if ext == ".ootrs" {
-				if err := ootrs.RepackArchive(srcPath, file, zipWriter, sampleMap.OcarinaOfTime); err != nil {
-					fmt.Printf("Skipped %s because %s\n", name, err)
-				}
-			} else if isSequenceExtension(ext) {
-				if err := seq.RepackSequence(srcPath, file, zipWriter); err != nil {
-					fmt.Printf("Skipped %s because %s\n", name, err)
-				}
+		} else if ext == ".mmrs" || ext == ".ootrs" || isSequenceExtension(ext) {
+			out = append(out, CustomSong{
+				Path: filepath.Join(root, file.Name()),
+				File: file,
+			})
+		}
+	}
+	return out, nil
+}
+
+func WriteModEntries(customSongs []CustomSong, zipWriter *swriter.SimpleZipWriter, sampleMap *maps.SampleMap) error {
+	for _, customSong := range customSongs {
+		file := customSong.File
+		path := customSong.Path
+		dir := filepath.Dir(path)
+		name := filepath.Base(path)
+		ext := filepath.Ext(name)
+		if ext == ".mmrs" {
+			if err := mmrs.RepackArchive(dir, file, zipWriter, sampleMap.MajorasMask); err != nil {
+				fmt.Printf("\tSkipped \"%s\"\n\tbecause %s\n", name, err)
+			}
+		} else if ext == ".ootrs" {
+			if err := ootrs.RepackArchive(dir, file, zipWriter, sampleMap.OcarinaOfTime); err != nil {
+				fmt.Printf("\tSkipped \"%s\"\n\tbecause %s\n", name, err)
+			}
+		} else if isSequenceExtension(ext) {
+			if err := seq.RepackSequence(dir, file, zipWriter); err != nil {
+				fmt.Printf("\tSkipped \"%s\"\n\tbecause %s\n", name, err)
 			}
 		}
 		if globals.WarnOnTooManyBanks && globals.GetCurrentBank(zipWriter) == globals.MaxBankCount {
