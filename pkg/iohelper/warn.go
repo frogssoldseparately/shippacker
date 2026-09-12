@@ -20,13 +20,13 @@ func promptUser(msg string) string {
 }
 
 func WarnPromptBanks() int {
-	userInput := promptUser("WARNING: The limit of custom sound fonts has been reached (255). Adding any more can lead to audio bugs in 2ship.\n\nPlease choose one of the following:\n\tContinue anyway: type \"continue\"\n\tContinue and ignore future custom banks: type \"ignore\"\n\tGenerate O2R now: type \"finish\"\n\tCancel: type \"quit\"")
+	userInput := promptUser("WARNING: The limit of custom sound fonts has been reached (255). Adding any more can lead to audio bugs in 2ship.\n\nPlease choose one of the following:\n\tContinue anyway: type \"continue\"\n\tContinue and ignore future custom banks: type \"ignore\"\n\tGenerate O2R now: type \"done\"\n\tCancel: type \"quit\"")
 	switch userInput {
 	case "continue":
 		return ContinueRunning
 	case "ignore":
 		return IgnoreOtherBanks
-	case "finish":
+	case "done":
 		return EarlyExit
 	case "quit":
 		fallthrough
@@ -37,7 +37,7 @@ func WarnPromptBanks() int {
 
 func WarnPromptSongs() int {
 	// The song amount is currently hardcoded to avoid an import loop.
-	userInput := promptUser("WARNING: The limit of custom sequences has been reached (1921). Adding any more will lead to audio bugs in 2ship.\n\nIf you want to continue adding songs, type \"continue\", or \"no\" to stop")
+	userInput := promptUser("WARNING: The limit of custom sequences has been reached (1919). Adding any more will lead to audio bugs in 2ship.\n\nIf you want to continue adding songs, type \"continue\", or \"done\" to finish")
 	if userInput != "continue" {
 		return EarlyExit
 	}
@@ -45,7 +45,7 @@ func WarnPromptSongs() int {
 }
 
 func WarnUnstable() error {
-	userInput := promptUser("WARNING: The selected version may generate o2rs not supported by the latest release of 2ship.\n\nIf you are working on a branch of 2ship that explicitly supports this feature, type \"continue\", or \"no\" to stop")
+	userInput := promptUser("WARNING: The selected version may generate o2rs not supported by the latest release of 2ship.\n\nIf you are working on a branch of 2ship that explicitly supports this feature, type \"continue\", or \"quit\" to exit")
 	if userInput != "continue" {
 		return fmt.Errorf("Exiting. Please run again")
 	}

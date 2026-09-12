@@ -2,7 +2,7 @@
     "Keiichi_Charlie": {
         "Settings": {
             "MaxBankCount": 255,
-            "MaxSongCount": 1921,
+            "MaxSongCount": 1919,
             "UseCRC64Encoding": false,
             "UseNumericCategories": false
         },
@@ -11,17 +11,17 @@
     "Better_Categories": {
         "Settings": {
             "MaxBankCount": 255,
-            "MaxSongCount": 1921,
+            "MaxSongCount": 1919,
             "UseCRC64Encoding": false,
             "UseNumericCategories": true,
             "Version": "Keiichi_Charlie"
         },
-        "WarnUnstable": true
+        "WarnUnstable": false
     },
     "Uncapped_Banks": {
         "Settings": {
             "MaxBankCount": 65535,
-            "MaxSongCount": 1921,
+            "MaxSongCount": 1919,
             "UseCRC64Encoding": true,
             "UseNumericCategories": true,
             "Version": "Keiichi_Charlie"

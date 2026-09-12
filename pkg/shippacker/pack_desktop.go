@@ -31,7 +31,8 @@ func Pack(musicSrcPath string, outPath string) error {
 	if err != nil {
 		return err
 	}
-	rand.Shuffle(len(songList), func(i, j int) {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	r.Shuffle(len(songList), func(i, j int) {
 		songList[i], songList[j] = songList[j], songList[i]
 	})
 	if err := WriteModEntries(songList, zipWriter, sampleMap); err != nil {
@@ -103,7 +104,9 @@ func FindSongs(root string) ([]CustomSong, error) {
 }
 
 func WriteModEntries(customSongs []CustomSong, zipWriter *swriter.SimpleZipWriter, sampleMap *maps.SampleMap) error {
-	for _, customSong := range customSongs {
+	for i := range customSongs {
+		// TODO: Something's weird about how the songs are picked. Not random enough
+		customSong := customSongs[i]
 		file := customSong.File
 		path := customSong.Path
 		dir := filepath.Dir(path)

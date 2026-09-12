@@ -16,6 +16,7 @@ import (
 	"github.com/frogssoldseparately/shippacker/pkg/mmrs"
 	"github.com/frogssoldseparately/shippacker/pkg/sample"
 	"github.com/frogssoldseparately/shippacker/pkg/seq"
+	"github.com/frogssoldseparately/shippacker/pkg/seqcat"
 	"github.com/frogssoldseparately/shippacker/pkg/soundfont"
 	"github.com/frogssoldseparately/simpleseek/sreader"
 	"github.com/frogssoldseparately/simpleseek/swriter"
@@ -36,11 +37,12 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 		return err
 	}
 	sequenceSuffix := metadata.Type
-	isFanfare := sequenceSuffix == "fanfare"
-	// TODO: convert ootrs categories to mmrs categories
-	// if globals.UseNumericCategories {
-	// 	sequenceSuffix = strings.Join(mapOotrsCategories(metadata.Categories), "-")
-	// }
+	isFanfare := strings.ToLower(sequenceSuffix) == "fanfare"
+	if globals.UseNumericCategories {
+		if categories := seqcat.ConvertToMMRSCategories(metadata.Categories); len(*categories) > 0 {
+			sequenceSuffix = strings.Join(*categories, "-")
+		}
+	}
 	seqEntry, ok := archive.GetFirstByAnyExt([]string{".seq", ".zseq", ".aseq"})
 	if !ok {
 		return fmt.Errorf("it did not have a valid sequence file.\n")
@@ -92,8 +94,8 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 			sourceName := parts[1]
 			sourceExt := filepath.Ext(sourceName)
 			baseName := sourceName[0 : len(sourceName)-len(sourceExt)]
-			sampleName := fmt.Sprintf("%s_%s_META", baseName, stamp)
 			addrHex := parts[2]
+			sampleName := fmt.Sprintf("%s_%s_%s_META", baseName, addrHex, stamp)
 			addr, err := strconv.ParseUint(addrHex, 16, 32)
 			if err != nil {
 				return err
@@ -165,8 +167,12 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 	if err != nil {
 		return err
 	}
-	// TODO: convert ootrs categories to mmrs categories
-	sequenceName := strings.ReplaceAll(metadata.Name, "/", "-") + "_" + sequenceSuffix
+	sequenceName := strings.ReplaceAll(
+		strings.ReplaceAll(seq.TrimZPackerSuffixes(metadata.Name), "/", "-"),
+		":",
+		"",
+	)
+	sequenceName += "_" + sequenceSuffix
 	banks := mmrs.MakeFontIdArray(bankId, fontCount)
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)
 	seq.NumFonts = fontCount
@@ -216,7 +222,7 @@ func processOotrsMeta(f *zip.File) (*OotrsMeta, error) {
 		lines = append(lines, "bgm")
 	}
 	if len(lines) == 3 {
-		lines = append(lines, "bgm")
+		lines = append(lines, "")
 	}
 	return &OotrsMeta{
 		lines[0],
@@ -226,8 +232,3 @@ func processOotrsMeta(f *zip.File) (*OotrsMeta, error) {
 		zsoundLines,
 	}, nil
 }
-
-// TODO: convert ootrs categories to mmrs categories
-// func mapOotrsCategories(original []string) []string {
-// 	return original
-// }

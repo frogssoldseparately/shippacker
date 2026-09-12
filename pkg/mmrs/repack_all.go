@@ -92,8 +92,8 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 				} else {
 					baseName = instName[0:hexStartExclusive]
 				}
-				sampleName := fmt.Sprintf("%s_%s_META", baseName, stamp)
 				addrHex := instName[hexStartExclusive+1 : strings.LastIndex(instName, ".")]
+				sampleName := fmt.Sprintf("%s_%s_%s_META", baseName, addrHex, stamp)
 				addr, err := strconv.ParseUint(addrHex, 16, 32)
 				if err != nil {
 					return err
@@ -158,7 +158,11 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 	if err != nil {
 		return err
 	}
-	sequenceName := strings.ReplaceAll(archiveBasename, "_", " ")
+	sequenceName := strings.ReplaceAll(
+		strings.ReplaceAll(seq.TrimZPackerSuffixes(archiveBasename), "_", " "),
+		":",
+		"",
+	)
 	sequenceName += "_" + sequenceSuffix
 	banks := MakeFontIdArray(bankId, fontCount)
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)

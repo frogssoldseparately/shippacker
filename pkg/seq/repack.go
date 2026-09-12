@@ -54,6 +54,26 @@ func ExtractInformationFromPath(path string) (string, *[]byte, error) {
 	return moddedName, bankIds, nil
 }
 
+var zPackerSuffixes = []string{
+	" (DJ)",
+	" (JJ)",
+	" [2]",
+	" [3]",
+	" [4]",
+	" [5]",
+}
+
+func TrimZPackerSuffixes(str string) string {
+	startLen := -1
+	for len(str) != startLen {
+		startLen = len(str)
+		for _, suffix := range zPackerSuffixes {
+			str = strings.TrimSuffix(str, suffix)
+		}
+	}
+	return str
+}
+
 func parseBankHex(hex string) (*[]byte, error) {
 	v, err := strconv.ParseUint(hex, 16, 16)
 	if err != nil {
