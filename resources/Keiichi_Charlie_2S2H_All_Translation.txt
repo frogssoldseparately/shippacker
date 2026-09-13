@@ -1,0 +1,677 @@
+SAMPLE_0_0 : Bird Chirp 1
+InsectChirrup : Insect Chirrup
+BirdChirp2 : Bird Chirp 2
+SAMPLE_0_3 : Crickets
+SAMPLE_0_4 : Loud Bird Chirp
+CrowCaws : Crow Caws
+BirdCall : Bird Call
+BirdScreech : Bird Screech
+BirdSongUnused : Bird Song (Unused)
+SAMPLE_0_9 : Owl Hoot
+SAMPLE_0_10 : Hawk Screech
+SmallBirdChirps : Small Bird Chirps
+SAMPLE_0_12 : Rushing Water
+SlapBass1 : unknown
+Howling : Howling Wind
+SAMPLE_0_15 : unknown
+SAMPLE_0_16 : unknown
+HowlingWindShort : Howling Wind (Short)
+CuccoCrows : Cucco Crows
+CawingBird : Cawing Bird
+StepGround : Step - Ground
+StepSand : Step - Sand
+StepRock : Step - Rock
+StepJabuJabu : Step - Jabu Jabu
+StepWater : Step - Water
+StepCarpet : Step - Carpet
+StepThickCarpet : Step - Thick Carpet
+StepTallGrass : Step - Tall Grass
+SynthPadSting : Synth Pad Sting
+SmallSplash : Small Splash
+CrunchyDrop : Crunchy Drop
+StepWood : Step - Wood
+SlidingBlock : Sliding Block
+BootsSliding : Boots Sliding
+HeavySlide : Heavy Slide
+HighStatic : High Static
+DistortedStatic : Distorted Static
+HeavyStatic : Heavy Static
+LargeWaterSplash : Large Water Splash
+Swimming : Swimming
+StoneDoof : Stone Doof
+StepWoodenBridge : Step - Wooden Bridge
+StepFire : Step - Fire
+StepIce : Step - Ice
+SAMPLE_0_44 : unknown
+SAMPLE_0_45 : unknown
+SAMPLE_0_46 : unknown
+SAMPLE_0_47 : unknown
+SAMPLE_0_48 : unknown
+MetalClink : Metal Clink
+Whish : Whish
+SheatheSword : Sheathe Sword
+DrawSword : Draw Sword
+AirSwish : Air Swish
+AirWhistle : Air Whistle
+SAMPLE_0_55 : Bow Pulled Taut
+SwordStrikingMetalShield : Sword Striking Metal Shield
+MovingMetalChain : Moving Metal Chain
+SAMPLE_0_58 : Hissing Fuse
+HeavyThump : Heavy Thump
+EggHatching : Egg Hatching
+ArrowThunkinWood : Arrow Thunk in Wood
+AirWhoosh : Air Whoosh
+BrokenWood : Broken Wood
+WhipSnap : Whip Snap
+BuzzingSynth : Buzzing Synth
+SoftThump : Soft Thump
+SwordStrike : Sword Strike
+EyeofTruth : Eye of Truth
+PoppingCork : Popping Cork
+BowstringTwang : Bowstring Twang
+BombchuMotor : Bombchu Motor
+SAMPLE_0_72 : unknown
+SAMPLE_0_73 : unknown
+Rupee : Rupee
+SAMPLE_0_75 : Opening Wooden Door
+ClosingWoodenDoor : Closing Wooden Door
+Explosion1 : Explosion 1
+Gallop : Gallop
+HorseNeigh : Horse Neigh
+FlowingCreek : Flowing Creek
+RushingWaterfall : Rushing Waterfall
+MechanicallyShiftingStone : Mechanically Shifting Stone
+RollingBoulder : Rolling Boulder
+SAMPLE_0_84 : Bubbling Lava
+RetractingMetalChain : Retracting Metal Chain
+RelaxedCuccoClucks : Relaxed Cucco Clucks
+StoneStrike : Stone Strike
+HorseSnort : Horse Snort
+WaterSplish : Water Splish
+WoodenStrike : Wooden Strike
+FlyingFairy : Flying Fairy
+SettledStoneBlock : Settled Stone Block
+SAMPLE_0_93 : Creaking Door
+CreakingWood : Creaking Wood
+Ignition : Ignition
+WarpCircleAmbience : Warp Circle Ambience
+FairyMagic : Fairy Magic
+WaterDrips : Water Drips
+UnderwaterBubbles : Underwater Bubbles
+SAMPLE_0_100 : Fire Crackling
+HeavyPlatformRotating : Heavy Platform Rotating
+LightRockSlam : Light Rock Slam
+FlappingCloak : Flapping Cloak
+SAMPLE_0_104 : People Chattering
+ClothRipping : Cloth Ripping
+MechanicalRampUp : Mechanical Ramp-Up
+SAMPLE_0_107 : Crystal Synth (Low)
+ShimmeringTreasure : Shimmering Treasure
+Gunshot : Gunshot
+WolfHowl : Wolf Howl
+SAMPLE_0_111 : Frog Ribbit
+DogYip : Dog Yip
+MetalDoor : Metal Door
+CowMoo : Cow Moo
+SAMPLE_0_115 : unknown
+SAMPLE_0_116 : unknown
+SAMPLE_0_117 : unknown
+SAMPLE_0_118 : unknown
+SAMPLE_0_119 : unknown
+SAMPLE_0_120 : unknown
+SAMPLE_0_121 : unknown
+SAMPLE_0_122 : unknown
+SAMPLE_0_123 : unknown
+SAMPLE_0_124 : unknown
+SAMPLE_0_125 : unknown
+SAMPLE_0_126 : unknown
+SAMPLE_0_127 : unknown
+SAMPLE_0_128 : unknown
+SAMPLE_0_129 : unknown
+SAMPLE_0_130 : unknown
+SAMPLE_0_131 : unknown
+SAMPLE_0_132 : unknown
+SAMPLE_0_133 : unknown
+SAMPLE_0_134 : unknown
+SAMPLE_0_135 : unknown
+SAMPLE_0_136 : unknown
+SAMPLE_0_137 : unknown
+DialogueContinueHarp : Dialogue Continue (Harp)
+DongFailedLearning : Dong (Failed Learning)
+Whistle : Whistle
+ClangingBells : Clanging Bells
+PersonWhistling : Person Whistling
+ZTarget : Z Target
+EnemyTargetLockOn : Enemy Target Lock-On
+SAMPLE_0_145 : unknown
+BrokenPottery : Broken Pottery
+ShatteredGlass : Shattered Glass
+SAMPLE_0_148 : unknown
+AdultLinkAttack1 : Adult Link - Attack 1
+SAMPLE_0_150 : unknown
+AdultLinkAttack2 : Adult Link - Attack 2
+SAMPLE_0_152 : unknown
+AdultLinkAttack3 : Adult Link - Attack 3
+SAMPLE_0_154 : unknown
+AdultLinkAttack4 : Adult Link - Attack 4
+SAMPLE_0_156 : unknown
+AdultLinkHup : Adult Link - Hup
+AdultLinkGasp1 : Adult Link - Gasp 1
+AdultLinkStrongAttack1 : Adult Link - Strong Attack 1
+SAMPLE_0_160 : unknown
+AdultLinkStrongAttack2 : Adult Link - Strong Attack 2
+SAMPLE_0_162 : unknown
+SAMPLE_0_163 : unknown
+SAMPLE_0_164 : unknown
+SAMPLE_0_165 : unknown
+SAMPLE_0_166 : unknown
+SAMPLE_0_167 : unknown
+SAMPLE_0_168 : unknown
+SAMPLE_0_169 : unknown
+SAMPLE_0_170 : unknown
+SAMPLE_0_171 : unknown
+SAMPLE_0_172 : unknown
+SAMPLE_0_173 : unknown
+SAMPLE_0_174 : unknown
+SAMPLE_0_175 : unknown
+SAMPLE_0_176 : unknown
+SAMPLE_0_177 : unknown
+SAMPLE_0_178 : unknown
+AdultLinkFalling1 : Adult Link - Falling 1
+SAMPLE_0_180 : unknown
+AdultLinkFalling2 : Adult Link - Falling 2
+SAMPLE_0_182 : unknown
+SAMPLE_0_183 : unknown
+SAMPLE_0_184 : unknown
+SAMPLE_0_185 : unknown
+SAMPLE_0_186 : unknown
+SAMPLE_0_187 : unknown
+SAMPLE_0_188 : unknown
+SAMPLE_0_189 : unknown
+SAMPLE_0_190 : unknown
+SAMPLE_0_191 : unknown
+SAMPLE_0_192 : unknown
+SAMPLE_0_193 : unknown
+SAMPLE_0_194 : unknown
+SAMPLE_0_195 : unknown
+SAMPLE_0_196 : unknown
+SAMPLE_0_197 : unknown
+SAMPLE_0_198 : unknown
+ChildLinkStrongAttack1 : Child Link - Strong Attack 1
+ChildLinkStrongAttack2 : Child Link - Strong Attack 2
+SAMPLE_0_201 : unknown
+SAMPLE_0_202 : unknown
+SAMPLE_0_203 : unknown
+SAMPLE_0_204 : unknown
+SAMPLE_0_205 : unknown
+SAMPLE_0_206 : unknown
+SAMPLE_0_207 : unknown
+SAMPLE_0_208 : unknown
+SAMPLE_0_209 : unknown
+SAMPLE_0_210 : unknown
+SAMPLE_0_211 : unknown
+SAMPLE_0_212 : unknown
+SAMPLE_0_213 : unknown
+SAMPLE_0_214 : unknown
+ChildLinkGasp1 : Child Link - Gasp 1
+ChildLinkGasp2 : Child Link - Gasp 2
+SAMPLE_0_217 : unknown
+SAMPLE_0_218 : unknown
+ChildLinkGlug : Child Link - Glug
+SAMPLE_0_220 : unknown
+ChildLinkChargeUpUnused : Child Link - Charge Up (Unused)
+ChildLinkCastAttackSpell : Child Link - Cast Attack Spell
+SAMPLE_0_223 : unknown
+SAMPLE_0_224 : unknown
+SAMPLE_0_225 : unknown
+SAMPLE_0_226 : unknown
+SAMPLE_0_227 : unknown
+ChildLinkShivers : Child Link - Shivers
+ChildLinkSneeze : Child Link - Sneeze
+ChildLinkGrunt : Child Link - Grunt
+ChildLinkMoansFromHeat : Child Link - Moans From Heat
+ChildLinkAwakeningGrunt : Child Link - Awakening Grunt
+ChildLinkWipingOffSweat : Child Link - Wiping Off Sweat
+ChildLinkYawnStarts : Child Link - Yawn Starts
+ChildLinkYawnandStretch : Child Link - Yawn and Stretch
+ChildLinkStretchRefreshingly : Child Link - Stretch Refreshingly
+GreatFairyLaughter : Great Fairy Laughter
+GreatFairyTitters : Great Fairy Titters
+SAMPLE_0_239 : unknown
+SAMPLE_0_240 : unknown
+IngoYowls : Ingo Yowls
+IngoExclaims : Ingo Exclaims
+IngoHyeaaaaugh : Ingo - Hyeaaaaugh
+IngoHyah : Ingo - Hyah!
+SAMPLE_0_245 : unknown
+SAMPLE_0_246 : unknown
+SAMPLE_0_247 : unknown
+SAMPLE_0_248 : unknown
+SAMPLE_0_249 : unknown
+SAMPLE_0_250 : unknown
+SAMPLE_0_251 : unknown
+SAMPLE_0_252 : unknown
+SAMPLE_0_253 : unknown
+SAMPLE_0_254 : unknown
+SAMPLE_0_255 : unknown
+SAMPLE_0_256 : unknown
+SAMPLE_0_257 : unknown
+SAMPLE_0_258 : unknown
+SAMPLE_0_259 : unknown
+SAMPLE_0_260 : unknown
+SAMPLE_0_261 : unknown
+SAMPLE_0_262 : unknown
+SAMPLE_0_263 : unknown
+SAMPLE_0_264 : unknown
+SAMPLE_0_265 : unknown
+SAMPLE_0_266 : unknown
+SAMPLE_0_267 : unknown
+SAMPLE_0_268 : unknown
+SAMPLE_0_269 : unknown
+SAMPLE_0_270 : unknown
+SAMPLE_0_271 : unknown
+SAMPLE_0_272 : unknown
+SAMPLE_0_273 : unknown
+SAMPLE_0_274 : unknown
+SAMPLE_0_275 : unknown
+SAMPLE_0_276 : unknown
+SAMPLE_0_277 : unknown
+SAMPLE_0_278 : unknown
+SAMPLE_0_279 : unknown
+SAMPLE_0_280 : unknown
+SAMPLE_0_281 : unknown
+SAMPLE_0_282 : unknown
+SAMPLE_0_283 : unknown
+SAMPLE_0_284 : unknown
+SAMPLE_0_285 : unknown
+SAMPLE_0_286 : unknown
+SAMPLE_0_287 : unknown
+SAMPLE_0_288 : unknown
+SAMPLE_0_289 : unknown
+SAMPLE_0_290 : unknown
+SAMPLE_0_291 : unknown
+SAMPLE_0_292 : unknown
+SAMPLE_0_293 : unknown
+SAMPLE_0_294 : unknown
+SAMPLE_0_295 : unknown
+SAMPLE_0_296 : unknown
+SAMPLE_0_297 : unknown
+SAMPLE_0_298 : unknown
+SAMPLE_0_299 : unknown
+SAMPLE_0_300 : unknown
+SAMPLE_0_301 : unknown
+SAMPLE_0_302 : unknown
+SAMPLE_0_303 : unknown
+SAMPLE_0_304 : unknown
+SAMPLE_0_305 : unknown
+SAMPLE_0_306 : unknown
+SAMPLE_0_307 : unknown
+SAMPLE_0_308 : unknown
+SAMPLE_0_309 : unknown
+SAMPLE_0_310 : unknown
+SAMPLE_0_311 : unknown
+SAMPLE_0_312 : unknown
+SAMPLE_0_313 : unknown
+SAMPLE_0_314 : unknown
+SAMPLE_0_315 : unknown
+SAMPLE_0_316 : unknown
+SAMPLE_0_317 : unknown
+SAMPLE_0_318 : unknown
+SAMPLE_0_319 : unknown
+SAMPLE_0_320 : unknown
+SAMPLE_0_321 : unknown
+SAMPLE_0_322 : unknown
+SAMPLE_0_323 : unknown
+SAMPLE_0_324 : unknown
+SAMPLE_0_325 : unknown
+SAMPLE_0_326 : unknown
+SAMPLE_0_327 : unknown
+SAMPLE_0_328 : unknown
+SAMPLE_0_329 : unknown
+SAMPLE_0_330 : unknown
+SAMPLE_0_331 : unknown
+SAMPLE_0_332 : unknown
+SAMPLE_0_333 : unknown
+SAMPLE_0_334 : unknown
+SAMPLE_0_335 : unknown
+SAMPLE_0_336 : unknown
+SAMPLE_0_337 : unknown
+SAMPLE_0_338 : unknown
+SAMPLE_0_339 : unknown
+SAMPLE_0_340 : unknown
+SAMPLE_0_341 : unknown
+SAMPLE_0_342 : unknown
+SAMPLE_0_343 : unknown
+SAMPLE_0_344 : unknown
+SAMPLE_0_345 : unknown
+SAMPLE_0_346 : unknown
+SAMPLE_0_347 : unknown
+SAMPLE_0_348 : unknown
+SAMPLE_0_349 : unknown
+SAMPLE_0_350 : unknown
+SAMPLE_0_351 : unknown
+SAMPLE_0_352 : unknown
+SAMPLE_0_353 : unknown
+SAMPLE_0_354 : unknown
+SAMPLE_0_355 : unknown
+SAMPLE_0_356 : unknown
+SAMPLE_0_357 : unknown
+SAMPLE_0_358 : unknown
+SAMPLE_0_359 : unknown
+SAMPLE_0_360 : unknown
+SAMPLE_0_361 : unknown
+SAMPLE_0_362 : unknown
+SAMPLE_0_363 : unknown
+SAMPLE_0_364 : unknown
+SAMPLE_0_365 : unknown
+SAMPLE_0_366 : unknown
+SAMPLE_0_367 : unknown
+SAMPLE_0_368 : unknown
+SAMPLE_0_369 : unknown
+SAMPLE_0_370 : unknown
+SAMPLE_0_371 : unknown
+SAMPLE_0_372 : unknown
+Ocarina_Looped : Ocarina_Looped
+Accordion : Accordion
+Harp1 : Harp 1
+Malon : Malon
+Flute : Flute
+SAMPLE_0_378 : unknown
+TamboDrum : Tambo Drum
+FingerCymbals : Finger Cymbals
+SAMPLE_0_381 : unknown
+SAMPLE_0_382 : unknown
+SAMPLE_0_383 : unknown
+Timpani : Timpani
+SAMPLE_0_385 : unknown
+PianoSoft : Piano (Soft)
+SAMPLE_0_387 : unknown
+SAMPLE_0_388 : unknown
+SAMPLE_0_389 : unknown
+SAMPLE_0_390 : unknown
+SAMPLE_0_391 : unknown
+ClatteringSpear : Clattering Spear
+GanonsElectricalCharge : Ganon's Electrical Charge
+DramaticSwoosh : Dramatic Swoosh
+RustlingLargeWings : Rustling Large Wings
+CrackingEgg : Cracking Egg
+Gulp : Gulp
+SAMPLE_0_398 : unknown
+SAMPLE_0_399 : unknown
+SAMPLE_0_400 : unknown
+SAMPLE_0_401 : unknown
+SAMPLE_0_402 : unknown
+RustlingThicket : Rustling Thicket
+SAMPLE_0_404 : unknown
+SAMPLE_0_405 : unknown
+SAMPLE_0_406 : unknown
+SAMPLE_0_407 : unknown
+HeavyGunshot : Heavy Gunshot
+DodongoInhale : Dodongo Inhale
+ResoundingSmash : Resounding Smash
+CloakingPoe : Cloaking Poe
+ChitteringKeese : Chittering Keese
+GuayHurt : Guay Hurt
+Scritch : Scritch
+GruffVoice : Gruff Voice
+LizalfosTriumphantCry : Lizalfos Triumphant Cry
+LizalfosFootPatter : Lizalfos Foot Patter
+LizalfosLaughter : Lizalfos Laughter
+DekuScrubCollapses : Deku Scrub Collapses
+BrokenSmallPottery : Broken Small Pottery
+MonstrousGrowl : Monstrous Growl
+MoaningPhantomGanon : Moaning Phantom Ganon
+PhantomGanonLaughing : Phantom Ganon Laughing
+GerudoScimitarSlash : Gerudo Scimitar Slash
+SAMPLE_0_425 : unknown
+SAMPLE_0_426 : unknown
+SAMPLE_0_427 : unknown
+SAMPLE_0_428 : unknown
+SAMPLE_0_429 : unknown
+SAMPLE_0_430 : unknown
+SAMPLE_0_431 : unknown
+SAMPLE_0_432 : unknown
+SAMPLE_0_433 : unknown
+SAMPLE_0_434 : unknown
+SAMPLE_0_435 : unknown
+SAMPLE_0_436 : unknown
+SAMPLE_0_437 : unknown
+DekuBabaChomp : Deku Baba Chomp
+DekuBabaLunge : Deku Baba Lunge
+Buzzing : Buzzing
+ElectricBurst : Electric Burst
+PhantomGanoninAgon : unknown
+GoronandRedeadMoan : Goron and Redead Moan
+GoronInquiring : Goron Inquiring
+GoronRecognizes : Goron Recognizes
+GoronYawn : Goron Yawns
+SAMPLE_0_447 : unknown
+IronKnuckleAttacks : Iron Knuckle Attacks
+IronKnuckleGruntUnused : Iron Knuckle Grunt (Unused)
+IronKnuckleCharges : Iron Knuckle Charges
+IronKnuckleDies : Iron Knuckle Dies
+IronKnuckleGrunts : Iron Knuckle Grunts
+SAMPLE_0_453 : unknown
+SAMPLE_0_454 : unknown
+SAMPLE_0_455 : unknown
+SAMPLE_0_456 : unknown
+SAMPLE_0_457 : unknown
+SAMPLE_0_458 : unknown
+SAMPLE_0_459 : unknown
+SAMPLE_0_460 : unknown
+EnemyStruck : Enemy Struck
+RedeadScream : Redead Scream
+SAMPLE_0_463 : unknown
+SAMPLE_0_464 : unknown
+SAMPLE_0_465 : unknown
+SAMPLE_0_466 : unknown
+PhantomGanonAttacks : Phantom Ganon Attacks
+SAMPLE_0_468 : unknown
+SAMPLE_0_469 : unknown
+SAMPLE_0_470 : unknown
+SAMPLE_0_471 : unknown
+SAMPLE_0_472 : unknown
+SAMPLE_0_473 : unknown
+SAMPLE_0_474 : unknown
+SAMPLE_0_475 : unknown
+SAMPLE_0_476 : unknown
+SAMPLE_0_477 : unknown
+SAMPLE_0_478 : unknown
+SAMPLE_0_479 : unknown
+SAMPLE_0_480 : unknown
+SAMPLE_0_481 : unknown
+SAMPLE_0_482 : unknown
+SAMPLE_0_483 : unknown
+SAMPLE_0_484 : unknown
+EchoingThunderburs : unknown
+SAMPLE_0_486 : unknown
+SAMPLE_0_487 : unknown
+SAMPLE_0_488 : unknown
+SAMPLE_0_489 : unknown
+SAMPLE_0_490 : unknown
+SAMPLE_0_491 : unknown
+SAMPLE_0_492 : unknown
+SAMPLE_0_493 : unknown
+SAMPLE_0_494 : unknown
+SAMPLE_0_495 : unknown
+SAMPLE_0_496 : unknown
+SAMPLE_0_497 : unknown
+SAMPLE_0_498 : unknown
+SAMPLE_0_499 : unknown
+SAMPLE_0_500 : unknown
+SAMPLE_0_501 : unknown
+SAMPLE_0_502 : unknown
+SAMPLE_0_503 : unknown
+SAMPLE_0_504 : unknown
+SAMPLE_0_505 : unknown
+SAMPLE_0_506 : unknown
+SAMPLE_0_507 : unknown
+SAMPLE_0_508 : unknown
+SAMPLE_0_509 : unknown
+SAMPLE_0_510 : unknown
+SAMPLE_0_511 : unknown
+SAMPLE_0_512 : unknown
+SAMPLE_0_513 : unknown
+SAMPLE_0_514 : unknown
+SAMPLE_0_515 : unknown
+SAMPLE_0_516 : unknown
+SAMPLE_0_517 : unknown
+SAMPLE_0_518 : unknown
+SAMPLE_0_519 : unknown
+SAMPLE_0_520 : unknown
+SAMPLE_0_521 : unknown
+SAMPLE_0_522 : unknown
+SAMPLE_0_523 : unknown
+SAMPLE_0_524 : unknown
+SAMPLE_0_525 : unknown
+SAMPLE_0_526 : unknown
+SAMPLE_0_527 : unknown
+SAMPLE_0_528 : unknown
+SAMPLE_0_529 : unknown
+SAMPLE_0_530 : unknown
+SAMPLE_0_531 : unknown
+SAMPLE_0_532 : unknown
+SAMPLE_0_533 : unknown
+SAMPLE_0_534 : unknown
+SAMPLE_0_535 : unknown
+SAMPLE_0_536 : unknown
+SAMPLE_0_537 : unknown
+SAMPLE_0_538 : unknown
+SAMPLE_0_539 : unknown
+SAMPLE_0_540 : unknown
+SAMPLE_0_541 : unknown
+SAMPLE_0_542 : unknown
+SAMPLE_0_543 : unknown
+SAMPLE_0_544 : unknown
+SAMPLE_0_545 : unknown
+SAMPLE_0_546 : unknown
+SAMPLE_0_547 : unknown
+SAMPLE_0_548 : unknown
+SAMPLE_0_549 : unknown
+SAMPLE_0_550 : unknown
+SAMPLE_0_551 : unknown
+SAMPLE_0_552 : unknown
+SAMPLE_0_553 : unknown
+SAMPLE_0_554 : unknown
+SAMPLE_0_555 : unknown
+SAMPLE_0_556 : unknown
+SAMPLE_0_557 : unknown
+SAMPLE_0_558 : unknown
+SAMPLE_0_559 : unknown
+SAMPLE_0_560 : unknown
+SAMPLE_0_561 : unknown
+SAMPLE_0_562 : unknown
+SAMPLE_0_563 : unknown
+SAMPLE_0_564 : unknown
+SAMPLE_0_565 : unknown
+SAMPLE_0_566 : unknown
+SAMPLE_0_567 : unknown
+SAMPLE_0_568 : unknown
+SAMPLE_0_569 : unknown
+SAMPLE_0_570 : unknown
+SAMPLE_0_571 : unknown
+SAMPLE_0_572 : unknown
+SAMPLE_0_573 : unknown
+SAMPLE_0_574 : unknown
+sample_1_003C0F20 : Vocal Aahs
+sample_1_003C83F0 : Resonant Vocal Aahs
+sample_1_003D0630 : Harp 2
+sample_1_003D42E0 : Glockenspiel
+sample_1_003D9670 : Bass Drum 1
+sample_1_003DE410 : Snare Drum 1
+sample_1_003E0BA0 : Snare Drum 2
+sample_1_003E3330 : Cymbal
+sample_1_003EBAA0 : unknown
+sample_1_003EF2C0 : unknown
+sample_1_003F0780 : unknown
+sample_1_003F21D0 : unknown
+sample_1_003F3980 : Drum Sidestick
+sample_1_003F43C0 : Trombone
+sample_1_003F9010 : Harpsichord
+sample_1_004009E0 : Piano
+sample_1_0040A1A0 : Viola
+sample_1_0040E220 : unknown
+sample_1_0040EBE0 : unknown
+sample_1_00411340 : unknown
+sample_1_00412620 : unknown
+sample_1_00414C60 : unknown
+sample_1_00419100 : Strings (Low)
+sample_1_0041E120 : Strings 1
+sample_1_004227D0 : Strings 2
+sample_1_004264C0 : Oboe
+sample_1_00427770 : Horn
+sample_1_0042F0D0 : Trumpet
+sample_1_004328B0 : Tuba
+sample_1_00435820 : Fiddle
+sample_1_00437AD0 : Acoustic Guitar 1
+sample_1_0043BB30 : Acoustic Guitar 2
+sample_1_0043E560 : Bassoon
+sample_1_0043FA60 : Harp 3
+sample_1_00442D20 : Pizzicato Violin
+sample_1_004461A0 : Bass Guitar
+sample_1_0044A130 : Crystal Synth
+sample_1_004520D0 : Haunting Wind
+sample_1_0045D9D0 : unknown
+sample_1_004608E0 : unknown
+sample_1_00464970 : unknown
+sample_1_0046AB90 : unknown
+sample_1_0046E340 : unknown
+sample_1_004728F0 : unknown
+sample_1_00473E10 : unknown
+sample_1_00478C20 : unknown
+sample_1_00480600 : unknown
+sample_1_00483620 : Vocal Oohs
+sample_1_004889B0 : Vocal Eees
+sample_1_0048E460 : unknown
+sample_1_00491090 : unknown
+sample_1_00493E70 : unknown
+sample_1_00495240 : unknown
+sample_1_00496610 : unknown
+sample_1_00498B50 : unknown
+sample_1_0049A670 : unknown
+sample_1_0049BF60 : unknown
+sample_1_004A5780 : unknown
+sample_1_004AB940 : unknown
+sample_1_004AEF20 : unknown
+sample_1_004B0BA0 : unknown
+sample_1_004B0CD0 : unknown
+sample_1_004B4940 : unknown
+sample_1_004B6610 : Sitar
+sample_1_004B9CE0 : Koto
+sample_1_004BE590 : Some Manner of Drum
+sample_1_004BF5B0 : Another Type of Drum
+sample_1_004C0DA0 : Quick Drum
+sample_1_004C1CC0 : Gong
+sample_1_004CC1F0 : Windchimes
+sample_1_004D1CF0 : unknown
+sample_1_004D4230 : Melodic Wooden Clacking
+sample_1_004DEB10 : Harpsichord (High)
+sample_1_004E60A0 : unknown
+sample_1_004E65F0 : unknown
+sample_1_004EC650 : Clarinet
+sample_1_004ED240 : unknown
+sample_1_004EF640 : unknown
+sample_1_004F3440 : Banjo (Low)
+sample_1_004F6280 : Banjo
+sample_1_004F8B20 : Drum 1
+sample_1_004FADE0 : Drum 2
+sample_1_004FD5B0 : unknown
+sample_1_00500080 : Shaker
+sample_1_00500FD0 : Cowbell
+sample_1_00501C90 : unknown
+sample_1_0050AA40 : unknown
+sample_1_00513220 : Marimba 1
+sample_1_005158C0 : Marimba 2
+sample_1_00517A50 : Guitar (Low)
+sample_1_0051A230 : Guitar
+sample_1_0051C3F0 : Guitar (High)
+sample_1_0051E2C0 : Church Bell
+sample_1_00522F10 : Steel Drum
+sample_1_00527B70 : Steel Drum (High)
+sample_1_0052A260 : Vocal Ohs
+sample_2_00538CC0 : Goron Drum
+sample_2_0053B200 : Slap Bass
+sample_2_0053D4C0 : Goron Oh
+sample_2_0053FF90 : Goron Oh (High)
+sample_2_00540830 : Tom Drum
+sample_2_005412F0 : Resonant Bass Marimba

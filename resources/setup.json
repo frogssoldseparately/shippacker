@@ -1,5 +1,5 @@
 {
-    "Keiichi_Charlie": {
+    "Keiichi_Charlie_2S2H": {
         "Settings": {
             "MaxBankCount": 255,
             "MaxSongCount": 1919,
@@ -8,24 +8,38 @@
         },
         "WarnUnstable": false
     },
-    "Better_Categories": {
+    "Battler_Bravo_2S2H": {
         "Settings": {
             "MaxBankCount": 255,
             "MaxSongCount": 1919,
             "UseCRC64Encoding": false,
             "UseNumericCategories": true,
-            "Version": "Keiichi_Charlie"
+            "RomVersion": "Keiichi_Charlie_2S2H"
         },
         "WarnUnstable": false
     },
-    "Uncapped_Banks": {
+    "Uncapped_Banks_2S2H": {
         "Settings": {
             "MaxBankCount": 65535,
             "MaxSongCount": 1919,
             "UseCRC64Encoding": true,
             "UseNumericCategories": true,
-            "Version": "Keiichi_Charlie"
+            "RomVersion": "Keiichi_Charlie_S2H2"
         },
         "WarnUnstable": true
+    },
+    "Ackbar_Delta_SoH": {
+        "Settings": {
+            "StartingBankIndex": 38,
+            "MaxBankCount": 255,
+            "MaxSongCount": 1919,
+            "UseCRC64Encoding": false,
+            "UseNumericCategories": false,
+            "RomPlatform": "N64_NTSC_10",
+            "PortPlatform": "SoH",
+            "TranslatableRomVersion": "Keiichi_Charlie_2S2H",
+            "TranslatableRomPlatform": "N64_US"
+        },
+        "WarnUnstable": false
     }
 }

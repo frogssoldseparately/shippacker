@@ -3,7 +3,7 @@ package globals
 import "github.com/frogssoldseparately/shippacker/pkg/iohelper"
 
 func SetupByVersion() error {
-    switch Version {
+    switch RomVersion {
     ##:setup_cases:##
     default: // Some future version of 2ship with reworked audio
         MaxBankCount = 65535 // exclusive
