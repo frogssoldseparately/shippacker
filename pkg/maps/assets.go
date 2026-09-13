@@ -22,23 +22,29 @@ type SampleAddressMap map[uint32]string
 type SampleNameMap map[string]uint32
 
 func NewSampleMap() (*SampleMap, error) {
-	mmrsMap, err := NewMmrsMap()
+	nativeMap, err := NewNativeMap()
 	if err != nil {
 		return nil, err
 	}
-	ootrsMap, err := NewOotrsMap()
+	translationMap, err := NewTranslationMap()
 	if err != nil {
 		return nil, err
 	}
-	return &SampleMap{
-		MajorasMask:   mmrsMap,
-		OcarinaOfTime: ootrsMap,
-	}, nil
+	if globals.PortPlatform == "2S2H" {
+		return &SampleMap{
+			MajorasMask:   nativeMap,
+			OcarinaOfTime: translationMap,
+		}, nil
+	} else {
+		return &SampleMap{
+			MajorasMask:   translationMap,
+			OcarinaOfTime: nativeMap,
+		}, nil
+	}
 }
 
-// Generate an asset map using mm.o2r and Audio.xml for .zbank -> Soundfont conversion.
-func NewMmrsMap() (*GameSampleMap, error) {
-	key := globals.GetAudioXmlKey()
+func NewNativeMap() (*GameSampleMap, error) {
+	key := globals.GetNativeAudioXmlKey()
 	buf, ok := globals.SampleXmls[key]
 	if !ok {
 		return nil, fmt.Errorf("Unknown xml key %s", key)
@@ -54,7 +60,7 @@ func NewMmrsMap() (*GameSampleMap, error) {
 	unmappedByName := SampleNameMap{}
 
 	for _, sample := range sampleEntries {
-		newName := sample.Name + "_META"
+		newName := sample.OriginalName + "_META"
 		currentOffset, _ := sample.GetOffset()
 		byAddress[currentOffset] = newName
 		byName[newName] = currentOffset
@@ -67,8 +73,8 @@ func NewMmrsMap() (*GameSampleMap, error) {
 	}, nil
 }
 
-func NewOotrsMap() (*GameSampleMap, error) {
-	key := "ackbar_delta_n64_ntsc_10"
+func NewTranslationMap() (*GameSampleMap, error) {
+	key := globals.GetTranslatedAudioXmlKey()
 	buf, ok := globals.SampleXmls[key]
 	if !ok {
 		return nil, fmt.Errorf("Unknown xml key %s", key)

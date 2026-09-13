@@ -3,7 +3,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"os"
 
 	"github.com/frogssoldseparately/shippacker/internal/cli"
 	"github.com/frogssoldseparately/shippacker/pkg/globals"
@@ -34,17 +36,11 @@ func main() {
 		}
 	}
 	if !failedStartup {
-		if ootO2RArchive, err := sreader.OpenArchive("oot.o2r"); err == nil {
-			if err := soundfont.RegisterSoundfonts(ootO2RArchive); err == nil {
-				sample.RegisterSamples(ootO2RArchive)
-				globals.HasOotO2r = true
-			} else {
-				fmt.Printf("Could not unpack oot.o2r because %s\n", err)
-			}
+		if err := TryO2RImport(); err != nil {
+			fmt.Println(err)
 		} else {
-			fmt.Printf("If you would like to include .ootrs files, please place your oot.o2r file in the same directory as shippacker.exe\n")
+			globals.HasImportedO2R = true
 		}
-		// Get packing!
 		err := shippacker.Pack(cli.MusicSrcPath, cli.O2ROutPath)
 		if err != nil {
 			fmt.Printf("%s\n", err)
@@ -55,4 +51,32 @@ func main() {
 	}
 	fmt.Print("Press [ENTER] to close")
 	fmt.Scanf(".")
+}
+
+func TryO2RImport() error {
+	var filename string
+	if globals.PortPlatform == "2S2H" {
+		filename = "oot.o2r"
+	} else {
+		filename = "mm.o2r"
+	}
+	if _, err := os.Stat(filename); errors.Is(err, os.ErrNotExist) {
+		return fmt.Errorf("If you would like to include translatable sequences, please place your %s file in the same directory as shippacker.exe\n", filename)
+	}
+	if err := ImportO2R(filename); err != nil {
+		return fmt.Errorf("Could not unpack %s because\n\t%s\n", filename, err)
+	}
+	return nil
+}
+
+func ImportO2R(filename string) error {
+	if archive, err := sreader.OpenArchive(filename); err != nil {
+		return err
+	} else {
+		if err := soundfont.RegisterSoundfonts(archive); err != nil {
+			return err
+		}
+		sample.RegisterSamples(archive)
+	}
+	return nil
 }

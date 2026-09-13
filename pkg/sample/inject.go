@@ -10,7 +10,7 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-var storedOotSamples = map[string]*zip.File{}
+var storedSamples = map[string]*zip.File{}
 var sampleQueueByAddress *map[uint32]string
 var sampleQueueByName *map[string]uint32
 
@@ -34,7 +34,7 @@ func AcceptQueuedSamples(gsm *maps.GameSampleMap) {
 func RegisterSamples(archive *sreader.SimpleZipReader) {
 	for _, sampleEntry := range archive.GetAllByPrefix("audio/samples/") {
 		assetName := filepath.Base(sampleEntry.Name)
-		storedOotSamples[assetName] = sampleEntry
+		storedSamples[assetName] = sampleEntry
 	}
 }
 
@@ -44,11 +44,11 @@ func InjectSampleByAddress(zipWriter *swriter.SimpleZipWriter, assetAddr uint32,
 	}
 	assetName, ok := (*gsm.UnmappedByAddress)[assetAddr]
 	if !ok {
-		return "", fmt.Errorf("Ship of Harkinian sample of address 0x%08X could not be found\n", assetAddr)
+		return "", fmt.Errorf("Translated sample of address 0x%08X could not be found\n", assetAddr)
 	}
-	sampleEntry, ok := storedOotSamples[assetName]
+	sampleEntry, ok := storedSamples[assetName]
 	if !ok {
-		return "", fmt.Errorf("Ship of Harkinian sample of address 0x%08X could not be found\n", assetAddr)
+		return "", fmt.Errorf("Translated sample of address 0x%08X could not be found\n", assetAddr)
 	}
 	fSample, err := sampleEntry.Open()
 	if err != nil {
@@ -71,11 +71,11 @@ func InjectSampleByName(zipWriter *swriter.SimpleZipWriter, assetName string, gs
 	}
 	assetAddr, ok := (*gsm.UnmappedByName)[assetName]
 	if !ok {
-		return 0, fmt.Errorf("Ship of Harkinian sample \"%s\" could not be found\n", assetName)
+		return 0, fmt.Errorf("Translated sample \"%s\" could not be found\n", assetName)
 	}
-	sampleEntry, ok := storedOotSamples[assetName]
+	sampleEntry, ok := storedSamples[assetName]
 	if !ok {
-		return 0, fmt.Errorf("Ship of Harkinian sample \"%s\" could not be found\n", assetName)
+		return 0, fmt.Errorf("Translated sample \"%s\" could not be found\n", assetName)
 	}
 	fSample, err := sampleEntry.Open()
 	if err != nil {

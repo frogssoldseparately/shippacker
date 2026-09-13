@@ -1,44 +1,45 @@
 # Ship Packer
-A custom sequence and instrument bank packaging tool for 2ship2harkinian.
+A custom sequence and instrument bank packaging tool for 2ship2harkinian and Ship of Harkinian
 
 ## Planned
 
-- [ ] Support `.ootrs` sequences.
-    - [X] Convert `.ootrs` to 2ship2harkinian's format.
-    - [X] Change sample injection infrastructure so bank 0 and 1 can be supported.
-    - [ ] Convert `.ootrs` categories to `.mmrs` categories.
-    - [X] Better parse Ship of Harkinian soundfonts.
+- [X] Support `.ootrs` sequences.
 - [X] Support custom samples.
-- [ ] Support for Ship of Harkinian o2r.
+- \[Experimental\] Support for Ship of Harkinian.
 
 ## What it does
 
-This tool allows sequences that have custom instrument banks (`.mmrs` or `.ootrs` files that contain `.zbank` and `.bankmeta` files) to be played via 2ship2harkinian. It packages up all of the sequences you give it into a `.o2r` mod file. This tool accepts:
+This tool allows sequences that have custom instrument banks (`.mmrs` or `.ootrs` files that contain `.zbank` and `.bankmeta` files) to be played via 2ship2harkinian and Ship of Harkinian. It packages up all of the sequences you give it into a `.o2r` mod file. This tool accepts:
 
 - `.ootrs` with and without custom banks
 - `.mmrs` with and without custom banks
 - `.*seq`, provided the name follows the "\[song\_name\]\_\[bank\_id\]\_\[category-list\].*seq" format
 - `.seq`+`.meta` pairs, as you would give to retro
 
-## What it doesn't
-
-This does not presently work for Ship of Harkinian, but support is planned.
-
 ## Considerations
 
-While this can create .o2r files with essentially unlimited banks, the actual usable custom instrument **bank count is 214**. This limit will change in a future version of 2ship. As there is a bank limit, there is also a **sequence limit of 1921**. Ship Packer will give you warnings when you reach those limits.
+### 2Ship2Harkinian
+
+While this can create .o2r files with essentially unlimited banks, the actual usable custom instrument **bank count is 214**. This limit will change in a future version of 2ship. As there is a bank limit, there is also a **sequence limit of 1919**. Ship Packer will give you warnings when you reach those limits.
 
 Using multiple .o2r files with custom instrument banks will cause the sound fonts to overwrite each other, making sequences play with the wrong instruments.
 
-To convert most `.ootrs` files, you must provide your copy `oot.o2r` in the same folder as your `shippacker` executable. This has only been tested so far using an `oot.o2r` that was generated from the **N64 NTSC 1.0 version** of the game. If you generated yours with a different version of the game, this might not work as intended. Further testing is required.
+To convert most `.ootrs` files for use in 2ship2harkinian, you must provide your copy `oot.o2r` in the same folder as your `shippacker` executable. This has only been tested so far using an `oot.o2r` that was generated from the **N64 NTSC 1.0 version** of the game. If you generated yours with a different version of the game, this might not work as intended. Further testing is required.
 
-Category information is currently not preserved when including an `.ootrs` file. It defaults to either `bgm` or `fanfare`.
+### Ship Of Harkinian
+
+While this can generate .o2r's for Ship of Harkinian, it is very crash prone. More work needs to be done. Use this packer with caution.
+
+To convert most `.mmrs` files for use in Ship of Harkinian, you must provide your copy of `mm.o2r` in the same folder as your `shippacker` executable.
+
+Category information is not currently preserved when packing for Ship of Harkinian.
 
 ## Setup
 ### Windows
 1) Download the [latest release](https://github.com/frogssoldseparately/shippacker/releases/latest) and unzip it to wherever you please.
-2) Place whatever custom sequences you would like to bundle into an `.o2r` file inside the `music` folder.
-3) Run `shippacker.exe` and follow the terminal for further instructions. If all went well, your `mods` folder will house a file named `{some long number}.o2r`. You can rename it if you like. Move this file into 2ship2harkinian's `mods` folder, boot up 2ship2harkinian, and your custom sequences will be readily available.
+2) Place whatever custom sequences you would like to pack inside the `music` folder.
+3) If you would like to pack `.ootrs` sequences for 2ship2harkinian, place a copy of your `oot.o2r` in the same directory as your `shippacker` executable. If you would like to pack `.mmrs` sequences for Ship of Harkinian, place a copy of your `mm.o2r` in the same directory as your `shippacker` executable.
+4) Run `shippacker.exe` and follow the terminal for further instructions. If all went well, your `mods` folder will house a file named `{some long number}.o2r`. You can rename it if you like. Move this file into 2ship2harkinian's (or Ship of Harkinian's) `mods` folder, boot it up, and your custom sequences will be readily available.
 
 ### Building from source
 

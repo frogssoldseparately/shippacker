@@ -1,11 +1,11 @@
 import { join } from "path";
 import { fileURLToPath } from "url";
 import { getValidatedInput } from "./audio/validate.js";
-import { make2ShipStubs, fillAudioTemplate, fillSetupTemplate, makeSoHStubs } from "./audio/stubs.js";
+import { makeTranslationStubs, fillAudioTemplate, fillSetupTemplate } from "./audio/stubs.js";
 import { parseSetups } from "./audio/SetupEntry.js";
 
 /**
- * Generates abridged Audio.xml files with names matching mm.o2r and embeds them
+ * Generates abridged Audio.xml files with names matching Ship's internals and embeds them
  * into Ship Packer.
  */
 function main() {
@@ -20,12 +20,7 @@ function main() {
     const setupGoPath = join(destination, "setup.go");
 
     const versionSetups = parseSetups(setupJsonPath);
-
-    const writtenFiles = make2ShipStubs(source, destination);
-    const shipWrittenFiles = makeSoHStubs(source, destination);
-    while (shipWrittenFiles.length) {
-        writtenFiles.push(shipWrittenFiles.pop());
-    }
+    const writtenFiles = makeTranslationStubs(source, destination);
 
     fillAudioTemplate(
         audioTemplatePath, audioGoPath, writtenFiles, versionSetups

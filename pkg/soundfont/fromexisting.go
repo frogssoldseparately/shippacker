@@ -65,7 +65,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, zipWriter *swriter.SimpleZ
 			assetAddr, ok := (*gsm.ByName)[assetName]
 			if !ok {
 				if assetAddr, err = sample.InjectSampleByName(zipWriter, assetName, gsm); err != nil {
-					return nil, fmt.Errorf("2ship2harkinian translation for Ship of Harkinian sample \"%s\" could not be found\n", assetName)
+					return nil, fmt.Errorf("translation for sample \"%s\" could not be found\n", assetName)
 				}
 			}
 			sampleMap[samplePtr] = &zbank.Sample{
@@ -121,7 +121,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, zipWriter *swriter.SimpleZ
 				assetAddr, ok := (*gsm.ByName)[assetName]
 				if !ok {
 					if assetAddr, err = sample.InjectSampleByName(zipWriter, assetName, gsm); err != nil {
-						return nil, fmt.Errorf("2ship2harkinian translation for Ship of Harkinian sample \"%s\" could not be found\n", assetName)
+						return nil, fmt.Errorf("translation for sample \"%s\" could not be found\n", assetName)
 					}
 				}
 				tuning := Read[float32](r)
@@ -160,7 +160,7 @@ func ReadSoundfont(fSoundfont io.Reader, name string, zipWriter *swriter.SimpleZ
 			assetAddr, ok := (*gsm.ByName)[assetName]
 			if !ok {
 				if assetAddr, err = sample.InjectSampleByName(zipWriter, assetName, gsm); err != nil {
-					return nil, fmt.Errorf("2ship2harkinian translation for Ship of Harkinian sample \"%s\" could not be found\n", assetName)
+					return nil, fmt.Errorf("translation for sample \"%s\" could not be found\n", assetName)
 				}
 			}
 			tuning := Read[float32](r)

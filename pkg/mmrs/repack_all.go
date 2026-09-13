@@ -24,6 +24,7 @@ import (
 func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swriter.SimpleZipWriter, gsm *maps.GameSampleMap) error {
 	bankId := globals.GetCurrentBank(zipWriter)
 	bufferedWriter := zipWriter.NewBuffer()
+	soundfont.NewSoundfontQueue()
 	sample.NewSampleQueue()
 	archiveFilename := filepath.Base(archive.Name())
 	archiveExtension := filepath.Ext(archiveFilename)
@@ -33,6 +34,21 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 	seqEntry, ok := archive.GetFirstByAnyExt([]string{".seq", ".zseq", ".aseq"})
 	if !ok {
 		return fmt.Errorf("it did not have a valid sequence file.\n")
+	}
+	// Determine fontname and index by global settings
+	var fontName string
+	stamp := fmt.Sprintf("%d%d%d", os.Getpid(), zipWriter.GetTimestamp(), bankId)
+	if globals.UseCRC64Encoding {
+		// Generate a hash to prevent (or minimize) collisions between soundfonts
+		stampArr := []byte(stamp)
+		stampHash := crc32.ChecksumIEEE(stampArr)
+		fontName = fmt.Sprintf("custom/fonts/Soundfont_%d", stampHash)
+		fontNameArr := []byte(fontName)
+		// Makes 2ship find the correct soundfont by crc instead of index
+		bankId = crc64.CRC64(&fontNameArr)
+		fontCount = 0xFFFFFFFF
+	} else {
+		fontName = fmt.Sprintf("audio/fonts/Soundfont_%d", bankId)
 	}
 	var seqName string
 	{
@@ -65,20 +81,8 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 			return fmt.Errorf("its .zbank file could not be opened\n")
 		}
 		fMeta, err := metaEntry.Open()
-		// Determine fontname and index by global settings
-		var fontName string
-		stamp := fmt.Sprintf("%d%d%d", os.Getpid(), zipWriter.GetTimestamp(), bankId)
-		if globals.UseCRC64Encoding {
-			// Generate a hash to prevent (or minimize) collisions between soundfonts
-			stampArr := []byte(stamp)
-			stampHash := crc32.ChecksumIEEE(stampArr)
-			fontName = fmt.Sprintf("custom/fonts/Soundfont_%d", stampHash)
-			fontNameArr := []byte(fontName)
-			// Makes 2ship find the correct soundfont by crc instead of index
-			bankId = crc64.CRC64(&fontNameArr)
-			fontCount = 0xFFFFFFFF
-		} else {
-			fontName = fmt.Sprintf("audio/fonts/Soundfont_%d", bankId)
+		if err != nil {
+			return fmt.Errorf("its .bankmeta file could not be opened\n")
 		}
 		// Get custom samples
 		customSamples := []*sample.Sample{}
@@ -108,8 +112,6 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 				}
 				customSamples = append(customSamples, customSample)
 				sample.QueueSample(customSample.Name, customSample.Addr)
-				// So this sample can be referenced in .zbank files
-				// (*gsm.ByAddress)[customSample.Addr] = customSample.Name
 			}
 		}
 		// Generate zippable soundfont container
@@ -139,20 +141,42 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 				return err
 			}
 		}
+		if globals.PortPlatform == "SoH" {
+			for _, usedSample := range *sf.SampleMap {
+				assetAddr := usedSample.SampleAddress
+				if assetAddr != 0 {
+					if _, ok := (*gsm.ByAddress)[assetAddr]; !ok {
+						if _, err := sample.InjectSampleByAddress(bufferedWriter, assetAddr, gsm); err != nil {
+							return err
+						}
+					}
+				}
+			}
+		}
 		// Write zippable soundfont
 		if err := bufferedWriter.WriteEntry(sf); err != nil {
 			return err
 		}
 	} else {
-		// No custom instrument bank
 		seqFilename := seqEntry.Name
 		seqExt := filepath.Ext(seqFilename)
-		seqBasename := strings.TrimPrefix(seqFilename[0:len(seqFilename)-len(seqExt)], "0x")
-		newBank, err := strconv.ParseUint(seqBasename, 16, 16)
-		if err != nil {
-			return fmt.Errorf("its bank could not be parsed:\n\t%s\n", err)
+		bankStr := seqFilename[0 : len(seqFilename)-len(seqExt)]
+		if globals.PortPlatform == "2S2H" {
+			// No custom instrument bank
+			existingBankId, err := strconv.ParseUint(strings.TrimPrefix(bankStr, "0x"), 16, 32)
+			if err != nil {
+				return fmt.Errorf("its bank id \"%s\" could not be parsed\n", bankStr)
+			}
+			bankId = existingBankId
+		} else {
+			// Needs MM bank
+			if !globals.HasImportedO2R {
+				return fmt.Errorf("mm.o2r was not provided\n")
+			}
+			if err := soundfont.InjectSoundfont(bufferedWriter, bankStr, &bankId, fontName, gsm); err != nil {
+				return err
+			}
 		}
-		bankId = uint64(newBank)
 	}
 	fSeq, err := seqEntry.Open()
 	if err != nil {
@@ -172,6 +196,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 	}
 	zipWriter.ConsumeBuffer()
 	sample.AcceptQueuedSamples(gsm)
+	soundfont.AcceptQueuedSoundfonts()
 	return nil
 }
 

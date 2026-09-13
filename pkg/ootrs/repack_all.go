@@ -1,10 +1,8 @@
 package ootrs
 
 import (
-	"archive/zip"
 	"fmt"
 	"hash/crc32"
-	"io"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -141,12 +139,14 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 				return err
 			}
 		}
-		for _, usedSample := range *sf.SampleMap {
-			assetAddr := usedSample.SampleAddress
-			if assetAddr != 0 {
-				if _, ok := (*gsm.ByAddress)[assetAddr]; !ok {
-					if _, err := sample.InjectSampleByAddress(bufferedWriter, assetAddr, gsm); err != nil {
-						return err
+		if globals.PortPlatform == "2S2H" {
+			for _, usedSample := range *sf.SampleMap {
+				assetAddr := usedSample.SampleAddress
+				if assetAddr != 0 {
+					if _, ok := (*gsm.ByAddress)[assetAddr]; !ok {
+						if _, err := sample.InjectSampleByAddress(bufferedWriter, assetAddr, gsm); err != nil {
+							return err
+						}
 					}
 				}
 			}
@@ -156,11 +156,21 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 			return err
 		}
 	} else {
-		if !globals.HasOotO2r {
-			return fmt.Errorf("oot.o2r was not provided\n")
-		}
-		if err := soundfont.InjectSoundfont(bufferedWriter, metadata.Bank, &bankId, fontName, gsm); err != nil {
-			return err
+		if globals.PortPlatform == "2S2H" {
+			// Need OoT bank
+			if !globals.HasImportedO2R {
+				return fmt.Errorf("oot.o2r was not provided\n")
+			}
+			if err := soundfont.InjectSoundfont(bufferedWriter, metadata.Bank, &bankId, fontName, gsm); err != nil {
+				return err
+			}
+		} else {
+			// No custom instrument bank
+			existingBankId, err := strconv.ParseUint(strings.TrimPrefix(metadata.Bank, "0x"), 16, 32)
+			if err != nil {
+				return fmt.Errorf("its bank id \"%s\" could not be parsed\n", metadata.Bank)
+			}
+			bankId = existingBankId
 		}
 	}
 	fSeq, err := seqEntry.Open()
@@ -183,52 +193,4 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 	sample.AcceptQueuedSamples(gsm)
 	soundfont.AcceptQueuedSoundfonts()
 	return nil
-}
-
-type OotrsMeta struct {
-	Name          string
-	Bank          string
-	Type          string
-	Categories    []string
-	CustomSamples []string
-}
-
-func processOotrsMeta(f *zip.File) (*OotrsMeta, error) {
-	r, err := f.Open()
-	if err != nil {
-		return nil, err
-	}
-	defer r.Close()
-	buf, err := io.ReadAll(r)
-	if err != nil {
-		return nil, err
-	}
-	rawLines := strings.Split(string(buf), "\n")
-	lines := []string{}
-	zsoundLines := []string{}
-	for _, rawLine := range rawLines {
-		line := strings.Trim(rawLine, " \r\t")
-		if len(line) > 0 {
-			if strings.Contains(line, "ZSOUND") {
-				zsoundLines = append(zsoundLines, line)
-			} else if len(lines) == 4 {
-				lines[3] = line
-			} else {
-				lines = append(lines, line)
-			}
-		}
-	}
-	if len(lines) == 2 {
-		lines = append(lines, "bgm")
-	}
-	if len(lines) == 3 {
-		lines = append(lines, "")
-	}
-	return &OotrsMeta{
-		lines[0],
-		lines[1],
-		lines[2],
-		strings.FieldsFunc(lines[3], func(r rune) bool { return r == ',' || r == '-' }),
-		zsoundLines,
-	}, nil
 }

@@ -14,8 +14,8 @@ function getTargetInfo(filePath, suffix) {
         ignoreCount = suffix.split('_').length;
     }
     const parts = path.basename(filePath).split("_");
-    const version = parts.slice(0, 2).join("_");
-    const platform = parts.slice(2, parts.length - ignoreCount).join("_");
+    const version = parts.slice(0, 3).join("_");
+    const platform = parts.slice(3, parts.length - ignoreCount).join("_");
     return [version, platform];
 }
 
@@ -61,23 +61,15 @@ function findReplacements(dir, suffix = "Audio") {
     return out;
 }
 
-/**
- * Generates abridged Audio.xml files whose names match what is found in mm.o2r.
- * @param {string} source - Directory with unmodified xmls.
- * @param {string} destination - Directory where modified xmls will be placed.
- * @returns Array of names of files written.
- */
-export function make2ShipStubs(source, destination) {
+export function makeNativeStubs(source, destination) {
     const writtenFiles = [];
     const sourceFiles = fs
         .readdirSync(source)
-        .filter(elem => elem.endsWith("Audio_2Ship.xml"))
+        .filter(elem => elem.endsWith("Audio.xml"))
         .map(elem => path.join(source, elem));
     for (const resourcePath of sourceFiles) {
-        const replacementMap = findReplacements(source, "Audio_2Ship"); // This is bad, but it's a temporary fix
-        const [version, platform] = getTargetInfo(resourcePath);
-        // Try to get a replacement mappings that works for all platforms of
-        // this version. Otherwise, get a platform specific replacement.
+        const replacementMap = findReplacements(source, "Audio");
+        const [version, platform] = getTargetInfo(resourcePath, "Audio");
         const replacements = replacementMap.get(`${version}_All`)
             ?? replacementMap.get(`${version}_${platform}`);
         if (replacements == null) {
@@ -86,7 +78,7 @@ export function make2ShipStubs(source, destination) {
             }"`);
             continue;
         }
-        const outputName = `${version}_${platform}_Audio_Stub.xml`;
+        const outputName = `${version}_${platform}_Native_Stub.xml`;
         const outputPath = path.join(destination, outputName);
         const xml = new XmlResource(resourcePath, outputPath);
         xml.prefix = "<Root>";
@@ -125,16 +117,16 @@ export function make2ShipStubs(source, destination) {
     return writtenFiles;
 }
 
-export function makeSoHStubs(source, destination) {
+export function makeTranslationStubs(source, destination) {
     const writtenFiles = [];
     const sourceFiles = fs
         .readdirSync(source)
-        .filter(elem => elem.endsWith("Audio_SoH.xml"))
+        .filter(elem => elem.endsWith("Audio.xml"))
         .map(elem => path.join(source, elem));
-    const replacementMap = findReplacements(source, "Audio_SoH");
-    const translationMap = findReplacements(source, "Audio_To_2Ship");
     for (const resourcePath of sourceFiles) {
-        const [version, platform] = getTargetInfo(resourcePath);
+        const replacementMap = findReplacements(source, "Audio");
+        const translationMap = findReplacements(source, "Translation")
+        const [version, platform] = getTargetInfo(resourcePath, "Audio")
         const replacements = replacementMap.get(`${version}_All`)
             ?? replacementMap.get(`${version}_${platform}`);
         if (replacements == null) {
@@ -146,9 +138,10 @@ export function makeSoHStubs(source, destination) {
         const translation = translationMap.get(`${version}_All`)
             ?? translationMap.get(`${version}_${platform}`);
         if (translation == null) {
-            console.log(`Replacements:Missing: for ${
+            console.log(`Translations:Missing: for ${
                 resourcePath
             }"`);
+            continue
         }
         const outputName = `${version}_${platform}_Audio_Stub.xml`;
         const outputPath = path.join(destination, outputName);

@@ -13,6 +13,9 @@ import (
 )
 
 func RepackSequence(musicSrcPath string, file os.DirEntry, zipWriter *swriter.SimpleZipWriter) error {
+	if globals.PortPlatform == "SoH" {
+		return fmt.Errorf("bare sequences are not supported for SoH conversion yet.\n")
+	}
 	bufferedWriter := zipWriter.NewBuffer()
 	filename := filepath.Base(file.Name())
 	ext := filepath.Ext(filename)

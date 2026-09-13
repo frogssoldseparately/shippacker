@@ -3,27 +3,37 @@ package globals
 import "github.com/frogssoldseparately/shippacker/pkg/iohelper"
 
 func SetupByVersion() error {
-    switch Version {
-    case "Keiichi_Charlie":
+    switch RomVersion {
+    case "Keiichi_Charlie_2S2H":
 		MaxBankCount = 255
 		MaxSongCount = 1919
 		UseCRC64Encoding = false
 		UseNumericCategories = false
-	case "Better_Categories":
+	case "Battler_Bravo_2S2H":
 		MaxBankCount = 255
 		MaxSongCount = 1919
 		UseCRC64Encoding = false
 		UseNumericCategories = true
-		Version = "Keiichi_Charlie"
-	case "Uncapped_Banks":
+		RomVersion = "Keiichi_Charlie_2S2H"
+	case "Uncapped_Banks_2S2H":
 		MaxBankCount = 65535
 		MaxSongCount = 1919
 		UseCRC64Encoding = true
 		UseNumericCategories = true
-		Version = "Keiichi_Charlie"
+		RomVersion = "Keiichi_Charlie_S2H2"
 		if err := iohelper.WarnUnstable(); err != nil {
 			return err
 		}
+	case "Ackbar_Delta_SoH":
+		StartingBankIndex = 38
+		MaxBankCount = 255
+		MaxSongCount = 1919
+		UseCRC64Encoding = false
+		UseNumericCategories = false
+		RomPlatform = "N64_NTSC_10"
+		PortPlatform = "SoH"
+		TranslatableRomVersion = "Keiichi_Charlie_2S2H"
+		TranslatableRomPlatform = "N64_US"
     default: // Some future version of 2ship with reworked audio
         MaxBankCount = 65535 // exclusive
         MaxSongCount = 65535 // inclusive

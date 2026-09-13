@@ -14,7 +14,7 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-var storedOotSoundfonts = map[uint64]*zip.File{}
+var storedSoundfonts = map[uint64]*zip.File{}
 var includedBanks = map[uint64]uint64{}
 var soundfontQueue *map[uint64]uint64
 
@@ -32,12 +32,17 @@ func AcceptQueuedSoundfonts() {
 func RegisterSoundfonts(archive *sreader.SimpleZipReader) error {
 	for _, soundfontEntry := range archive.GetAllByPrefix("audio/fonts/") {
 		soundfontName := filepath.Base(soundfontEntry.Name)
-		bankString := soundfontName[0:strings.Index(soundfontName, "_")]
-		bankId, err := strconv.ParseUint(bankString, 10, 32)
+		var bankStr string
+		if globals.PortPlatform == "2S2H" {
+			bankStr = soundfontName[0:strings.Index(soundfontName, "_")]
+		} else {
+			bankStr = soundfontName[strings.Index(soundfontName, "_")+1:]
+		}
+		bankId, err := strconv.ParseUint(bankStr, 10, 32)
 		if err != nil {
 			return err
 		}
-		storedOotSoundfonts[bankId] = soundfontEntry
+		storedSoundfonts[bankId] = soundfontEntry
 	}
 	return nil
 }
@@ -54,9 +59,9 @@ func InjectSoundfont(zipWriter *swriter.SimpleZipWriter, metaBank string, curren
 	if !globals.AllowCustomBanks {
 		return fmt.Errorf("it has a custom bank\n")
 	}
-	soundfontEntry, ok := storedOotSoundfonts[parsedBank]
+	soundfontEntry, ok := storedSoundfonts[parsedBank]
 	if !ok {
-		return fmt.Errorf("could not find OoT bank with id %s\n", metaBank)
+		return fmt.Errorf("could not find translatable soundfont with id %s\n", metaBank)
 	}
 	fSoundfont, err := soundfontEntry.Open()
 	if err != nil {
@@ -73,6 +78,6 @@ func InjectSoundfont(zipWriter *swriter.SimpleZipWriter, metaBank string, curren
 	return nil
 }
 
-func QueueSoundfont(ootBankId uint64, realBankId uint64) {
-	(*soundfontQueue)[ootBankId] = realBankId
+func QueueSoundfont(vanillaBankId uint64, realBankId uint64) {
+	(*soundfontQueue)[vanillaBankId] = realBankId
 }
