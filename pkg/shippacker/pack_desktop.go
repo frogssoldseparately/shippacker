@@ -32,6 +32,7 @@ func Pack(musicSrcPath string, outPath string) error {
 		return err
 	}
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	// Shuffle the song order so if there's too many there'll at least be a different set each time.
 	r.Shuffle(len(songList), func(i, j int) {
 		songList[i], songList[j] = songList[j], songList[i]
 	})
