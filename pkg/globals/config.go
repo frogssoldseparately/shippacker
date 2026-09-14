@@ -20,10 +20,10 @@ var TranslatableRomVersion string = "Ackbar_Delta_SoH"
 var TranslatableRomPlatform string = "N64_NTSC_10"
 var PortPlatform string = "2S2H"
 var StartingBankIndex uint64 = 41
-var MaxBankCount uint64
-var MaxSongCount uint16
-var UseCRC64Encoding bool
-var UseNumericCategories bool
+var MaxBankCount uint64 = 255
+var MaxSongCount uint16 = 1919
+var UseCRC64Encoding bool = false
+var UseNumericCategories bool = false
 
 // Control flow
 var WarnOnTooManyBanks bool = true

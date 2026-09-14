@@ -32,6 +32,8 @@ func AcceptQueuedSamples(gsm *maps.GameSampleMap) {
 }
 
 func RegisterSamples(archive *sreader.SimpleZipReader) {
+	// A little messy, but this ensures wasm builds don't store multiple o2rs
+	storedSamples = map[string]*zip.File{}
 	for _, sampleEntry := range archive.GetAllByPrefix("audio/samples/") {
 		assetName := filepath.Base(sampleEntry.Name)
 		storedSamples[assetName] = sampleEntry

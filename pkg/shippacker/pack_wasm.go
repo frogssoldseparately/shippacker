@@ -13,7 +13,7 @@ import (
 	"github.com/frogssoldseparately/simpleseek/swriter"
 )
 
-func Pack(srcPaths []string) []byte {
+func Pack(srcPaths []string) *[]byte {
 	zipWriter := swriter.NewEmptyZipWriter(binary.LittleEndian)
 	sampleMap, err := maps.NewSampleMap()
 	if err != nil {
@@ -26,7 +26,7 @@ func Pack(srcPaths []string) []byte {
 	}
 	if zipWriter.GetTypedFileCount("Sequence") != 0 {
 		o2rWriter := zipWriter.Finish()
-		return *o2rWriter.GetBuffer()
+		return o2rWriter.GetBuffer()
 	}
 	fmt.Println("Nothing to write")
 	return nil
@@ -37,11 +37,11 @@ func WriteModEntries(srcPaths []string, zipWriter *swriter.SimpleZipWriter, samp
 		switch filepath.Ext(path) {
 		case ".mmrs":
 			if err := mmrs.RepackArchive(path, zipWriter, sampleMap.MajorasMask); err != nil {
-				fmt.Printf("\tSkipped %s because %s\n", path, err)
+				fmt.Printf("\tSkipped \"%s\"\n\tbecause %s\n", path, err)
 			}
 		case ".ootrs":
 			if err := ootrs.RepackArchive(path, zipWriter, sampleMap.OcarinaOfTime); err != nil {
-				fmt.Printf("\tSkipped %s because %s\n", path, err)
+				fmt.Printf("\tSkipped \"%s\"\n\tbecause %s\n", path, err)
 			}
 		default:
 			// do nothing

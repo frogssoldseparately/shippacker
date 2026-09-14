@@ -30,6 +30,8 @@ func AcceptQueuedSoundfonts() {
 }
 
 func RegisterSoundfonts(archive *sreader.SimpleZipReader) error {
+	// A little messy, but this ensures wasm builds don't store two different o2rs
+	storedSoundfonts = map[uint64]*zip.File{}
 	for _, soundfontEntry := range archive.GetAllByPrefix("audio/fonts/") {
 		soundfontName := filepath.Base(soundfontEntry.Name)
 		var bankStr string
