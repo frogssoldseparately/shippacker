@@ -5,35 +5,52 @@ import "github.com/frogssoldseparately/shippacker/pkg/iohelper"
 func SetupByVersion() error {
     switch RomVersion {
     case "Keiichi_Charlie_2S2H":
+		RomPlatform = "N64_US"
+		TranslatableRomVersion = "Ackbar_Delta_SoH"
+		TranslatableRomPlatform = "N64_NTSC_10"
+		PortPlatform = "2S2H"
+		StartingBankIndex = 41
 		MaxBankCount = 255
 		MaxSongCount = 1919
 		UseCRC64Encoding = false
 		UseNumericCategories = false
 	case "Battler_Bravo_2S2H":
+		RomVersion = "Keiichi_Charlie_2S2H"
+		RomPlatform = "N64_US"
+		TranslatableRomVersion = "Ackbar_Delta_SoH"
+		TranslatableRomPlatform = "N64_NTSC_10"
+		PortPlatform = "2S2H"
+		StartingBankIndex = 41
 		MaxBankCount = 255
 		MaxSongCount = 1919
 		UseCRC64Encoding = false
 		UseNumericCategories = true
-		RomVersion = "Keiichi_Charlie_2S2H"
 	case "Uncapped_Banks_2S2H":
+		RomVersion = "Keiichi_Charlie_2S2H"
+		RomPlatform = "N64_US"
+		TranslatableRomVersion = "Ackbar_Delta_SoH"
+		TranslatableRomPlatform = "N64_NTSC_10"
+		PortPlatform = "2S2H"
+		StartingBankIndex = 41
 		MaxBankCount = 65535
 		MaxSongCount = 1919
 		UseCRC64Encoding = true
 		UseNumericCategories = true
-		RomVersion = "Keiichi_Charlie_S2H2"
-		if err := iohelper.WarnUnstable(); err != nil {
-			return err
+		if OsPlatform != "js" {
+			if err := iohelper.WarnUnstable(); err != nil {
+				return err
+			}
 		}
 	case "Ackbar_Delta_SoH":
+		RomPlatform = "N64_NTSC_10"
+		TranslatableRomVersion = "Keiichi_Charlie_2S2H"
+		TranslatableRomPlatform = "N64_US"
+		PortPlatform = "SoH"
 		StartingBankIndex = 38
 		MaxBankCount = 255
 		MaxSongCount = 1919
 		UseCRC64Encoding = false
 		UseNumericCategories = false
-		RomPlatform = "N64_NTSC_10"
-		PortPlatform = "SoH"
-		TranslatableRomVersion = "Keiichi_Charlie_2S2H"
-		TranslatableRomPlatform = "N64_US"
     default: // Some future version of 2ship with reworked audio
         MaxBankCount = 65535 // exclusive
         MaxSongCount = 65535 // inclusive

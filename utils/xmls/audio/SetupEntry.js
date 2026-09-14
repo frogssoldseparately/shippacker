@@ -18,8 +18,13 @@ export class SetupEntry {
             }
         }
         if (obj.hasOwnProperty("WarnUnstable") && obj.WarnUnstable) {
-            this.assignStrings.push("if err := iohelper.WarnUnstable(); " +
-                "err != nil {\n\t\t\treturn err\n\t\t}");
+            this.assignStrings.push(
+                "if OsPlatform != \"js\" {\n" +
+                "\t\t\tif err := iohelper.WarnUnstable(); err != nil {\n" + 
+                "\t\t\t\treturn err\n" + 
+                "\t\t\t}\n" + 
+                "\t\t}"
+            );
         }
     }
 }
