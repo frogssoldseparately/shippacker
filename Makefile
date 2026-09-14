@@ -4,6 +4,9 @@ export V
 
 build: windows linux-amd linux-arm mac-amd mac-arm wasm
 
+native: # Compile for current architecture
+	go build -o ./bin/shippacker.exe ./cmd/shippacker/main.go
+
 windows: # Compile for Windows
 	GOOS=windows GOARCH=amd64 go build -o ./bin/shippacker.exe ./cmd/shippacker/main.go
 
