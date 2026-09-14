@@ -43,7 +43,7 @@ func NewBankFromStream(f io.Reader, meta *Meta) (*ZBank, error) {
 			}
 		} else {
 			inst := Instrument{
-				ValidByte:              0x1,
+				ValidByte:              0x0,
 				IsRelocated:            0x0,
 				NormalRangeLo:          0x0,
 				NormalRangeHi:          0x7F,
