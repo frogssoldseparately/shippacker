@@ -60,6 +60,17 @@ func IsFanfareString(catStr string) bool {
 }
 
 func HasFanfareCategories(categories []string) bool {
+	for _, cat := range categories {
+		if len(cat) == 3 {
+			if slices.Contains(mmCatSequences, cat) {
+				return true
+			}
+		} else {
+			if slices.Contains(mmCatFanfare, cat) {
+				return true
+			}
+		}
+	}
 	for _, cat := range mmCatFanfare {
 		if slices.Contains(categories, cat) {
 			return true
