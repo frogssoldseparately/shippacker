@@ -171,6 +171,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 				return fmt.Errorf("its bank id \"%s\" could not be parsed\n", metadata.Bank)
 			}
 			bankId = existingBankId
+			fontCount = 1
 		}
 	}
 	fSeq, err := seqEntry.Open()
@@ -186,6 +187,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 	banks := mmrs.MakeFontIdArray(bankId, fontCount)
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)
 	seq.NumFonts = fontCount
+	seq.CachePolicy = 0x2
 	if err := bufferedWriter.WriteEntry(seq); err != nil {
 		return err
 	}

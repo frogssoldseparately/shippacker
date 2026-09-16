@@ -168,6 +168,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 				return fmt.Errorf("its bank id \"%s\" could not be parsed\n", bankStr)
 			}
 			bankId = existingBankId
+			fontCount = 1
 		} else {
 			// Needs MM bank
 			if !globals.HasImportedO2R {
@@ -191,6 +192,7 @@ func RepackArchiveFromZipReader(archive *sreader.SimpleZipReader, zipWriter *swr
 	banks := MakeFontIdArray(bankId, fontCount)
 	seq, err := seq.NewSequenceFromStream(fSeq, sequenceName, banks)
 	seq.NumFonts = fontCount
+	seq.CachePolicy = 0x2
 	if err := bufferedWriter.WriteEntry(seq); err != nil {
 		return err
 	}
