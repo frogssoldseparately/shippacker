@@ -114,12 +114,16 @@ func WriteModEntries(customSongs []CustomSong, zipWriter *swriter.SimpleZipWrite
 		name := filepath.Base(path)
 		ext := filepath.Ext(name)
 		if ext == ".mmrs" {
-			if err := mmrs.RepackArchive(dir, file, zipWriter, sampleMap.MajorasMask); err != nil {
-				fmt.Printf("\tSkipped \"%s\"\n\tbecause %s\n", name, err)
+			if globals.AllowTranslation || globals.PortPlatform == "2S2H" {
+				if err := mmrs.RepackArchive(dir, file, zipWriter, sampleMap.MajorasMask); err != nil {
+					fmt.Printf("\tSkipped \"%s\"\n\tbecause %s\n", name, err)
+				}
 			}
 		} else if ext == ".ootrs" {
-			if err := ootrs.RepackArchive(dir, file, zipWriter, sampleMap.OcarinaOfTime); err != nil {
-				fmt.Printf("\tSkipped \"%s\"\n\tbecause %s\n", name, err)
+			if globals.AllowTranslation || globals.PortPlatform == "SoH" {
+				if err := ootrs.RepackArchive(dir, file, zipWriter, sampleMap.OcarinaOfTime); err != nil {
+					fmt.Printf("\tSkipped \"%s\"\n\tbecause %s\n", name, err)
+				}
 			}
 		} else if isSequenceExtension(ext) {
 			if err := seq.RepackSequence(dir, file, zipWriter); err != nil {

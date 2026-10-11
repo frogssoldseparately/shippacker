@@ -6,8 +6,10 @@ func SetupByVersion() error {
     switch RomVersion {
     case "Keiichi_Charlie_2S2H":
 		RomPlatform = "N64_US"
+		NativeExtension = ".mmrs"
 		TranslatableRomVersion = "Ackbar_Delta_SoH"
 		TranslatableRomPlatform = "N64_NTSC_10"
+		TranslatableExtension = ".ootrs"
 		PortPlatform = "2S2H"
 		StartingBankIndex = 41
 		MaxBankCount = 255
@@ -17,8 +19,10 @@ func SetupByVersion() error {
 	case "Battler_Bravo_2S2H":
 		RomVersion = "Keiichi_Charlie_2S2H"
 		RomPlatform = "N64_US"
+		NativeExtension = ".mmrs"
 		TranslatableRomVersion = "Ackbar_Delta_SoH"
 		TranslatableRomPlatform = "N64_NTSC_10"
+		TranslatableExtension = ".ootrs"
 		PortPlatform = "2S2H"
 		StartingBankIndex = 41
 		MaxBankCount = 255
@@ -28,8 +32,10 @@ func SetupByVersion() error {
 	case "Uncapped_Banks_2S2H":
 		RomVersion = "Keiichi_Charlie_2S2H"
 		RomPlatform = "N64_US"
+		NativeExtension = ".mmrs"
 		TranslatableRomVersion = "Ackbar_Delta_SoH"
 		TranslatableRomPlatform = "N64_NTSC_10"
+		TranslatableExtension = ".ootrs"
 		PortPlatform = "2S2H"
 		StartingBankIndex = 41
 		MaxBankCount = 65535
@@ -43,8 +49,10 @@ func SetupByVersion() error {
 		}
 	case "Ackbar_Delta_SoH":
 		RomPlatform = "N64_NTSC_10"
+		NativeExtension = ".ootrs"
 		TranslatableRomVersion = "Keiichi_Charlie_2S2H"
 		TranslatableRomPlatform = "N64_US"
+		TranslatableExtension = ".mmrs"
 		PortPlatform = "SoH"
 		StartingBankIndex = 38
 		MaxBankCount = 255

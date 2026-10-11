@@ -2,8 +2,10 @@
     "Keiichi_Charlie_2S2H": {
         "Settings": {
             "RomPlatform": "N64_US",
+            "NativeExtension": ".mmrs",
             "TranslatableRomVersion": "Ackbar_Delta_SoH",
             "TranslatableRomPlatform": "N64_NTSC_10",
+            "TranslatableExtension": ".ootrs",
             "PortPlatform": "2S2H",
             "StartingBankIndex": 41,
             "MaxBankCount": 255,
@@ -17,8 +19,10 @@
         "Settings": {
             "RomVersion": "Keiichi_Charlie_2S2H",
             "RomPlatform": "N64_US",
+            "NativeExtension": ".mmrs",
             "TranslatableRomVersion": "Ackbar_Delta_SoH",
             "TranslatableRomPlatform": "N64_NTSC_10",
+            "TranslatableExtension": ".ootrs",
             "PortPlatform": "2S2H",
             "StartingBankIndex": 41,
             "MaxBankCount": 255,
@@ -32,8 +36,10 @@
         "Settings": {
             "RomVersion": "Keiichi_Charlie_2S2H",
             "RomPlatform": "N64_US",
+            "NativeExtension": ".mmrs",
             "TranslatableRomVersion": "Ackbar_Delta_SoH",
             "TranslatableRomPlatform": "N64_NTSC_10",
+            "TranslatableExtension": ".ootrs",
             "PortPlatform": "2S2H",
             "StartingBankIndex": 41,
             "MaxBankCount": 65535,
@@ -46,8 +52,10 @@
     "Ackbar_Delta_SoH": {
         "Settings": {
             "RomPlatform": "N64_NTSC_10",
+            "NativeExtension": ".ootrs",
             "TranslatableRomVersion": "Keiichi_Charlie_2S2H",
             "TranslatableRomPlatform": "N64_US",
+            "TranslatableExtension": ".mmrs",
             "PortPlatform": "SoH",
             "StartingBankIndex": 38,
             "MaxBankCount": 255,

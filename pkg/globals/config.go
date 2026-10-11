@@ -12,12 +12,15 @@ const OsPlatform string = runtime.GOOS
 
 // Set by internal/cli
 var RecurseSubdirectories bool = true
+var AllowTranslation bool = true
 
 // Modified by SetupByVersion()
 var RomVersion string = "Keiichi_Charlie_2S2H"
 var RomPlatform string = "N64_US"
+var NativeExtension string = ".mmrs"
 var TranslatableRomVersion string = "Ackbar_Delta_SoH"
 var TranslatableRomPlatform string = "N64_NTSC_10"
+var TranslatableExtension string = ".ootrs"
 var PortPlatform string = "2S2H"
 var StartingBankIndex uint64 = 41
 var MaxBankCount uint64 = 255
