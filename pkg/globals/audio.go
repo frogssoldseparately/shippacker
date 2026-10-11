@@ -10,7 +10,7 @@ var keiichi_charlie_2s2h_n64_us_audio_file []byte
 
 var SampleXmls = map[string][]byte{
 	"ackbar_delta_soh_n64_ntsc_10": ackbar_delta_soh_n64_ntsc_10_audio_file,
-	"keiichi_charlie_2s2h_n64_us":  keiichi_charlie_2s2h_n64_us_audio_file,
+	"keiichi_charlie_2s2h_n64_us": keiichi_charlie_2s2h_n64_us_audio_file,
 }
 
 var SupportedVersions = []string{

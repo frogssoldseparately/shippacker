@@ -205,7 +205,7 @@ export function fillAudioTemplate(srcPath, destPath, writtenFiles,
         const keyname = filenameParts.slice(0, -2).join('_').toLowerCase();
         const varname = keyname + '_audio_file';
         embedEntries += `\n//go:embed ${filename}\nvar ${varname} []byte\n`;
-        mapEntries += `\n\t"${keyname}" : ${varname},`;
+        mapEntries += `\n\t"${keyname}": ${varname},`;
     }
     let versionNames = "";
     for (const setup of versionSetups) {
