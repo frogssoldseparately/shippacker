@@ -13,6 +13,7 @@ const OsPlatform string = runtime.GOOS
 // Set by internal/cli
 var RecurseSubdirectories bool = true
 var AllowTranslation bool = true
+var DeduplicateTranslationSamples bool = false
 
 // Modified by SetupByVersion()
 var RomVersion string = "Keiichi_Charlie_2S2H"

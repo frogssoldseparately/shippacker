@@ -96,7 +96,7 @@ func NewTranslationMap() (*GameSampleMap, error) {
 		if err != nil {
 			return nil, err
 		}
-		if newName == "unknown_META" {
+		if !globals.DeduplicateTranslationSamples || newName == "unknown_META" {
 			unmappedByAddress[currentOffset] = oldName
 			unmappedByName[oldName] = currentOffset
 		} else {
