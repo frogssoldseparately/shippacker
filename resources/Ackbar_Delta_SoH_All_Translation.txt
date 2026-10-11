@@ -381,7 +381,7 @@ Strings 2 : sample_1_004227D0
 Fiddle : sample_1_00435820
 Acoustic Guitar 1 : sample_1_00437AD0
 Acoustic Guitar 2 : sample_1_0043BB30
-Tom Drum : sample_2_00540830
+Tom Drum : unknown
 Drum Sidestick : sample_1_003F3980
 Finger Cymbals : FingerCymbals
 Oboe : sample_1_004264C0
@@ -450,11 +450,11 @@ sample_5_00427D30 : sample_2_00538CC0
 sample_5_0042A270 : sample_2_0053B200
 sample_5_0042C530 : sample_2_0053D4C0
 sample_5_0042F000 : sample_2_0053FF90
-sample_5_0042F8A0 : sample_2_00540830
+sample_5_0042F8A0 : unknown
 sample_5_00430360 : sample_2_005412F0
 sample_6_004377E0 : unknown
 sample_6_004428B0 : unknown
-sample_6_00445900 : sample_2_00540830
+sample_6_00445900 : unknown
 sample_6_00447BC0 : unknown
 sample_6_0044A690 : sample_1_004C1CC0
 sample_6_00454BC0 : sample_2_0053B200

@@ -387,7 +387,7 @@
 		<Sample Name="sample_1_00435820" OriginalName="Fiddle" Offset="0x32CA00"/>
 		<Sample Name="sample_1_00437AD0" OriginalName="Acoustic Guitar 1" Offset="0x32ECB0"/>
 		<Sample Name="sample_1_0043BB30" OriginalName="Acoustic Guitar 2" Offset="0x332D10"/>
-		<Sample Name="sample_2_00540830" OriginalName="Tom Drum" Offset="0x335740"/>
+		<Sample Name="unknown" OriginalName="Tom Drum" Offset="0x335740"/>
 		<Sample Name="sample_1_003F3980" OriginalName="Drum Sidestick" Offset="0x337A10"/>
 		<Sample Name="FingerCymbals" OriginalName="Finger Cymbals" Offset="0x338450"/>
 		<Sample Name="sample_1_004264C0" OriginalName="Oboe" Offset="0x33A980"/>
@@ -474,14 +474,14 @@
 		<Sample Name="sample_2_0053B200" OriginalName="sample_5_0042A270" Offset="0x002540"/>
 		<Sample Name="sample_2_0053D4C0" OriginalName="sample_5_0042C530" Offset="0x004800"/>
 		<Sample Name="sample_2_0053FF90" OriginalName="sample_5_0042F000" Offset="0x0072D0"/>
-		<Sample Name="sample_2_00540830" OriginalName="sample_5_0042F8A0" Offset="0x007B70"/>
+		<Sample Name="unknown" OriginalName="sample_5_0042F8A0" Offset="0x007B70"/>
 		<Sample Name="sample_2_005412F0" OriginalName="sample_5_00430360" Offset="0x008630"/>
 	</Samples>
 	
 	<Samples Bank="6" Offset="0x4377E0">
 		<Sample Name="unknown" OriginalName="sample_6_004377E0" Offset="0x000000"/>
 		<Sample Name="unknown" OriginalName="sample_6_004428B0" Offset="0x00B0D0"/>
-		<Sample Name="sample_2_00540830" OriginalName="sample_6_00445900" Offset="0x00E120"/>
+		<Sample Name="unknown" OriginalName="sample_6_00445900" Offset="0x00E120"/>
 		<Sample Name="unknown" OriginalName="sample_6_00447BC0" Offset="0x0103E0"/>
 		<Sample Name="sample_1_004C1CC0" OriginalName="sample_6_0044A690" Offset="0x012EB0"/>
 		<Sample Name="sample_2_0053B200" OriginalName="sample_6_00454BC0" Offset="0x01D3E0"/>
