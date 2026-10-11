@@ -31,6 +31,10 @@ func startup() error {
 	if err := getInputs(); err != nil {
 		return err
 	}
+	if globals.HasImportedO2R {
+		// Prompt for force copying of samples
+		cli.DeduplicateSamplesPrompt()
+	}
 	return shippacker.Pack(cli.MusicSrcPath, cli.O2ROutPath)
 }
 
