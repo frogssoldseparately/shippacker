@@ -21,7 +21,7 @@ A custom sequence and instrument bank packaging tool for 2ship2harkinian and Shi
 
 # What it does
 
-This tool allows sequences that have custom instrument banks (`.mmrs` or `.ootrs` files that contain `.zbank` and `.bankmeta` files) to be played via 2ship2harkinian and Ship of Harkinian. It packages up all of the sequences you give it into a `.o2r` mod file. This tool accepts:
+This tool allows sequences that have custom instrument banks (`.mmrs` or `.ootrs` files that contain `.zbank` and `.bankmeta` files) and samples to be played via 2ship2harkinian and Ship of Harkinian. It packages up all of the sequences you give it into a `.o2r` mod file. This tool accepts:
 
 - `.ootrs` with and without custom banks
 - `.mmrs` with and without custom banks
@@ -40,7 +40,7 @@ To convert most `.ootrs` files for use in 2ship2harkinian, you must provide your
 
 ### Ship Of Harkinian
 
-While this can generate .o2r's for Ship of Harkinian, it is very crash prone. More work needs to be done. Use this packer for that purpose with caution.
+While this can generate .o2r's for Ship of Harkinian, it is very crash prone when using `.mmrs` sequences. More work needs to be done. Use this packer for that purpose with caution.
 
 To convert most `.mmrs` files for use in Ship of Harkinian, you must provide your copy of `mm.o2r` in the same folder as your `shippacker` executable.
 
@@ -57,7 +57,7 @@ Any directory within the music folder whose name starts with an `_` (e.g., `_obs
 
 ## Z64 Song Packer
 
-If you plan to use this in conjuction with the Z64 Song Packer, you have to export the songs as a `.zip` and extract the contents to use with this packer. Some songs might not work for you.
+If you plan to use this in conjuction with the Z64 Song Packer, you have to export the songs as a `.zip` and extract the contents to use with this packer. Some songs might not work for you. If you are packing for Ship of Harkinian, your best bet is to stick with `.ootrs` sequences for the time being. A lot of `.mmrs` songs crash in Ship of Harkinian. If you are packing for 2ship2harkinian, below are lists of problematic songs I've found.
 
 ### Songs that *will* crash:
 
