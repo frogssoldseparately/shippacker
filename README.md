@@ -67,9 +67,11 @@ Darunia's Joy:
 - Mario & Luigi Superstar Saga - Come On! \[2\].ootrs
 - Mario & Luigi Superstar Saga - Popple the Shadow Thief.ootrs
 - Mario & Luigi Superstar Saga - The Last Cackletta.ootrs
+- Paper Mario TTYD - X-Naut Fortress.ootrs
 - Pizza Tower - Boss Defeated.ootrs
 - Pizza Tower - Tower Secret Treasure Found.ootrs
 - Pokemon Black & White - Driftveil City.ootrs
+- Professor Layton 1 - Professor Layton's Theme.ootrs
 - Sonic CD - Stardust Speedway Present (US).ootrs
 - Sonic Spinball - Lava Powerhouse.ootrs
 - The Legend of Zelda: Spirit Tracks - The Unenterable Body.ootrs
@@ -78,6 +80,7 @@ Darunia's Joy:
 
 Japas' Jams:
 
+- DOOM II - Into Sandy's City.mmrs
 - Touhou 15 - Pure Furies ~ Wherabouts of the Heart.mmrs
 
 ### Songs that don't play:
